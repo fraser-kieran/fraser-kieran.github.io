@@ -37,6 +37,31 @@ ol, ul {
 	list-style: none;
 }
 
+.badge-primary {
+    background-color: #49bf9d;
+    border-color: #49bf9d;
+    color: #ffffff !important;
+}
+
+.badge-secondary {
+    background-color: transparent;
+    border-radius: 0.35em;
+    color: #a2a2a2 !important;
+}
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 70%;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
 blockquote, q {
 	quotes: none;
 }

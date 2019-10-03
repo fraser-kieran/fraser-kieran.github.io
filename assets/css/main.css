@@ -33,6 +33,15 @@ body {
 	line-height: 1;
 }
 
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+}
+
 ol, ul {
 	list-style: none;
 }

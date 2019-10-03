@@ -13,6 +13,8 @@
         <link rel="shortcut icon" href="images/favicon.png">
         
 		<link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="assets/css/aos.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <style>
             /* To center confirm dialog */
@@ -26,7 +28,7 @@
 	<body class="is-preload">
 
 		<!-- Header -->
-			<header id="header" style="background-color: black">
+			<header id="header" style="background-color: black" class="animated fadeInLeft delay-1s">
 				<div class="inner">
 					<a href="" class="image avatar"><img src="images/LinkedInProfiler.png" alt="" /></a>
 					<h1><strong>Kieran Fraser</strong><br />
@@ -36,7 +38,7 @@
 			</header>
 
 		<!-- Main -->
-			<div id="main">
+			<div id="main" class="animated fadeInRight delay-1s">
 
 				<!-- One -->
 					<section id="one">
@@ -57,9 +59,9 @@
 						</ul>-->
 					</section>
                 
-                    <section id="two">
+                    <section id="two" data-aos="fade-up" data-aos-duration="1000">
                             <h2>Recent Posts</h2>
-                            <div class="row">
+                            <div class="row" data-aos="fade-up" data-aos-duration="1000">
                                 <article class="col-6 col-12-xsmall work-item" style="text-align: center;">
                                     <a href="images/fulls/blog_01.jpg" class="image fit thumb" style="margin-bottom:10px; "><img src="images/thumbs/blog_01.jpg" alt=""/></a>
                                     <h3>
@@ -77,9 +79,9 @@
                         </section>
 
                 <!-- Three -->
-                    <section id="three">
+                    <section id="three" data-aos="fade-up" data-aos-duration="1000">
                         <h2>Current Projects</h2>
-                        <section>
+                        <section data-aos="fade-up" data-aos-duration="1000">
 							<p><span class="image left"><img src="images/empushy_logo_2.png" alt="" /></span>Stemming from my research on push-notifications and the potential adverse effects they can have when abused, I am exploring how and if my research can be of use, from a commercial perspective, <i>to enable those who push content to do so by empathetic means</i>. EmPushy hopes to be <strong>an empathetic intelligence which can mediate the stream of information pushed at people while also maximising the impact it has for content creators.</strong> The idea is that the product will contain 3 commercial services offered to 3 distinct audiences. </p> 
                             <ol>
                                 <li>
@@ -95,7 +97,7 @@
                             <ul class="actions">
                                 <li><a href="https://empushy.com/" target="_blank" class="button">Learn More</a></li>
                             </ul>
-							<p><span class="image right"><img src="images/gym-push.png" alt="" /></span><Strong>Gym-Push</Strong> is a custom <a href="https://gym.openai.com/" target="_blank">OpenAI Gym</a> environment that simulates real-world push-notification engagements, enabling reinforcement learning (RL) agents to learn how to effectively manage push-notifications on behalf of a user. The idea behind Gym-Push is to benchmark state-of-the-art RL algorithms on the problem of push-notification management so that standard performance metrics can be tracked in the research community. Powering Gym-Push, is a generative model which produces realistic synthetic notification-engagement data derived from a real-world data set. This data is transformed to make up the state, action and rewards of the environment to be used by agents during learning/evaluation. </p>                        
+							<p  data-aos="fade-up" data-aos-duration="1000"><span class="image right"><img src="images/gym-push.png" alt="" /></span><Strong>Gym-Push</Strong> is a custom <a href="https://gym.openai.com/" target="_blank">OpenAI Gym</a> environment that simulates real-world push-notification engagements, enabling reinforcement learning (RL) agents to learn how to effectively manage push-notifications on behalf of a user. The idea behind Gym-Push is to benchmark state-of-the-art RL algorithms on the problem of push-notification management so that standard performance metrics can be tracked in the research community. Powering Gym-Push, is a generative model which produces realistic synthetic notification-engagement data derived from a real-world data set. This data is transformed to make up the state, action and rewards of the environment to be used by agents during learning/evaluation. </p>                        
                             <ul class="actions">
                                 <li><a href="https://github.com/kieranfraser/gym-push" target="_blank" class="button">Learn More</a></li>
                             </ul>
@@ -103,12 +105,12 @@
                     </section>
                 
                 <!-- Four -->
-                    <section id="four">
+                    <section id="four" data-aos="fade-up" data-aos-duration="1000">
                         <h2>Links</h2>
                         <div class="row">
                             <div class="col-12 col-12-xsmall">
-                                <h5>Academic Publications</h5>
-                                <ol>
+                                <h5 data-aos="fade-up" data-aos-duration="1000">Academic Publications</h5>
+                                <ol data-aos="fade-up" data-aos-duration="1000">
                                     <li><i>A Reinforcement Learning and Synthetic Data Approach to Mobile Notification Management</i>, R. Sutton, K. Fraser, O. Conlan, accepted at <a href="http://www.iiwas.org/conferences/momm2019/" target="_blank">MoMM 2019</a></li>
                                     <li><i>A User Modeling Shared Challenge Proposal</i>, O. Conlan, K. Fraser, L. Kelly, B. Yousuf, accepted at <a href="http://clef2019.clef-initiative.eu/" target="_blank">CLEF 2019</a></li>
                                     <li><i>Generation and Evaluation of Personalised Push-Notifications</i>, K. Fraser, B. Yousuf, O. Conlan, EvalUMAP 2019, The 25th Conference on User Modeling, Adaptation and Personalization, UMAP 2019 <a href="./assets/pdf/evalumap19.pdf" target="_blank">[PDF]</a> <a href="./assets/slides/evalumap19.pdf" target="_blank">[slides]</a></li>
@@ -118,8 +120,8 @@
                                     <li><i>An in-the-wild and synthetic mobile notification dataset evaluation</i>, K. Fraser, B. Yousuf, O. Conlan, 2017 Intelligent Systems Conference (IntelliSys) <a href="./assets/pdf/intellisys.pdf" target="_blank">[PDF]</a></li>
                                     <li><i>A Context-Aware, Info-Bead and Fuzzy Inference Approach to Notification Management</i>, K. Fraser, B. Yousuf, O. Conlan, 2016 IEEE 7th Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference (UEMCON) <strong>(Best Paper Award)</strong> <a href="./assets/pdf/uemcon.pdf" target="_blank">[PDF]</a></li>
                                 </ol>
-                                <h5>Miscellaneous</h5>
-                                <ul>
+                                <h5 data-aos="fade-up" data-aos-duration="1000">Miscellaneous</h5>
+                                <ul data-aos="fade-up" data-aos-duration="1000">
                                     <li><a href="https://www.siliconrepublic.com/careers/empushy-notifications-productivity" target="_blank">SiliconRepublic article on EmPushy during their 'Future of Work' feature (Sept, 2019)</a></li>
                                     <li><a href="https://www.tcd.ie/trinitylongroomhub/whats-on/details/event.php?eventid=133067941" target="_blank">Libtech Showcase (2019)</a> <a href="./assets/slides/libtech.pdf" target="_blank">[slides]</a> <a href="https://www.youtube.com/watch?v=E1PEnehOGkQ" target="_blank">[presentation]</a> <a href="https://www.youtube.com/watch?v=PvRCJQovE-w" target="_blank">[voxpop]</a></li>
                                     <li><a href="http://evalumap.adaptcentre.ie/" target="_blank">EvalUMAP Co-Organizer (2019)</a></li>
@@ -134,8 +136,8 @@
                     </section>
 
 				<!-- Five -->
-					<section id="Five">
-						<h2>Get In Touch</h2>
+					<section id="Five"  data-aos="fade-up" data-aos-duration="1000">
+                        <h2 style="text-align: center;"><div class="animated infinite pulse">Get In Touch</div></h2>
 						<p>Feel free to send me an email or connect on other social/networking platforms.</p>
 						<div class="row">
 							<div class="col-8 col-12-small">
@@ -189,6 +191,10 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+            <script src="assets/js/aos.js"></script>
+            <script>
+                AOS.init();
+            </script>
             <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
             <script>
                 $(document).on('submit','#contact',function(){

@@ -2076,7 +2076,17 @@ input, select, textarea {
 
 		.image.thumb {
 			text-align: center;
+            min-height: 230px;
+            max-height: 230px;
+            overflow: hidden;
 		}
+
+        .blog-descr {
+            min-height: 60px;
+            max-height: 60px;
+            overflow : hidden;
+            text-overflow: ellipsis;
+        }
 
 			.image.thumb:after {
 				-moz-transition: opacity 0.2s ease-in-out;

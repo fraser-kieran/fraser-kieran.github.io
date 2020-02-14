@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Pushd Experiment</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="apple-touch-icon" href="images/favicon.png">
+        <link rel="shortcut icon" href="images/favicon.png">
+        
+		<link rel="stylesheet" href="assets/css/pushd.css" />
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.6.0/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.6.0/firebaseui.css" />
+        
+        <style>
+            .firebaseui-label {
+                color: rgba(0,0,0,.54);
+                direction: ltr;
+                font-size: 16px;
+                text-align: left;
+                padding-left: 5px;
+                padding-top: 2px;
+            }
+        </style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header" style="background-color: black">
+				<div class="inner">
+					<!--<a href="" class="image avatar"><img src="images/LinkedInProfiler.png" alt="" /></a>
+					<h1><strong>Kieran Fraser</strong><br />
+                        PhD Candidate @ ADAPT Centre<br/>
+                        Trinity College Dublin</h1>-->
+				</div>
+			</header>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- One -->
+                    <span class="image"><img style="width: 50%; margin: auto;" src="images/pushd/pushd_black_no_caption_3.0.png" alt="pushd logo" /></span>
+					<section id="one">
+                        <p>The <strong>Pushd</strong> experiment aims to test alternate methods of creating and delivering push-notifications in order to improve the engagement experience for notification receivers. This is achieved by monitoring engagements with notifications and identifying patterns of preference for content and delivery. 
+                        </p>
+                        <p>For this experiment, you are asked to answer a number of questions relating to your push-notification preferences before then subscribing to a number of topics. You will then be pushed notifications relating to those topics over a period of two weeks with your subsequent engagements (open/dismiss) recorded. At the end of the two week period you will be asked to answer a final questionnaire.</p>
+						
+                        <p>Please read the following documents before signing up:</p>
+                        <ol>
+                            <li><a href="" target="_blank">Participant Information Sheet</a></li>
+                            <li><a href="" target="_blank">Informed Consent</a></li>
+                        </ol>   
+                        <div>
+                            <input type="checkbox" id="cb-info" name="cb-info">
+				            <label for="cb-info">I have read and understood the Participant Information Sheet.</label>
+                            
+                            <input type="checkbox" id="cb-consent" name="cb-consent">
+				            <label for="cb-consent">I have read the Informed Consent document and am happy to grant my consent.</label>
+                        </div>
+                        <p id="checkbox-message" style="display: none;"><strong style="color: red;">You must check all boxes to participate in the project.</strong></p>
+						<ul class="actions">
+							<li><div id="sign-up-button" class="button" onclick="signup()">Start</div></li>
+						</ul>
+                        <p id="success-message" style="display: none;"><strong style="color: green;">Thank you for signing up! Please now download the app and sign-in using the same credentials.</strong></p>
+                        <div id="sign-up-container" style="display: none;">
+                            <p>Enter your Prolific Academic email address below and select next.</p>
+                            <div id="firebaseui-auth-container"></div>
+                        </div>
+					</section>
+                
+				<!-- Two -->
+					<section id="four">
+						<h2>Get In Touch</h2>
+						<p>If you have any questions regarding the <strong>Pushd</strong> Experiment, please use the form below or the email address provided and I will follow up ASAP!</p>
+						<div class="row">
+							<div class="col-8 col-12-small">
+								<form id='contact' action="https://formspree.io/kieran.fraser@adaptcentre.ie" method="POST">
+									<div class="row gtr-uniform gtr-50">
+										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
+										<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
+										<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
+									</div>
+                                    <br/>
+                                    <ul class="actions">
+                                        <li><input type="submit" value="Send Message" /></li>
+                                    </ul>
+								</form>
+							</div>
+							<div class="col-4 col-12-small">
+								<ul class="labeled-icons">
+									<li>
+										<h3 class="icon fa-home"><span class="label">Location</span></h3>
+										Dublin, Ireland<br />
+									</li>
+									<li>
+										<h3 class="icon fa-envelope-o"><span class="label">Email</span></h3>
+										<a href="#">kieran.fraser@adaptcentre.ie</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<!--<ul class="icons">
+						<li><a href="https://twitter.com/KieranFraser5" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://github.com/kieranfraser" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
+                        <li><a href="https://www.linkedin.com/in/kieran-fraser-608a54a7/" target="_blank" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                        <li><a href="https://www.instagram.com/kieran9292/" target="_blank" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+					</ul>-->
+					<ul class="copyright">
+						<li><strong>Kieran Fraser @ ADAPT Centre</strong></li><li>Trinity College Dublin</li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+            <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase.js"></script>
+            <script>
+                
+              var showSignUp = false;
+                
+              function signup(){
+                  if($("#cb-info").prop('checked') && $("#cb-consent").prop('checked')){
+                      $("#checkbox-message").hide();
+                      if(!showSignUp){
+                          $("#sign-up-container").show();
+                          $("#sign-up-button").html('Hide');
+                      }
+                      else{
+                          $("#sign-up-container").hide();
+                          $("#sign-up-button").html('Sign-up');
+                      }
+                      showSignUp = !showSignUp
+                }
+                else{
+                    $("#checkbox-message").show();
+                }
+              }
+              
+              // Initialize Firebase
+              var config = {
+                apiKey: "AIzaSyAzipDIOtXmuLhrt4WtXzrebMbg0-yNWx0",
+                authDomain: "whispers-c2d2d.firebaseapp.com",
+                databaseURL: "https://whispers-c2d2d.firebaseio.com",
+                projectId: "whispers-c2d2d",
+                storageBucket: "whispers-c2d2d.appspot.com",
+                messagingSenderId: "859423779543"
+              };
+              firebase.initializeApp(config);
+            </script>
+            <script type="text/javascript">
+              // FirebaseUI config.
+              var uiConfig = {
+                //signInSuccessUrl: showSuccess(),
+                signInOptions: [
+                    {
+                      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                      requireDisplayName: false
+                    }
+                ],
+                credentialHelper: 'none',
+                callbacks: {
+                  signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                      
+                      /*
+                       - Create user in database
+                       - Time they signed-up
+                       - Prolific email address
+                       - Prolific id
+                      */
+                      
+                      
+                      
+                      $("#sign-up-container").hide();
+                      $("#sign-up-button").hide();
+                      $("#success-message").show();
+                      return false;
+                    },
+                  signInFailure: function(error) {
+                    alert('There was an error. Please try again later. If the problem persists, please contact the research team using the form at the bottom of this page and reference the following error: '+error)
+                    return handleUIError(error);
+                  }
+                }
+                
+                // tosUrl and privacyPolicyUrl accept either url string or a callback
+                // function.
+                // Terms of service url/callback.
+                //tosUrl: '<your-tos-url>',
+                // Privacy policy url/callback.
+                /*privacyPolicyUrl: function() {
+                  window.location.assign('<your-privacy-policy-url>');
+                }*/
+              };
+
+              // Initialize the FirebaseUI Widget using Firebase.
+              var ui = new firebaseui.auth.AuthUI(firebase.auth());
+              // The start method will wait until the DOM is loaded.
+              ui.start('#firebaseui-auth-container', uiConfig);
+                
+            </script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+           
+
+	</body>
+</html>

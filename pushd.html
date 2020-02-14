@@ -12,9 +12,12 @@
         <link rel="apple-touch-icon" href="images/favicon.png">
         <link rel="shortcut icon" href="images/favicon.png">
         
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<link rel="stylesheet" href="assets/css/pushd.css" />
-        <script src="https://cdn.firebase.com/libs/firebaseui/3.6.0/firebaseui.js"></script>
-        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.6.0/firebaseui.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
         
         <style>
             .firebaseui-label {
@@ -41,7 +44,7 @@
 
 		<!-- Main -->
 			<div id="main">
-
+                    
 				<!-- One -->
                     <span class="image"><img style="width: 50%; margin: auto;" src="images/pushd/pushd_black_no_caption_3.0.png" alt="pushd logo" /></span>
 					<section id="one">
@@ -63,7 +66,7 @@
                         </div>
                         <p id="checkbox-message" style="display: none;"><strong style="color: red;">You must check all boxes to participate in the project.</strong></p>
 						<ul class="actions">
-							<li><div id="sign-up-button" class="button" onclick="signup()">Start</div></li>
+							<li><a id="subButton" class="button" onclick="signup()">Lets Start</a></li>
 						</ul>
                         <p id="success-message" style="display: none;"><strong style="color: green;">Thank you for signing up! Please now download the app and sign-in using the same credentials.</strong></p>
                         <div id="sign-up-container" style="display: none;">
@@ -109,104 +112,84 @@
 		<!-- Footer -->
 			<footer id="footer">
 				<div class="inner">
-					<!--<ul class="icons">
-						<li><a href="https://twitter.com/KieranFraser5" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="https://github.com/kieranfraser" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
-                        <li><a href="https://www.linkedin.com/in/kieran-fraser-608a54a7/" target="_blank" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-                        <li><a href="https://www.instagram.com/kieran9292/" target="_blank" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-					</ul>-->
 					<ul class="copyright">
 						<li><strong>Kieran Fraser @ ADAPT Centre</strong></li><li>Trinity College Dublin</li>
 					</ul>
 				</div>
 			</footer>
+        
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 id="exampleModalLabel">Notification Preferences</h2>
+              </div>
+              <div class="modal-body">
+                <ol>
+                    <li>Select multiple topics which you would like to receive notifications on:<br>
+                        <select class="selectpicker" multiple>
+                          <option>comedy</option>
+                          <option>business</option>
+                          <option>food</option>
+                        </select>
+                    </li>
+                    <br>
+                    <li>Select multiple websites which you would like to receive notifications from:<br>
+                        <select class="selectpicker" multiple>
+                          <option>rte.ie</option>
+                          <option>reddit.com</option>
+                          <option>wikipedia.org</option>
+                        </select>
+                    </li>
+                    <br>
+                    <li>Select multiple websites which you would <strong>NOT</strong> like to receive notifications from:<br>
+                        <select class="selectpicker" multiple>
+                          <option>rte.ie</option>
+                          <option>reddit.com</option>
+                          <option>wikipedia.org</option>
+                        </select>
+                    </li>
+                </ol>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="savePrefs()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
 		<!-- Scripts -->
-            <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase.js"></script>
+            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+            <script src="assets/js/web-push-initialise.js"></script>
             <script>
                 
-              var showSignUp = false;
+                $('#exampleModal').modal('show')
+                initSubscribe()            
                 
-              function signup(){
-                  if($("#cb-info").prop('checked') && $("#cb-consent").prop('checked')){
-                      $("#checkbox-message").hide();
-                      if(!showSignUp){
-                          $("#sign-up-container").show();
-                          $("#sign-up-button").html('Hide');
-                      }
-                      else{
-                          $("#sign-up-container").hide();
-                          $("#sign-up-button").html('Sign-up');
-                      }
-                      showSignUp = !showSignUp
-                }
-                else{
-                    $("#checkbox-message").show();
-                }
-              }
-              
-              // Initialize Firebase
-              var config = {
-                apiKey: "AIzaSyAzipDIOtXmuLhrt4WtXzrebMbg0-yNWx0",
-                authDomain: "whispers-c2d2d.firebaseapp.com",
-                databaseURL: "https://whispers-c2d2d.firebaseio.com",
-                projectId: "whispers-c2d2d",
-                storageBucket: "whispers-c2d2d.appspot.com",
-                messagingSenderId: "859423779543"
-              };
-              firebase.initializeApp(config);
-            </script>
-            <script type="text/javascript">
-              // FirebaseUI config.
-              var uiConfig = {
-                //signInSuccessUrl: showSuccess(),
-                signInOptions: [
-                    {
-                      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                      requireDisplayName: false
+                function signup(){
+                    if($("#cb-info").prop('checked') && $("#cb-consent").prop('checked')){
+                        $("#checkbox-message").hide();
+                        subButtonClick()
                     }
-                ],
-                credentialHelper: 'none',
-                callbacks: {
-                  signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-                      
-                      /*
-                       - Create user in database
-                       - Time they signed-up
-                       - Prolific email address
-                       - Prolific id
-                      */
-                      
-                      
-                      
-                      $("#sign-up-container").hide();
-                      $("#sign-up-button").hide();
-                      $("#success-message").show();
-                      return false;
-                    },
-                  signInFailure: function(error) {
-                    alert('There was an error. Please try again later. If the problem persists, please contact the research team using the form at the bottom of this page and reference the following error: '+error)
-                    return handleUIError(error);
-                  }
+                    else{
+                        $("#checkbox-message").show();
+                    }
                 }
                 
-                // tosUrl and privacyPolicyUrl accept either url string or a callback
-                // function.
-                // Terms of service url/callback.
-                //tosUrl: '<your-tos-url>',
-                // Privacy policy url/callback.
-                /*privacyPolicyUrl: function() {
-                  window.location.assign('<your-privacy-policy-url>');
-                }*/
-              };
-
-              // Initialize the FirebaseUI Widget using Firebase.
-              var ui = new firebaseui.auth.AuthUI(firebase.auth());
-              // The start method will wait until the DOM is loaded.
-              ui.start('#firebaseui-auth-container', uiConfig);
-                
+                function savePrefs(){
+                    console.log('saving prefs')
+                }
             </script>
-			<script src="assets/js/jquery.min.js"></script>
+            
 			<script src="assets/js/jquery.poptrox.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>

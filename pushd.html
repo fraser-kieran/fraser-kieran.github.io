@@ -128,24 +128,24 @@
               </div>
               <div class="modal-body">
                 <ol>
-                    <li>Select multiple topics which you would like to receive notifications on:<br>
-                        <select class="selectpicker" multiple>
+                    <li>Select multiple (min 5) topics which you would like to receive notifications on:<br>
+                        <select id="topicPrefs" class="selectpicker" multiple>
                           <option>comedy</option>
                           <option>business</option>
                           <option>food</option>
                         </select>
                     </li>
                     <br>
-                    <li>Select multiple websites which you would like to receive notifications from:<br>
-                        <select class="selectpicker" multiple>
+                    <li>Select multiple (min 5) websites which you would like to receive notifications from:<br>
+                        <select id="posWebPrefs" class="selectpicker" data-max-options="5" multiple>
                           <option>rte.ie</option>
                           <option>reddit.com</option>
                           <option>wikipedia.org</option>
                         </select>
                     </li>
                     <br>
-                    <li>Select multiple websites which you would <strong>NOT</strong> like to receive notifications from:<br>
-                        <select class="selectpicker" multiple>
+                    <li>Select multiple (min 5) websites which you would <strong>NOT</strong> like to receive notifications from:<br>
+                        <select id="negWebPrefs" class="selectpicker" data-max-options="5" multiple>
                           <option>rte.ie</option>
                           <option>reddit.com</option>
                           <option>wikipedia.org</option>
@@ -162,7 +162,10 @@
         </div>
         
 		<!-- Scripts -->
-            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+            <script
+              src="https://code.jquery.com/jquery-3.4.1.min.js"
+              integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+              crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
             <!-- Latest compiled and minified JavaScript -->
@@ -170,10 +173,49 @@
             
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
             <script src="assets/js/web-push-initialise.js"></script>
+            <!-- The core Firebase JS SDK is always required and must be listed first -->
+            <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
             <script>
+                // Your web app's Firebase configuration
+                var firebaseConfig = {
+                    apiKey: "AIzaSyAQu435FNTmXIcFigctYMdRO8sPLX78HI0",
+                    authDomain: "pushdexp.firebaseapp.com",
+                    databaseURL: "https://pushdexp.firebaseio.com",
+                    projectId: "pushdexp",
+                    storageBucket: "pushdexp.appspot.com",
+                    messagingSenderId: "84430156157",
+                    appId: "1:84430156157:web:b4fc89624448507bb05c14"
+                };
+                // Initialize Firebase
+                firebase.initializeApp(firebaseConfig);
+                var database = firebase.database();
                 
-                $('#exampleModal').modal('show')
-                initSubscribe()            
+                /*$('#exampleModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })*/
+                
+                initSubscribe()
+                
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        console.log('Anonymous sign-in')
+                        var isAnonymous = user.isAnonymous;
+                        var uid = user.uid;
+                    } else {
+                        firebase.auth().signInAnonymously().catch(function(error) {
+                            $.alert({
+                                title: 'Oops!',
+                                content: 'Something went wrong. Please try again later.',
+                            });
+                            
+                        });
+                    }
+                });
+                
+                            
                 
                 function signup(){
                     if($("#cb-info").prop('checked') && $("#cb-consent").prop('checked')){
@@ -186,7 +228,43 @@
                 }
                 
                 function savePrefs(){
-                    console.log('saving prefs')
+                    
+                    topics = $('#topicPrefs').val()
+                    posWeb = $('#posWebPrefs').val()
+                    negWeb = $('#negWebPrefs').val()
+                    
+                    if(topics.length<2|posWeb.length<2|negWeb.length<2){
+                        $.alert({
+                            title: 'Error!',
+                            content: 'You must select at least 5 values per field',
+                        });
+                        return
+                    }
+                    else{
+                        savePreferences(topics, posWeb, negWeb)
+                        
+                        $.confirm({
+                            title: 'Finished',
+                            content: 'You are now set up. Simply engage with incoming notifiations as normal over the next two weeks. You will receive a final questionnaire via notification at the end of the experiment period which will conclude the study. Thanks for participating!',
+                            buttons: {
+                                confirm: function () {
+                                    $('#exampleModal').modal('hide')
+                                }
+                            }
+                        });
+                    }
+                }
+                
+                function savePreferences(topics, posWeb, negWeb) {
+                    
+                    userId = document.cookie.split('=')[1]
+                    if(userId.charAt(0) == '_'){
+                        database.ref('participant/'+userId).update({
+                            topics: topics,
+                            pos_web: posWeb,
+                            neg_web: negWeb
+                        });
+                    }
                 }
             </script>
             

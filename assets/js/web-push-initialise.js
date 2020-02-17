@@ -3,7 +3,9 @@
 var db = null;
 var swRegistration = null;
 var isSubscribed = false;
-const applicationServerPublicKey = 'BJEmLHcgkIMhmtM1RvtUtpg01ue_ZJUrWxY42_IlR5KgNMjKHH8DT9bM4xP8w9CJOJpyf2_dVpORdS99vPoFnSQ';
+const applicationServerPublicKey = 
+      'BJ-qALtORweP7IZtnNMoY-8gwsFsPSPXlrAYU6dBulwYcv6CPrIIr8-t57PgUPfGMqsg0DfVPre_thVyWqBPaZo';
+
 //var applicationServerPublicKey = null;
 
 /*
@@ -107,8 +109,8 @@ function updateBtn() {
   else {
       $.confirm({
             title: "<h2 style='text-transform: capitalize; letter-spacing: normal; line-spacing: normal;'>Notification Permissions</h2>",
-            content: "<h5 style='text-transform: none; letter-spacing: normal; line-spacing: normal;'>To receive <strong style='text-transform: capitalize;'>Pushd</strong> notifications from the content creators on this platform, you must grant push-notification permission to <strong style='text-transform: capitalize;'>Pushd</strong>.</h5>",
-            type: 'purple',
+            content: "<h5 style='text-transform: none; letter-spacing: normal; line-spacing: normal;'>In order to participate in this Research Experiment, you must enable push-notification permissions for this page.</h5>",
+            type: 'green',
             boxWidth: '30%',
             useBootstrap: false,
             typeAnimated: true,
@@ -160,11 +162,39 @@ function subButtonClick(){
         $('#subButton').prop('disabled', true);
 
         if (isSubscribed) {
-          unsubscribeUser();
+           areYouSure()
         } else {
           subscribeUser();
         }
     }
+}
+
+function areYouSure(){
+     $.confirm({
+            title: "<h2 style='text-transform: capitalize; letter-spacing: normal; line-spacing: normal;'>Exit Experiment</h2>",
+            content: "<h5 style='text-transform: none; letter-spacing: normal; line-spacing: normal;'>If you unsubscribe you will be removed from the <strong>Pushd</strong> experiment and all data collected on your engagements will be deleted. Are you sure you wish to unsubscribe?</h5>",
+            type: 'red',
+            boxWidth: '30%',
+            useBootstrap: false,
+            typeAnimated: true,
+            buttons: {
+                grant: {
+                    text: 'Yes, unsubscribe',
+                    btnClass: 'btn-white',
+                    action: function(){
+                        unsubscribeUser();
+                    }
+                },
+                deny: {
+                    text: 'No, stay subscribed',
+                    btnClass: 'btn-white',
+                    action: function(){
+                        return;
+                    }
+                }
+            },
+            draggable: false,
+      });
 }
 
 /*
@@ -179,6 +209,9 @@ function unsubscribeUser() {
     if (subscription) {
         // unsub api call using subscription object to search for applicable sub
         console.log("Clear all user data on the server")
+        
+        userId = document.cookie.split('=')[1]
+        database.ref('participant/'+userId).remove();
         /*var subUrl = "https://autoempushy.herokuapp.com/v1/unsub";
 
         var formData = JSON.stringify({
@@ -235,11 +268,14 @@ function subscribeUser() {
   .then(function(subscription) {
     console.log('User is subscribed.');
 
+      
     updateSubscriptionOnServer(subscription);
-
     isSubscribed = true;
     
-    $('#exampleModal').modal('show')
+    $('#exampleModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
 
     updateBtn();
   })
@@ -249,11 +285,20 @@ function subscribeUser() {
   });
 }
 
+function generateID() {
+    // Math.random should be unique because of its seeding algorithm.
+    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+    // after the decimal.
+    return '_' + Math.random().toString(36).substr(2, 9);
+};
+
 function updateSubscriptionOnServer(subscription) {
   // TODO: Send subscription to application server
 
   if (subscription) {
       console.log("Updating the subscription on the server")
+      
+      subNewParticipant(subscription)
     /*const params = new URLSearchParams(window.location.search);  
     var subId = params.get("p");
     var subInfo = subscription
@@ -287,6 +332,28 @@ function updateSubscriptionOnServer(subscription) {
   } else {
     console.log('subscription was null')
   }
+}
+
+function subNewParticipant(subscription) {
+    
+    var userId = generateID()
+    
+    var expiration_date = new Date();
+    var cookie_string = "userId="+userId+";";
+    expiration_date.setFullYear(expiration_date.getFullYear() + 1);
+    cookie_string = cookie_string+"max-age=31536000";
+    document.cookie = cookie_string;
+    
+    console.log(subscription)
+    
+    var subInfo = JSON.stringify({
+        "subInfo": subscription            
+    })
+    
+    database.ref('participant/'+userId).set({
+        id: userId,
+        subInfo: subInfo
+    });
 }
 
 function urlB64ToUint8Array(base64String) {

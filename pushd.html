@@ -17,18 +17,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
-
-        
-        <style>
-            .firebaseui-label {
-                color: rgba(0,0,0,.54);
-                direction: ltr;
-                font-size: 16px;
-                text-align: left;
-                padding-left: 5px;
-                padding-top: 2px;
-            }
-        </style>
 	</head>
 	<body class="is-preload">
 
@@ -51,6 +39,8 @@
                         <p>The <strong>Pushd</strong> experiment aims to test alternate methods of creating and delivering push-notifications in order to improve the engagement experience for notification receivers. This is achieved by monitoring engagements with notifications and identifying patterns of preference for content and delivery. 
                         </p>
                         <p>For this experiment, you are asked to answer a number of questions relating to your push-notification preferences before then subscribing to a number of topics. You will then be pushed notifications relating to those topics over a period of two weeks with your subsequent engagements (open/dismiss) recorded. At the end of the two week period you will be asked to answer a final questionnaire.</p>
+                        
+                        <p>You may opt out of the experiment at any time within the two week period by returning to this page and selecting <i>unsubscribe</i>. This will destroy all data collected.</p>
 						
                         <p>Please read the following documents before signing up:</p>
                         <ol>
@@ -77,35 +67,37 @@
                 
 				<!-- Two -->
 					<section id="four">
-						<h2>Get In Touch</h2>
-						<p>If you have any questions regarding the <strong>Pushd</strong> Experiment, please use the form below or the email address provided and I will follow up ASAP!</p>
-						<div class="row">
-							<div class="col-8 col-12-small">
-								<form id='contact' action="https://formspree.io/kieran.fraser@adaptcentre.ie" method="POST">
-									<div class="row gtr-uniform gtr-50">
-										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-										<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-										<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
-									</div>
-                                    <br/>
-                                    <ul class="actions">
-                                        <li><input type="submit" value="Send Message" /></li>
+                        <div class="container-fluid">
+                            <h2>Get In Touch</h2>
+                            <p>If you have any questions regarding the <strong>Pushd</strong> Experiment, please use the form below or the email address provided and I will follow up ASAP!</p>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <form id='contact' action="https://formspree.io/kieran.fraser@adaptcentre.ie" method="POST">
+                                        <div class="row gtr-uniform gtr-50">
+                                            <div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
+                                            <div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
+                                            <div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
+                                        </div>
+                                        <br/>
+                                        <ul class="actions">
+                                            <li><input type="submit" value="Send Message" /></li>
+                                        </ul>
+                                    </form>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="labeled-icons">
+                                        <li>
+                                            <h3 class="icon fa-home"><span class="label">Location</span></h3>
+                                            Dublin, Ireland<br />
+                                        </li>
+                                        <li>
+                                            <h3 class="icon fa-envelope-o"><span class="label">Email</span></h3>
+                                            <a href="#">kieran.fraser@adaptcentre.ie</a>
+                                        </li>
                                     </ul>
-								</form>
-							</div>
-							<div class="col-4 col-12-small">
-								<ul class="labeled-icons">
-									<li>
-										<h3 class="icon fa-home"><span class="label">Location</span></h3>
-										Dublin, Ireland<br />
-									</li>
-									<li>
-										<h3 class="icon fa-envelope-o"><span class="label">Email</span></h3>
-										<a href="#">kieran.fraser@adaptcentre.ie</a>
-									</li>
-								</ul>
-							</div>
-						</div>
+                                </div>
+                            </div>
+                        </div>
 					</section>
 			</div>
 
@@ -113,7 +105,7 @@
 			<footer id="footer">
 				<div class="inner">
 					<ul class="copyright">
-						<li><strong>Kieran Fraser @ ADAPT Centre</strong></li><li>Trinity College Dublin</li>
+						<li>Kieran Fraser @ ADAPT Centre</li><li>Trinity College Dublin</li>
 					</ul>
 				</div>
 			</footer>
@@ -126,36 +118,236 @@
               <div class="modal-header">
                 <h2 id="exampleModalLabel">Notification Preferences</h2>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" style="overflow-y: scroll;">
                 <ol>
                     <li>Select multiple (min 5) topics which you would like to receive notifications on:<br>
                         <select id="topicPrefs" class="selectpicker" multiple>
-                          <option>comedy</option>
-                          <option>business</option>
-                          <option>food</option>
+                            <option>arts</option>
+                            <option>business</option>
+                            <option>college</option>
+                            <option>comedy</option>
+                            <option>crime</option>
+                            <option>divorce</option>
+                            <option>education</option>
+                            <option>entertainment</option>
+                            <option>environment</option>
+                            <option>food &amp; drink</option>
+                            <option>good news</option>
+                            <option>green</option>
+                            <option>healthy living</option>
+                            <option>home &amp; living</option>
+                            <option>impact</option>
+                            <option>media</option>
+                            <option>money</option>
+                            <option>parenting</option>
+                            <option>politics</option>
+                            <option>science</option>
+                            <option>sports</option>
+                            <option>style</option>
+                            <option>taste</option>
+                            <option>tech</option>
+                            <option>travel</option>
+                            <option>weddings</option>
+                            <option>wellness</option>
+                            <option>world news</option>
+                            <option>worldpost</option>
                         </select>
                     </li>
-                    <br>
-                    <li>Select multiple (min 5) websites which you would like to receive notifications from:<br>
-                        <select id="posWebPrefs" class="selectpicker" data-max-options="5" multiple>
-                          <option>rte.ie</option>
-                          <option>reddit.com</option>
-                          <option>wikipedia.org</option>
+                    <li>Select multiple websites which you would like to receive notifications from:<br>
+                        <select id="posWebPrefs" class="selectpicker" data-max-options="15" multiple onchange="generateTestNotifications()">
+                            <option>9gag.com</option>
+                            <option>alibaba.com</option>
+                            <option>amazon.com</option>
+                            <option>answers.com</option>
+                            <option>archive.org</option>
+                            <option>arxiv.org</option>
+                            <option>bbc.co.uk</option>
+                            <option>bedbathandbeyond.com</option>
+                            <option>betfair.com</option>
+                            <option>blizzard.com</option>
+                            <option>bloomberg.com</option>
+                            <option>booking.com</option>
+                            <option>brainyquote.com</option>
+                            <option>businessinsider.com</option>
+                            <option>cnn.com</option>
+                            <option>collegeboard.org</option>
+                            <option>couchsurfing.com</option>
+                            <option>coursera.org</option>
+                            <option>cricbuzz.com</option>
+                            <option>ea.com</option>
+                            <option>ebay.com</option>
+                            <option>economist.com</option>
+                            <option>epicgames.com</option>
+                            <option>etsy.com</option>
+                            <option>euronews.com</option>
+                            <option>fidelity.com</option>
+                            <option>finance.yahoo.com</option>
+                            <option>forbes.com</option>
+                            <option>foxsports.com</option>
+                            <option>gamespot.com</option>
+                            <option>gap.com</option>
+                            <option>goal.com</option>
+                            <option>goodreads.com</option>
+                            <option>groupon.com</option>
+                            <option>health.com</option>
+                            <option>history.com</option>
+                            <option>homedepot.com</option>
+                            <option>hotels.com</option>
+                            <option>howstuffworks.com</option>
+                            <option>imdb.com</option>
+                            <option>indeed.com</option>
+                            <option>independent.ie</option>
+                            <option>investopedia.com</option>
+                            <option>irishtimes.com</option>
+                            <option>itch.io</option>
+                            <option>kayak.com</option>
+                            <option>kidshealth.org</option>
+                            <option>lego.com</option>
+                            <option>livejournal.com</option>
+                            <option>livescience.com</option>
+                            <option>menshealth.com</option>
+                            <option>nature.com</option>
+                            <option>news.google.com</option>
+                            <option>nvidia.com</option>
+                            <option>nytimes.com</option>
+                            <option>pandora.com</option>
+                            <option>pcgamer.com</option>
+                            <option>pinkbike.com</option>
+                            <option>premierleague.com</option>
+                            <option>psychologytoday.com</option>
+                            <option>reddit.com</option>
+                            <option>researchgate.net</option>
+                            <option>reuters.com</option>
+                            <option>rottentomatoes.com</option>
+                            <option>rte.ie</option>
+                            <option>runnersworld.com</option>
+                            <option>sciencedaily.com</option>
+                            <option>sciencedirect.com</option>
+                            <option>self.com</option>
+                            <option>skyscanner.com</option>
+                            <option>space.com</option>
+                            <option>sports.yahoo.com</option>
+                            <option>springer.com</option>
+                            <option>stackoverflow.com</option>
+                            <option>store.steampowered.com</option>
+                            <option>ted.com</option>
+                            <option>theguardian.com</option>
+                            <option>thejournal.ie</option>
+                            <option>ticketmaster.com</option>
+                            <option>time.com</option>
+                            <option>tonyrobbins.com</option>
+                            <option>tripadvisor.com</option>
+                            <option>trivago.com</option>
+                            <option>udemy.com</option>
+                            <option>variety.com</option>
+                            <option>verywellfit.com</option>
+                            <option>verywellmind.com</option>
+                            <option>vitals.com</option>
+                            <option>weightwatchers.com</option>
+                            <option>wired.com</option>
                         </select>
                     </li>
-                    <br>
-                    <li>Select multiple (min 5) websites which you would <strong>NOT</strong> like to receive notifications from:<br>
-                        <select id="negWebPrefs" class="selectpicker" data-max-options="5" multiple>
-                          <option>rte.ie</option>
-                          <option>reddit.com</option>
-                          <option>wikipedia.org</option>
+                    <li>Select multiple websites which you would <strong>NOT</strong> like to receive notifications from:<br>
+                        <select id="negWebPrefs" class="selectpicker" data-max-options="15" multiple onchange="generateTestNotifications()">
+                            <option>9gag.com</option>
+                            <option>alibaba.com</option>
+                            <option>amazon.com</option>
+                            <option>answers.com</option>
+                            <option>archive.org</option>
+                            <option>arxiv.org</option>
+                            <option>bbc.co.uk</option>
+                            <option>bedbathandbeyond.com</option>
+                            <option>betfair.com</option>
+                            <option>blizzard.com</option>
+                            <option>bloomberg.com</option>
+                            <option>booking.com</option>
+                            <option>brainyquote.com</option>
+                            <option>businessinsider.com</option>
+                            <option>cnn.com</option>
+                            <option>collegeboard.org</option>
+                            <option>couchsurfing.com</option>
+                            <option>coursera.org</option>
+                            <option>cricbuzz.com</option>
+                            <option>ea.com</option>
+                            <option>ebay.com</option>
+                            <option>economist.com</option>
+                            <option>epicgames.com</option>
+                            <option>etsy.com</option>
+                            <option>euronews.com</option>
+                            <option>fidelity.com</option>
+                            <option>finance.yahoo.com</option>
+                            <option>forbes.com</option>
+                            <option>foxsports.com</option>
+                            <option>gamespot.com</option>
+                            <option>gap.com</option>
+                            <option>goal.com</option>
+                            <option>goodreads.com</option>
+                            <option>groupon.com</option>
+                            <option>health.com</option>
+                            <option>history.com</option>
+                            <option>homedepot.com</option>
+                            <option>hotels.com</option>
+                            <option>howstuffworks.com</option>
+                            <option>imdb.com</option>
+                            <option>indeed.com</option>
+                            <option>independent.ie</option>
+                            <option>investopedia.com</option>
+                            <option>irishtimes.com</option>
+                            <option>itch.io</option>
+                            <option>kayak.com</option>
+                            <option>kidshealth.org</option>
+                            <option>lego.com</option>
+                            <option>livejournal.com</option>
+                            <option>livescience.com</option>
+                            <option>menshealth.com</option>
+                            <option>nature.com</option>
+                            <option>news.google.com</option>
+                            <option>nvidia.com</option>
+                            <option>nytimes.com</option>
+                            <option>pandora.com</option>
+                            <option>pcgamer.com</option>
+                            <option>pinkbike.com</option>
+                            <option>premierleague.com</option>
+                            <option>psychologytoday.com</option>
+                            <option>reddit.com</option>
+                            <option>researchgate.net</option>
+                            <option>reuters.com</option>
+                            <option>rottentomatoes.com</option>
+                            <option>rte.ie</option>
+                            <option>runnersworld.com</option>
+                            <option>sciencedaily.com</option>
+                            <option>sciencedirect.com</option>
+                            <option>self.com</option>
+                            <option>skyscanner.com</option>
+                            <option>space.com</option>
+                            <option>sports.yahoo.com</option>
+                            <option>springer.com</option>
+                            <option>stackoverflow.com</option>
+                            <option>store.steampowered.com</option>
+                            <option>ted.com</option>
+                            <option>theguardian.com</option>
+                            <option>thejournal.ie</option>
+                            <option>ticketmaster.com</option>
+                            <option>time.com</option>
+                            <option>tonyrobbins.com</option>
+                            <option>tripadvisor.com</option>
+                            <option>trivago.com</option>
+                            <option>udemy.com</option>
+                            <option>variety.com</option>
+                            <option>verywellfit.com</option>
+                            <option>verywellmind.com</option>
+                            <option>vitals.com</option>
+                            <option>weightwatchers.com</option>
+                            <option>wired.com</option>
                         </select>
                     </li>
                 </ol>
-
+                <p>The following 15 notifications have been autonomously generated from your selected websites. Please select the actions (open or dismiss) which you might take on these notifications:</p>
+                <div id="notificationFeed"></div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="savePrefs()">Save</button>
+                <button type="button" class="btn btn-danger" onclick="cancelParticipation()">Cancel Participation</button>
+                <button type="button" class="btn btn-success" onclick="savePrefs()">Proceed</button>
               </div>
             </div>
           </div>
@@ -177,7 +369,40 @@
             <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
             <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
             <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
+        
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.4/jsrender.min.js"></script>
+        
             <script>
+                
+                var notificationString = '<div class="card" style="width: 100%; margin-bottom: 10px">'+
+                      '<div class="card-body" style="padding: 10px;">'+
+                        '<div class="container-fluid" style="width: 100%; margin: 0px; padding: 0px;">'+
+                            '<div class="row">'+
+                                '<div class="col-md-2">'+
+                                    '<img src="https://{{:domain}}/favicon.ico" alt=" " style="height: 35px; padding: 5px; border-radius: 50%; border-radius: 50%;border: solid;border-width: thin;    border-color: black;">'+
+                                '</div>'+
+                                '<div class="col-md-10">'+
+                                    '<h5 class="card-title" style="padding: 10px;">{{:title}}</h5>'+
+                                '</div>'  +
+                            '</div>'+
+                        '</div>'  +
+                        /*'<p class="card-text">{{:ticker}}</p>'+*/
+                        '<div style="text-align: center; margin: 0px; padding: 0px;">'+
+                            '<div class="btn-group btn-group-toggle" data-toggle="buttons">'+
+                              '<label class="btn btn-secondary" name="open" id="{{:id}}">'+
+                                '<input type="radio" autocomplete="off">Open'+
+                              '</label>'+
+                              '<label class="btn btn-secondary" name="dismiss" id="{{:id}}">'+
+                                '<input type="radio" autocomplete="off">Dismiss'+
+                              '</label>'+
+                            '</div>'+
+                        '</div>'+
+                        '<p style="text-align: right; font-size: small; margin: 0px;">{{:domain}}</p>'+
+                      '</div>'+
+                    '</div>'
+                var notificationTemplate = $.templates(notificationString);
+                
                 // Your web app's Firebase configuration
                 var firebaseConfig = {
                     apiKey: "AIzaSyAQu435FNTmXIcFigctYMdRO8sPLX78HI0",
@@ -192,22 +417,25 @@
                 firebase.initializeApp(firebaseConfig);
                 var database = firebase.database();
                 
+                var notificationList = []
+                
                 /*$('#exampleModal').modal({
                     backdrop: 'static',
                     keyboard: false
                 })*/
                 
                 initSubscribe()
+                getAllNotifications()
                 
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
-                        console.log('Anonymous sign-in')
                         var isAnonymous = user.isAnonymous;
                         var uid = user.uid;
                     } else {
                         firebase.auth().signInAnonymously().catch(function(error) {
                             $.alert({
                                 title: 'Oops!',
+                                type: 'red',
                                 content: 'Something went wrong. Please try again later.',
                             });
                             
@@ -233,18 +461,32 @@
                     posWeb = $('#posWebPrefs').val()
                     negWeb = $('#negWebPrefs').val()
                     
-                    if(topics.length<2|posWeb.length<2|negWeb.length<2){
+                    opened = []
+                    dismissed = []
+                    
+                    $("#notificationFeed .active").each(function() {
+                        var name = $(this).attr('name');
+                        var id = $(this).attr('id');
+                        if(name=='open')
+                            opened.push(id)
+                        else
+                            dismissed.push(id)
+                   });
+                    
+                    if(topics.length<2|posWeb.length<2|negWeb.length<2|(opened.length+dismissed.length)<5){
                         $.alert({
-                            title: 'Error!',
-                            content: 'You must select at least 5 values per field',
+                            title: 'Wait!',
+                            type: 'orange',
+                            content: 'You must select at least 2 topics<br><strong>and</strong> at least 4 websites (2 positive and 2 negative)<br><strong>and</strong> open or dismiss at least 5 generated notifications...',
                         });
                         return
                     }
                     else{
-                        savePreferences(topics, posWeb, negWeb)
+                        savePreferences(topics, posWeb, negWeb, opened, dismissed)
                         
                         $.confirm({
                             title: 'Finished',
+                            type: 'green',
                             content: 'You are now set up. Simply engage with incoming notifiations as normal over the next two weeks. You will receive a final questionnaire via notification at the end of the experiment period which will conclude the study. Thanks for participating!',
                             buttons: {
                                 confirm: function () {
@@ -255,16 +497,69 @@
                     }
                 }
                 
-                function savePreferences(topics, posWeb, negWeb) {
+                function savePreferences(topics, posWeb, negWeb, opened, dismissed) {
+                    
                     
                     userId = document.cookie.split('=')[1]
-                    if(userId.charAt(0) == '_'){
+                    if(userId.charAt(0) == '-'){
                         database.ref('participant/'+userId).update({
                             topics: topics,
                             pos_web: posWeb,
-                            neg_web: negWeb
+                            neg_web: negWeb,
+                            init_open: opened,
+                            init_dismissed: dismissed
                         });
                     }
+                }
+                
+                function generateTestNotifications(){
+                    posWeb = $('#posWebPrefs').val()
+                    negWeb = $('#negWebPrefs').val()
+                    
+                    notifications = []
+                    websites = posWeb.concat(negWeb)
+                    for(notification of notificationList){
+                        if(websites.some(website => notification.domain.includes(website)))
+                            notifications.push({title: notification.summary, ticker: notification.summary,
+                                              id: notification.id, domain: notification.domain})
+                    }
+                    
+                    var html = notificationTemplate.render(getRandom(notifications, notifications.length<=15?notifications.length : 15));
+                    $( "#notificationFeed" ).empty()
+                    $( "#notificationFeed" ).append(html)
+                    
+                }
+                
+                function getRandom(arr, n) {
+                    var result = new Array(n),
+                        len = arr.length,
+                        taken = new Array(len);
+                    if (n > len)
+                        throw new RangeError("getRandom: more elements taken than available");
+                    while (n--) {
+                        var x = Math.floor(Math.random() * len);
+                        result[n] = arr[x in taken ? taken[x] : x];
+                        taken[x] = --len in taken ? taken[len] : len;
+                    }
+                    return result;
+                }
+                
+                function getAllNotifications(){
+                    var pushRef = database.ref('notifications/')
+                    .once('value')
+                    .then(function(snapshot) {
+                        
+                        notificationList = []
+                        if(snapshot.val()!=null){
+                            snapshot.forEach((notification)=> {
+                                notificationList.push(notification.val())
+                            });
+                        }
+                    });
+                }
+                
+                function cancelParticipation(){
+                    subButtonClick()
                 }
             </script>
             

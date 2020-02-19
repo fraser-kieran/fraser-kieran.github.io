@@ -25,6 +25,20 @@ section, summary, time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;}
 
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.65);
+    border-radius: .25rem;
+}
+
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
@@ -83,7 +97,10 @@ input, select, textarea {
 	}
 
 	body {
-		background: #fff;
+		/*background: #fff;*/
+        background: url("../../images/pushd/repeated-square.png");
+        background-repeat: repeat;
+        
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -98,7 +115,7 @@ input, select, textarea {
 		}
 
 	body, input, select, textarea {
-		color: #a2a2a2;
+		color: dimgray;
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
 		font-size: 16pt;
 		font-weight: 400;
@@ -122,8 +139,8 @@ input, select, textarea {
 		}
 
 	strong, b {
-		color: #787878;
-		font-weight: 400;
+		color: black;
+		font-weight: 600;
 	}
 
 	em, i {
@@ -135,7 +152,7 @@ input, select, textarea {
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #787878;
+		color: black;
 		font-weight: 400;
 		line-height: 1em;
 		margin: 0 0 1em 0;
@@ -1765,7 +1782,7 @@ input, select, textarea {
 	}
 
 	header p {
-		color: #b2b2b2;
+		color: dimgray;
 		position: relative;
 		margin: 0 0 1.5em 0;
 	}
@@ -1801,7 +1818,7 @@ input, select, textarea {
 	}
 
 	label {
-		color: #787878;
+		color: dimgray;
 		display: block;
 		font-size: 0.9em;
 		font-weight: 400;
@@ -1819,7 +1836,7 @@ input, select, textarea {
 		appearance: none;
 		background: #f7f7f7;
 		border-radius: 0.35em;
-		border: solid 2px transparent;
+		border: solid thin dimgray;
 		color: inherit;
 		display: block;
 		outline: 0;
@@ -1855,7 +1872,7 @@ input, select, textarea {
 	}
 
 		select option {
-			color: #787878;
+			color: dimgray;
 			background: #fff;
 		}
 
@@ -1890,12 +1907,15 @@ input, select, textarea {
 		opacity: 0;
 		width: 1em;
 		z-index: -1;
+        border: solid;
+        border-width: thin;
+        border-color: dimgray
 	}
 
 		input[type="checkbox"] + label,
 		input[type="radio"] + label {
 			text-decoration: none;
-			color: #a2a2a2;
+			color: dimgray;
 			cursor: pointer;
 			display: inline-block;
 			font-size: 1em;
@@ -1933,8 +1953,8 @@ input, select, textarea {
 
 		input[type="checkbox"]:checked + label:before,
 		input[type="radio"]:checked + label:before {
-			background: #787878;
-			border-color: #787878;
+			background: dimgray;
+			border-color: dimgray;
 			color: #fff;
 			content: '\f00c';
 		}
@@ -1946,6 +1966,10 @@ input, select, textarea {
 
 	input[type="checkbox"] + label:before {
 		border-radius: 0.35em;
+        
+        border: solid;
+        border-width: thin;
+        border-color: dimgray
 	}
 
 	input[type="radio"] + label:before {
@@ -1953,22 +1977,22 @@ input, select, textarea {
 	}
 
 	::-webkit-input-placeholder {
-		color: #b2b2b2 !important;
+		color: dimgray !important;
 		opacity: 1.0;
 	}
 
 	:-moz-placeholder {
-		color: #b2b2b2 !important;
+		color: dimgray !important;
 		opacity: 1.0;
 	}
 
 	::-moz-placeholder {
-		color: #b2b2b2 !important;
+		color: dimgray !important;
 		opacity: 1.0;
 	}
 
 	:-ms-input-placeholder {
-		color: #b2b2b2 !important;
+		color: dimgray !important;
 		opacity: 1.0;
 	}
 
@@ -2210,7 +2234,7 @@ input, select, textarea {
 			}
 
 			ul.labeled-icons li h3 {
-				color: #b2b2b2;
+				color: dimgray;
 				left: 0;
 				position: absolute;
 				text-align: center;
@@ -2424,8 +2448,8 @@ input, select, textarea {
 		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 		background-color: transparent;
 		border-radius: 0.35em;
-		border: solid 3px #efefef;
-		color: #787878 !important;
+		border: solid 2px dimgray;
+		color: dimgray !important;
 		cursor: pointer;
 		display: inline-block;
 		font-weight: 400;
@@ -2526,7 +2550,7 @@ input, select, textarea {
 		.button:disabled {
 			background-color: #e7e7e7 !important;
 			border-color: #e7e7e7 !important;
-			color: #b2b2b2 !important;
+			color: dimgray !important;
 			cursor: default;
 		}
 
@@ -2654,8 +2678,8 @@ input, select, textarea {
 				padding-left: 0;
 			}
 
-			#footer .copyright li a {
-				color: inherit;
+			#footer .copyright li {
+				color: white;
 			}
 
 /* Main */
@@ -2668,7 +2692,7 @@ input, select, textarea {
 	}
 
 		#main > section {
-			border-top: solid 2px #efefef;
+			border-top: solid 2px black;
 			margin: 20px 0 0 0;
 			padding: 20px 0 0 0;
 		}

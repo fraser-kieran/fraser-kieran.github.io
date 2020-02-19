@@ -72,9 +72,8 @@ function updateBtn() {
     $.confirm({
         title: "<h2 style='text-transform: capitalize; letter-spacing: normal; line-spacing: normal;'>Notification Permissions</h2>",
         content: "<h5 style='text-transform: none; letter-spacing: normal; line-spacing: normal;'>To receive <strong style='text-transform: capitalize;'>Pushd</strong> notifications from the content creators on this platform, you must grant push-notification permission to <strong style='text-transform: capitalize;'>Pushd</strong>.</h5>",
-        type: 'purple',
-        boxWidth: '30%',
-        useBootstrap: false,
+        type: 'blue',
+        useBootstrap: true,
         typeAnimated: true,
         buttons: {
             grant: {
@@ -111,8 +110,7 @@ function updateBtn() {
             title: "<h2 style='text-transform: capitalize; letter-spacing: normal; line-spacing: normal;'>Notification Permissions</h2>",
             content: "<h5 style='text-transform: none; letter-spacing: normal; line-spacing: normal;'>In order to participate in this Research Experiment, you must enable push-notification permissions for this page.</h5>",
             type: 'green',
-            boxWidth: '30%',
-            useBootstrap: false,
+            useBootstrap: true,
             typeAnimated: true,
             buttons: {
                 grant: {
@@ -174,8 +172,7 @@ function areYouSure(){
             title: "<h2 style='text-transform: capitalize; letter-spacing: normal; line-spacing: normal;'>Exit Experiment</h2>",
             content: "<h5 style='text-transform: none; letter-spacing: normal; line-spacing: normal;'>If you unsubscribe you will be removed from the <strong>Pushd</strong> experiment and all data collected on your engagements will be deleted. Are you sure you wish to unsubscribe?</h5>",
             type: 'red',
-            boxWidth: '30%',
-            useBootstrap: false,
+            useBootstrap: true,
             typeAnimated: true,
             buttons: {
                 grant: {
@@ -239,6 +236,7 @@ function unsubscribeUser() {
         });*/
         $('#cb-info').prop('checked', false)
         $('#cb-consent').prop('checked', false)
+        $('#exampleModal').modal('hide')
         
         return subscription.unsubscribe();
     }
@@ -336,15 +334,13 @@ function updateSubscriptionOnServer(subscription) {
 
 function subNewParticipant(subscription) {
     
-    var userId = generateID()
+    var userId = database.ref('participant/').push().key;
     
     var expiration_date = new Date();
     var cookie_string = "userId="+userId+";";
     expiration_date.setFullYear(expiration_date.getFullYear() + 1);
     cookie_string = cookie_string+"max-age=31536000";
     document.cookie = cookie_string;
-    
-    console.log(subscription)
     
     var subInfo = JSON.stringify({
         "subInfo": subscription            

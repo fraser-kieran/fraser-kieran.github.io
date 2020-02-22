@@ -1,48 +1,51 @@
+
 self.addEventListener('push', function(event) {
     
     // applicationServerKey: 
     // BJ-qALtORweP7IZtnNMoY-8gwsFsPSPXlrAYU6dBulwYcv6CPrIIr8-t57PgUPfGMqsg0DfVPre_thVyWqBPaZo
     
     console.log('[Service Worker] Push Received.');
-    console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+    //console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-    /*notification = event.data.json()
-    const title = notification.title;*/
+    notification = event.data.json()
+    console.log(notification)
+    const title = notification.domain.replace('https://', '').replace('http://', '');
     
-    /*notification_data = { notification: { data: { notificationId: notification.id, userId: notification.userId } } }
-    update_engagement(notification_data, 'delivered')
+    //notification_data = { notification: { data: { notificationId: notification.id, userId: notification.userId } } }
+    //update_engagement(notification_data, 'delivered')
     
     var options = {}
     
-    if(notification.imageURL!=''){
-        options = {
-            body: notification.message,
-            badge: '/images/badge.png',
-            icon: notification.icon,
-            image: notification.imageURL,
-            data: {
-                notificationId: notification.id,
-                userId: notification.userId
+    //if(notification.imageURL!=''){
+    options = {
+        body: notification.summary,
+        badge: '/images/badge.png',
+        icon: 'https://'+notification.domain+'/favicon.ico',
+        //image: notification.imageURL,
+        data: {
+            notificationId: notification.id,
+            userId: notification.user,
+            url: notification.url
+        },
+        /*actions: [
+            {
+              action: 'read-later',
+              title: '💾 Later',
+              icon: 'https://pushdweb.github.io/images/ic_later.png'
             },
-            actions: [
-                {
-                  action: 'read-later',
-                  title: '💾 Later',
-                  icon: 'https://pushdweb.github.io/images/ic_later.png'
-                },
-                {
-                  action: 'liked',
-                  title: '👍 Like',
-                  icon: 'https://pushdweb.github.io/images/ic_like.png'
-                },  
-                {
-                  action: 'dismissed',
-                  title: 'Remove',
-                  icon: 'https://pushdweb.github.io/images/ic_like.png'
-                }            
-            ]
-        };
-    }
+            {
+              action: 'liked',
+              title: '👍 Like',
+              icon: 'https://pushdweb.github.io/images/ic_like.png'
+            },  
+            {
+              action: 'dismissed',
+              title: 'Remove',
+              icon: 'https://pushdweb.github.io/images/ic_like.png'
+            }            
+        ]*/
+    };
+    /*}
     else {
         options = {
             body: notification.message,
@@ -72,7 +75,7 @@ self.addEventListener('push', function(event) {
         };  
     }*/
 
-    // event.waitUntil(self.registration.showNotification(title, options));
+    event.waitUntil(self.registration.showNotification(title, options));
 });
 
 self.addEventListener('notificationclick', function(event) {
@@ -81,13 +84,16 @@ self.addEventListener('notificationclick', function(event) {
     
     if (!event.action) {
         // Was a normal notification click
-        console.log('Notification Click.');
-        /*update_engagement(event, 'clicked')
+        console.log('Notification opened');
+        
+        update_engagement(event, 'opened')
         if (clients.openWindow) {
-            event.waitUntil(clients.openWindow('https://pushdweb.github.io/notification.html?p='+event.notification.data.userId+'&n='+event.notification.data.notificationId))
-        }*/
+            event.waitUntil(clients.openWindow(event.notification.data.url+'?source=pushd'))
+        }
         return;
     }
+    console.log(`Unknown action clicked: '${event.action}'`);
+    update_engagement(event, 'unknown')
 
     /*switch (event.action) {
     case 'read-later':
@@ -110,20 +116,13 @@ self.addEventListener('notificationclick', function(event) {
 });
 
 self.addEventListener('notificationclose', function(event) {
-    console.log('closed!')
-    // update_engagement(event, 'dismissed')
+    console.log('Notification dismissed')
+    update_engagement(event, 'dismissed')
 });
-
-/*self.addEventListener('message', event => { 
-    console.log(event.data);
-    if(event.data=='closeNotification'){
-        
-    }
-});*/
 
 function update_engagement(event, engagement){
 
-    /*var engageUrl = "https://autoempushy.herokuapp.com/v1/push-engage";
+    var engageUrl = "https://empushy.azurewebsites.net/v1/pushd/engagement";
 
     var formData = JSON.stringify({
         "userId": event.notification.data.userId,
@@ -137,5 +136,5 @@ function update_engagement(event, engagement){
           "Content-type": "application/json; charset=utf-8"
         },
         body: formData
-    })*/
+    })
 }

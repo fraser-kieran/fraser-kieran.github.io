@@ -17,7 +17,8 @@ self.addEventListener('push', function(event) {
             icon: '/images/favicon.png',
             data: {
                 notificationId: null,
-                userId: notification.user
+                userId: notification.user,
+                url: notification.url
             },
 
         };
@@ -100,7 +101,7 @@ self.addEventListener('notificationclick', function(event) {
     
     if(event.notification.data.notificationId==null){
         if (clients.openWindow) {
-            event.waitUntil(clients.openWindow('https://fraserkieran.com/pushd-insight.html?u='+event.notification.data.userId))
+            event.waitUntil(clients.openWindow(event.notification.data.url+event.notification.data.userId))
         }
         return
     }

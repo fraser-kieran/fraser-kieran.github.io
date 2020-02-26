@@ -35,6 +35,10 @@
                 width: 0px;
                 background: transparent; /* make scrollbar transparent */
             }
+            .bootstrap-select {
+		      border: solid thin dimgray;
+                margin-bottom: 20px;
+            }
         </style>
         
 	</head>
@@ -140,6 +144,9 @@
               </div>
               <div class="modal-body" style="overflow-y: scroll;">
                 <ol>
+                    <li>Prolific Id (if you have an account):<br>
+                        <input type="text" id="prolificId">
+                    </li>
                     <li>Select applicable gender:<br>
                         <select id="gender" class="selectpicker">
                           <option value="" selected disabled>Nothing selected</option>
@@ -1233,6 +1240,7 @@ things you no longer do. Please be as honest as possible.
                 
                 function savePrefs(){
                     
+                    prolificId = $('#prolificId').val()
                     gender = $('#gender').val()
                     ages = $('#ages').val()
                     topics = $('#topicPrefs').val()
@@ -1278,7 +1286,7 @@ things you no longer do. Please be as honest as possible.
                         return
                     }
                     
-                    savePreferences(gender, ages, topics, posWeb, negWeb, opened, dismissed)
+                    savePreferences(prolificId, gender, ages, topics, posWeb, negWeb, opened, dismissed)
 
                     $.confirm({
                         title: 'Finished',
@@ -1292,7 +1300,7 @@ things you no longer do. Please be as honest as possible.
                     });
                 }
                 
-                function savePreferences(gender, ages, topics, posWeb, negWeb, opened, dismissed) {
+                function savePreferences(prolificId, gender, ages, topics, posWeb, negWeb, opened, dismissed) {
                     
                     
                     userId = document.cookie.split('=')[1]
@@ -1306,7 +1314,9 @@ things you no longer do. Please be as honest as possible.
                             mindful_scores: mindfulScores,
                             curiosity_scores: curiosityScores,
                             init_open: opened,
-                            init_dismissed: dismissed
+                            init_dismissed: dismissed,
+                            timezone: (new Date()).getTimezoneOffset(),
+                            prolificId: prolificId
                         });
                     }
                 }

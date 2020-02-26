@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+        
 	</head>
 	<body class="is-preload">
 
@@ -427,7 +428,13 @@
                 <h2 id="mindfulModalLabel">Mindful Attention Awareness Scale</h2>
               </div>
               <div class="modal-body" style="overflow-y: scroll;">
-                
+                    <label class="statement">I could be experiencing some emotion and not be conscious of
+it until some time later.</label>
+                    <label class="radio-inline"><input type="radio" name="optradio" checked>strongly agree</label>
+                    <label class="radio-inline"><input type="radio" name="optradio">agree</label>
+                    <label class="radio-inline"><input type="radio" name="optradio">neutral</label>
+                    <label class="radio-inline"><input type="radio" name="optradio">disagree</label>
+                    <label class="radio-inline"><input type="radio" name="optradio">strongly disagree</label>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" onclick="closeMindfulModal()">Cancel</button>

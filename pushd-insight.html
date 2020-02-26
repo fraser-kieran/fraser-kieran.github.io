@@ -1,0 +1,328 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Pushd Experiment</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="apple-touch-icon" href="images/favicon.png">
+        <link rel="shortcut icon" href="images/favicon.png">
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="assets/css/pushd.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+        
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header" style="background-color: black">
+				<div class="inner">
+					<!--<a href="" class="image avatar"><img src="images/LinkedInProfiler.png" alt="" /></a>
+					<h1><strong>Kieran Fraser</strong><br />
+                        PhD Candidate @ ADAPT Centre<br/>
+                        Trinity College Dublin</h1>-->
+				</div>
+			</header>
+
+		<!-- Main -->
+			<div id="main">
+                    
+				<!-- One -->
+                    <span class="image"><img style="width: 50%; margin: auto;" src="images/pushd/pushd_black_no_caption_3.0.png" alt="pushd logo" /></span>
+					<section id="one">
+                        <p>Please answer the following questions relating to your push-notification engagements over the past day. On submission, you will receive some insights into your engagements.
+                        </p>
+                        
+                        <p>Satisfaction</p>
+                        <p>Trust</p>
+                        <p>Relevance</p>
+                        <p>Empathy</p>
+                        <p>How many push-notifcation interruptions did you receive?</p>
+                        <p>What do you believe your push-notification Click-Through-Rate to be?</p>
+                        <p>Which notification topics do you believe you are most receptive to?</p>
+                        <p>Net Promotor Score</p>
+                       
+					</section>
+                
+				<!-- Two -->
+					
+			</div>
+
+		<!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <ul class="copyright">
+                    <li>Kieran Fraser @ ADAPT Centre</li><li>Trinity College Dublin</li>
+                </ul>
+            </div>
+        </footer>
+        
+
+        <!-- Modal -->
+        <div class="modal fade" id="curiosityModal" tabindex="-1" role="dialog" aria-labelledby="curiosityModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 id="curiosityModalLabel">Curiosity and Exploration Inventory (CEI-II)</h2>
+              </div>
+              <div class="modal-body" style="overflow-y: scroll;">
+                <p><strong>Instructions: </strong>Rate the statements below for how accurately they reflect the way you
+generally feel and behave. Do not rate what you think you should do, or wish you do, or
+things you no longer do. Please be as honest as possible.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="closeCuriosityModal()">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="saveCuriosity()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+		<!-- Scripts -->
+            <script
+              src="https://code.jquery.com/jquery-3.4.1.min.js"
+              integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+              crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+        
+            <!-- The core Firebase JS SDK is always required and must be listed first -->
+            <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
+            <script src="assets/js/web-push-initialise.js"></script>
+        
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.4/jsrender.min.js"></script>
+        
+            <script>
+                
+                var notificationString = '<div class="card" style="width: 100%; margin-bottom: 10px">'+
+                      '<div class="card-body" style="padding: 10px;">'+
+                        '<div class="container-fluid" style="width: 100%; margin: 0px; padding: 0px;">'+
+                            '<div class="row">'+
+                                '<div class="col-md-2">'+
+                                    '<img src="https://{{:domain}}/favicon.ico" alt=" " style="height: 35px; padding: 5px; border-radius: 50%; border-radius: 50%;border: solid;border-width: thin;    border-color: black;">'+
+                                '</div>'+
+                                '<div class="col-md-10">'+
+                                    '<h5 class="card-title" style="padding: 10px;">{{:title}}</h5>'+
+                                '</div>'  +
+                            '</div>'+
+                        '</div>'  +
+                        /*'<p class="card-text">{{:ticker}}</p>'+*/
+                        '<div style="text-align: center; margin: 0px; padding: 0px;">'+
+                            '<div class="btn-group btn-group-toggle" data-toggle="buttons">'+
+                              '<label class="btn btn-secondary" name="open" id="{{:id}}">'+
+                                '<input type="radio" autocomplete="off">Open'+
+                              '</label>'+
+                              '<label class="btn btn-secondary" name="dismiss" id="{{:id}}">'+
+                                '<input type="radio" autocomplete="off">Dismiss'+
+                              '</label>'+
+                            '</div>'+
+                        '</div>'+
+                        '<p style="text-align: right; font-size: small; margin: 0px;">{{:domain}}</p>'+
+                      '</div>'+
+                    '</div>'
+                var notificationTemplate = $.templates(notificationString);
+                
+                // Your web app's Firebase configuration
+                var firebaseConfig = {
+                    apiKey: "AIzaSyAQu435FNTmXIcFigctYMdRO8sPLX78HI0",
+                    authDomain: "pushdexp.firebaseapp.com",
+                    databaseURL: "https://pushdexp.firebaseio.com",
+                    projectId: "pushdexp",
+                    storageBucket: "pushdexp.appspot.com",
+                    messagingSenderId: "84430156157",
+                    appId: "1:84430156157:web:b4fc89624448507bb05c14"
+                };
+                // Initialize Firebase
+                firebase.initializeApp(firebaseConfig);
+                var database = firebase.database();
+                
+                var notificationList = []
+                
+                $('#exampleModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
+                
+                initSubscribe()
+                
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        var isAnonymous = user.isAnonymous;
+                        var uid = user.uid;
+                        getAllNotifications()
+                    } else {
+                        firebase.auth().signInAnonymously().catch(function(error) {
+                            $.alert({
+                                title: 'Oops!',
+                                type: 'red',
+                                content: 'Something went wrong. Please try again later.',
+                            });
+                            
+                        });
+                    }
+                });
+                
+                function mindfulModal(){
+                    $('#mindfulModal').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    })
+                } 
+                
+                function closeMindfulModal(){
+                    $('#mindfulModal').modal('hide')
+                }
+                
+                function curiosityModal(){
+                    $('#curiosityModal').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    })
+                }
+                
+                function closeCuriosityModal(){
+                    $('#curiosityModal').modal('hide')
+                }
+                
+                function signup(){
+                    if($("#cb-info").prop('checked') && $("#cb-consent").prop('checked')){
+                        $("#checkbox-message").hide();
+                        subButtonClick()
+                    }
+                    else{
+                        $("#checkbox-message").show();
+                    }
+                }
+                
+                function savePrefs(){
+                    
+                    topics = $('#topicPrefs').val()
+                    posWeb = $('#posWebPrefs').val()
+                    negWeb = $('#negWebPrefs').val()
+                    
+                    opened = []
+                    dismissed = []
+                    
+                    $("#notificationFeed .active").each(function() {
+                        var name = $(this).attr('name');
+                        var id = $(this).attr('id');
+                        if(name=='open')
+                            opened.push(id)
+                        else
+                            dismissed.push(id)
+                   });
+                    
+                    if(topics.length<2|posWeb.length<2|negWeb.length<2|(opened.length+dismissed.length)<5){
+                        $.alert({
+                            title: 'Wait!',
+                            type: 'orange',
+                            content: 'You must select at least 2 topics<br><strong>and</strong> at least 4 websites (2 positive and 2 negative)<br><strong>and</strong> open or dismiss at least 5 generated notifications...',
+                        });
+                        return
+                    }
+                    else{
+                        savePreferences(topics, posWeb, negWeb, opened, dismissed)
+                        
+                        $.confirm({
+                            title: 'Finished',
+                            type: 'green',
+                            content: 'You are now set up. Simply engage with incoming notifiations as normal over the next two weeks. You will receive a final questionnaire via notification at the end of the experiment period which will conclude the study. Thanks for participating!',
+                            buttons: {
+                                confirm: function () {
+                                    $('#exampleModal').modal('hide')
+                                }
+                            }
+                        });
+                    }
+                }
+                
+                function savePreferences(topics, posWeb, negWeb, opened, dismissed) {
+                    
+                    
+                    userId = document.cookie.split('=')[1]
+                    if(userId.charAt(0) == '-'){
+                        database.ref('participant/'+userId).update({
+                            topics: topics,
+                            pos_web: posWeb,
+                            neg_web: negWeb,
+                            init_open: opened,
+                            init_dismissed: dismissed
+                        });
+                    }
+                }
+                
+                function generateTestNotifications(){
+                    posWeb = $('#posWebPrefs').val()
+                    negWeb = $('#negWebPrefs').val()
+                    
+                    notifications = []
+                    websites = posWeb.concat(negWeb)
+                    for(notification of notificationList){
+                        if(websites.some(website => notification.domain.includes(website)))
+                            notifications.push({title: notification.summary, ticker: notification.summary,
+                                              id: notification.id, domain: notification.domain})
+                    }
+                    
+                    var html = notificationTemplate.render(getRandom(notifications, notifications.length<=10?notifications.length : 10));
+                    $( "#notificationFeed" ).empty()
+                    $( "#feedInstructions" ).show()
+                    $( "#notificationFeed" ).append(html)
+                    
+                }
+                
+                function getRandom(arr, n) {
+                    var result = new Array(n),
+                        len = arr.length,
+                        taken = new Array(len);
+                    if (n > len)
+                        throw new RangeError("getRandom: more elements taken than available");
+                    while (n--) {
+                        var x = Math.floor(Math.random() * len);
+                        result[n] = arr[x in taken ? taken[x] : x];
+                        taken[x] = --len in taken ? taken[len] : len;
+                    }
+                    return result;
+                }
+                
+                function getAllNotifications(){
+                    var pushRef = database.ref('notifications/')
+                    .once('value')
+                    .then(function(snapshot) {
+                        
+                        notificationList = []
+                        if(snapshot.val()!=null){
+                            snapshot.forEach((notification)=> {
+                                notificationList.push(notification.val())
+                            });
+                        }
+                    });
+                }
+                
+                function cancelParticipation(){
+                    subButtonClick()
+                }
+            </script>
+            
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+           
+
+	</body>
+</html>

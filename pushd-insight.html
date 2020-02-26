@@ -15,8 +15,36 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<link rel="stylesheet" href="assets/css/pushd.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+        <style>
+            .btn-likert.active {
+                background-color: #079198!important;
+            }
+            p {
+                margin-bottom: 10px;
+            }
+            h3 {
+                margin-bottom: 5px;
+            }
+            .btn-group-sm.btn-group-toggle {
+                margin-bottom: 20px;
+            }
+            .bootstrap-select {
+		      border: solid thin dimgray;
+                margin-bottom: 20px;
+            }
+            textarea {
+                margin-bottom: 20px;
+            }
+            input[type=number] {
+                -webkit-appearance: none;
+                border: solid thin dimgray;
+            }
+            ::-webkit-scrollbar {
+                width: 0px;
+                background: transparent; /* make scrollbar transparent */
+            }
+        </style>
         
 	</head>
 	<body class="is-preload">
@@ -37,17 +65,179 @@
 				<!-- One -->
                     <span class="image"><img style="width: 50%; margin: auto;" src="images/pushd/pushd_black_no_caption_3.0.png" alt="pushd logo" /></span>
 					<section id="one">
-                        <p>Please answer the following questions relating to your push-notification engagements over the past day. On submission, you will receive some insights into your engagements.
+                        <p>Please answer the following questions relating to your push-notification engagements over the past day.
                         </p>
                         
-                        <p>Satisfaction</p>
-                        <p>Trust</p>
-                        <p>Relevance</p>
-                        <p>Empathy</p>
-                        <p>How many push-notifcation interruptions did you receive?</p>
-                        <p>What do you believe your push-notification Click-Through-Rate to be?</p>
-                        <p>Which notification topics do you believe you are most receptive to?</p>
-                        <p>Net Promotor Score</p>
+                        <h3>Satisfaction</h3>
+                        <p>How satisfied are you with the delivery of notifications?</p>
+                        <div class="col-md-12">
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">Very unsatisfied
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">Unsatisfied
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">Neutral
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">Satisfied
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">Very satisfied
+                              </label>
+                            </div>
+                        </div>
+                        
+                        <h3>Trust</h3>
+                        <p>How satisfied are you with the delivery of notifications?</p>
+                        <div class="col-md-12">
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">Very untrustful
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">Untrustful
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">Neutral
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">Trustful
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">Very trustful
+                              </label>
+                            </div>
+                        </div>
+                        
+                        <h3>Relevance</h3>
+                        <p>How satisfied are you with the delivery of notifications?</p>
+                        <div class="col-md-12">
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">Very irrelevant
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">Irrelevant
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">Neutral
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">Relevant
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">Very relevant
+                              </label>
+                            </div>
+                        </div>
+                        
+                        <h3>Empathy</h3>
+                        <p>How satisfied are you with the delivery of notifications?</p>
+                        <div class="col-md-12">
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">Very unempathetic
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">Unempathetic
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">Neutral
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">Empathetic
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">Very empathetic
+                              </label>
+                            </div>
+                        </div>
+                        
+                        <h3>Engagement Perception</h3>
+                        <p>How many push-notifcations did you receive from this study today?</p>
+                        <input type="number" id="numPush">
+                        <p>Of these notifications, how many do you believe you opened today?</p>
+                        <input type="number" id="openedPush">
+                        <p>Which notification topics (can select multiple) do you believe you were most receptive to today?</p>
+                        <select id="topics" class="selectpicker" multiple>
+                            <option>arts</option>
+                            <option>business</option>
+                            <option>college</option>
+                            <option>comedy</option>
+                            <option>crime</option>
+                            <option>divorce</option>
+                            <option>education</option>
+                            <option>entertainment</option>
+                            <option>environment</option>
+                            <option>food &amp; drink</option>
+                            <option>good news</option>
+                            <option>green</option>
+                            <option>healthy living</option>
+                            <option>home &amp; living</option>
+                            <option>impact</option>
+                            <option>media</option>
+                            <option>money</option>
+                            <option>parenting</option>
+                            <option>politics</option>
+                            <option>science</option>
+                            <option>sports</option>
+                            <option>style</option>
+                            <option>taste</option>
+                            <option>tech</option>
+                            <option>travel</option>
+                            <option>weddings</option>
+                            <option>wellness</option>
+                            <option>world news</option>
+                            <option>worldpost</option>
+                        </select>
+                        
+                        <h3>Final Thoughts</h3>
+                        <p>On a scale of zero to ten, how likely are you to recommend the notification service to a friend or colleague?</p>
+                        <div class="col-md-12">                        
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="0">0
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">1
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">2
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">3
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">4
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">5
+                              </label>
+                                <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="6">6
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="7">7
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="8">8
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="9">9
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="10">10
+                              </label>
+                            </div>
+                        </div>
+                        <p>What is the primary reason for your score? (optional)</p>
+                        <textarea rows="2" id="npsReason"></textarea>
+                        <div class="col-md-12" style="text-align: center; margin-bottom: 20px;">
+                            <button class="btn btn-success" id="submitBtn" onclick="submitAnswers()">Submit</button>
+                        </div>
                        
 					</section>
                 
@@ -64,26 +254,6 @@
             </div>
         </footer>
         
-
-        <!-- Modal -->
-        <div class="modal fade" id="curiosityModal" tabindex="-1" role="dialog" aria-labelledby="curiosityModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h2 id="curiosityModalLabel">Curiosity and Exploration Inventory (CEI-II)</h2>
-              </div>
-              <div class="modal-body" style="overflow-y: scroll;">
-                <p><strong>Instructions: </strong>Rate the statements below for how accurately they reflect the way you
-generally feel and behave. Do not rate what you think you should do, or wish you do, or
-things you no longer do. Please be as honest as possible.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="closeCuriosityModal()">Cancel</button>
-                <button type="button" class="btn btn-success" onclick="saveCuriosity()">Save</button>
-              </div>
-            </div>
-          </div>
-        </div>
         
 		<!-- Scripts -->
             <script
@@ -92,8 +262,6 @@ things you no longer do. Please be as honest as possible.</p>
               crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-            <!-- Latest compiled and minified JavaScript -->
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
             
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         
@@ -101,10 +269,10 @@ things you no longer do. Please be as honest as possible.</p>
             <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
             <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
             <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
-            <script src="assets/js/web-push-initialise.js"></script>
         
         
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.4/jsrender.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
         
             <script>
                 
@@ -152,18 +320,14 @@ things you no longer do. Please be as honest as possible.</p>
                 
                 var notificationList = []
                 
-                $('#exampleModal').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                })
                 
-                initSubscribe()
+                
                 
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
                         var isAnonymous = user.isAnonymous;
                         var uid = user.uid;
-                        getAllNotifications()
+                        
                     } else {
                         firebase.auth().signInAnonymously().catch(function(error) {
                             $.alert({
@@ -176,152 +340,65 @@ things you no longer do. Please be as honest as possible.</p>
                     }
                 });
                 
-                function mindfulModal(){
-                    $('#mindfulModal').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    })
-                } 
-                
-                function closeMindfulModal(){
-                    $('#mindfulModal').modal('hide')
-                }
-                
-                function curiosityModal(){
-                    $('#curiosityModal').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    })
-                }
-                
-                function closeCuriosityModal(){
-                    $('#curiosityModal').modal('hide')
-                }
-                
-                function signup(){
-                    if($("#cb-info").prop('checked') && $("#cb-consent").prop('checked')){
-                        $("#checkbox-message").hide();
-                        subButtonClick()
-                    }
-                    else{
-                        $("#checkbox-message").show();
-                    }
-                }
-                
-                function savePrefs(){
+                function submitAnswers(){
                     
-                    topics = $('#topicPrefs').val()
-                    posWeb = $('#posWebPrefs').val()
-                    negWeb = $('#negWebPrefs').val()
+                    $('#submitBtn').prop('disabled', true);
+                    $('#submitBtn').attr('disabled', true);
                     
-                    opened = []
-                    dismissed = []
+                    var scores = $('.btn-likert').map(function() { 
+                        if(!this.classList.contains("disabled") && this.classList.contains("active")) 
+                            return this.innerText
+                    }).get();
+                    var numPush = $('#numPush').val()
+                    var openedPush = $('#openedPush').val()
+                    var topics = $('#topics').val()
+                    var npsReason = $('#npsReason').val()
                     
-                    $("#notificationFeed .active").each(function() {
-                        var name = $(this).attr('name');
-                        var id = $(this).attr('id');
-                        if(name=='open')
-                            opened.push(id)
-                        else
-                            dismissed.push(id)
-                   });
-                    
-                    if(topics.length<2|posWeb.length<2|negWeb.length<2|(opened.length+dismissed.length)<5){
+                    if(scores.length < 5 || topics.length<1 || numPush=='' || openedPush==''){
                         $.alert({
                             title: 'Wait!',
                             type: 'orange',
-                            content: 'You must select at least 2 topics<br><strong>and</strong> at least 4 websites (2 positive and 2 negative)<br><strong>and</strong> open or dismiss at least 5 generated notifications...',
+                            content: 'Oops, you missed a mandatory question..',
                         });
                         return
                     }
-                    else{
-                        savePreferences(topics, posWeb, negWeb, opened, dismissed)
-                        
-                        $.confirm({
-                            title: 'Finished',
-                            type: 'green',
-                            content: 'You are now set up. Simply engage with incoming notifiations as normal over the next two weeks. You will receive a final questionnaire via notification at the end of the experiment period which will conclude the study. Thanks for participating!',
-                            buttons: {
-                                confirm: function () {
-                                    $('#exampleModal').modal('hide')
-                                }
-                            }
-                        });
-                    }
-                }
-                
-                function savePreferences(topics, posWeb, negWeb, opened, dismissed) {
                     
+                    // get userId from the p parameter!
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const userId = urlParams.get('u');
                     
-                    userId = document.cookie.split('=')[1]
                     if(userId.charAt(0) == '-'){
-                        database.ref('participant/'+userId).update({
+                        database.ref('participant/'+userId+'/midstudy/').push().set({
+                            likert: scores,
+                            numPush: numPush,
+                            openedPush: openedPush,
                             topics: topics,
-                            pos_web: posWeb,
-                            neg_web: negWeb,
-                            init_open: opened,
-                            init_dismissed: dismissed
+                            npsReason: npsReason,
+                            timeSubmitted: Math.round((new Date()).getTime())
                         });
                     }
-                }
-                
-                function generateTestNotifications(){
-                    posWeb = $('#posWebPrefs').val()
-                    negWeb = $('#negWebPrefs').val()
-                    
-                    notifications = []
-                    websites = posWeb.concat(negWeb)
-                    for(notification of notificationList){
-                        if(websites.some(website => notification.domain.includes(website)))
-                            notifications.push({title: notification.summary, ticker: notification.summary,
-                                              id: notification.id, domain: notification.domain})
+                    else{
+                        $.alert({
+                            title: 'Error!',
+                            type: 'red',
+                            content: 'There was an error submitting. Please contact the lead researcher.',
+                        });
+                        return
                     }
                     
-                    var html = notificationTemplate.render(getRandom(notifications, notifications.length<=10?notifications.length : 10));
-                    $( "#notificationFeed" ).empty()
-                    $( "#feedInstructions" ).show()
-                    $( "#notificationFeed" ).append(html)
-                    
-                }
-                
-                function getRandom(arr, n) {
-                    var result = new Array(n),
-                        len = arr.length,
-                        taken = new Array(len);
-                    if (n > len)
-                        throw new RangeError("getRandom: more elements taken than available");
-                    while (n--) {
-                        var x = Math.floor(Math.random() * len);
-                        result[n] = arr[x in taken ? taken[x] : x];
-                        taken[x] = --len in taken ? taken[len] : len;
-                    }
-                    return result;
-                }
-                
-                function getAllNotifications(){
-                    var pushRef = database.ref('notifications/')
-                    .once('value')
-                    .then(function(snapshot) {
-                        
-                        notificationList = []
-                        if(snapshot.val()!=null){
-                            snapshot.forEach((notification)=> {
-                                notificationList.push(notification.val())
-                            });
-                        }
+                    $.alert({
+                        title: 'Finished',
+                        type: 'green',
+                        content: 'Submitted, thank you!',
                     });
                 }
                 
-                function cancelParticipation(){
-                    subButtonClick()
-                }
             </script>
             
 			<script src="assets/js/jquery.poptrox.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
            
 
 	</body>

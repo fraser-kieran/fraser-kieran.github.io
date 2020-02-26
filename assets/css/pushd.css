@@ -1983,6 +1983,10 @@ input, select, textarea {
 
 	input[type="radio"] + label:before {
 		border-radius: 100%;
+        
+        border: solid;
+        border-width: thin;
+        border-color: dimgray
 	}
 
 	::-webkit-input-placeholder {

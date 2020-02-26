@@ -18,6 +18,25 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
         
+        <style>
+        
+            .modal-body p {
+                margin-bottom: 0px;
+            }
+            .btn-likert.active {
+                background-color: #079198!important;
+            }
+            .btn-group-sm.btn-group-toggle {
+                margin-bottom: 20px;
+            }
+            .modal { overflow: auto !important; }
+            
+            ::-webkit-scrollbar {
+                width: 0px;
+                background: transparent; /* make scrollbar transparent */
+            }
+        </style>
+        
 	</head>
 	<body class="is-preload">
 
@@ -122,8 +141,8 @@
               <div class="modal-body" style="overflow-y: scroll;">
                 <ol>
                     <li>Select applicable gender:<br>
-                        <select class="selectpicker">
-                          <option>Nothing </option>
+                        <select id="gender" class="selectpicker">
+                          <option value="" selected disabled>Nothing selected</option>
                           <option>Male</option>
                           <option>Female</option>
                           <option>Other</option>
@@ -131,8 +150,8 @@
 
                     </li>
                     <li>Select applicable age group:<br>
-                        <select class="selectpicker">
-                          <option>Male</option>
+                        <select id="ages" class="selectpicker">
+                          <option value="" selected disabled>Nothing selected</option>
                           <option>18-29</option>
                           <option>30-39</option>
                           <option>40-49</option>
@@ -141,7 +160,7 @@
                         </select>
 
                     </li>
-                    <li>Select multiple (min 5) topics which you would like to receive notifications on:<br>
+                    <li>Select multiple (min 2) topics which you would like to receive notifications on:<br>
                         <select id="topicPrefs" class="selectpicker" multiple>
                             <option>arts</option>
                             <option>business</option>
@@ -174,7 +193,7 @@
                             <option>worldpost</option>
                         </select>
                     </li>
-                    <li>Select multiple websites which you would like to receive notifications from:<br>
+                    <li>Select multiple websites which you <strong>would</strong> like to receive notifications from:<br>
                         <select id="posWebPrefs" class="selectpicker" data-max-options="15" multiple onchange="generateTestNotifications()">
                             <optgroup label="arts">
                             <option>imdb.com</option>
@@ -287,7 +306,7 @@
                             <option>ikea.com</option>
                         </select>
                     </li>
-                    <li>Select multiple websites which you would <strong>NOT</strong> like to receive notifications from:<br>
+                    <li>Select multiple websites which you would <strong>would NOT</strong> like to receive notifications from:<br>
                         <select id="negWebPrefs" class="selectpicker" data-max-options="15" multiple onchange="generateTestNotifications()">
                             <optgroup label="arts">
                             <option>imdb.com</option>
@@ -402,11 +421,11 @@
                     </li>
                     <br>
                     <li>
-                        <button class="btn btn-primary" onclick="mindfulModal()">Mindful Scale</button>
+                        <button class="btn btn-primary" onclick="mindfulModal()" id="mindfulScaleButton">Mindful Scale</button>
                     </li>
                     <br>
                     <li>
-                        <button class="btn btn-primary" onclick="curiosityModal()">Curiosity Inventory</button>
+                        <button class="btn btn-primary" onclick="curiosityModal()" id="curiosityInventoryButton">Curiosity Inventory</button>
                     </li>
                 </ol>
                 <p id="feedInstructions" style="display: none;">The following 15 notifications have been autonomously generated from your selected websites. Please select the actions (open or dismiss) which you might take on these notifications:</p>
@@ -428,17 +447,386 @@
                 <h2 id="mindfulModalLabel">Mindful Attention Awareness Scale</h2>
               </div>
               <div class="modal-body" style="overflow-y: scroll;">
-                    <label class="statement">I could be experiencing some emotion and not be conscious of
-it until some time later.</label>
-                    <label class="radio-inline"><input type="radio" name="optradio" checked>strongly agree</label>
-                    <label class="radio-inline"><input type="radio" name="optradio">agree</label>
-                    <label class="radio-inline"><input type="radio" name="optradio">neutral</label>
-                    <label class="radio-inline"><input type="radio" name="optradio">disagree</label>
-                    <label class="radio-inline"><input type="radio" name="optradio">strongly disagree</label>
+                  
+                    <p><strong>Instructions:</strong> Below is a collection of statements about your everyday experience. Using the
+1-6 scale below, please indicate how frequently or infrequently you currently have each
+experience. Please answer according to what really reflects your experience rather than
+what you think your experience should be. Please treat each item separately from every
+other item. </p>  
+                    <hr>
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert disabled" style="margin: 5px;">
+                            <input type="radio" name="options" id="1">1. Almost Always
+                          </label>
+                          <label class="btn btn-secondary btn-likert disabled" style="margin: 5px;">
+                            <input type="radio" name="options" id="2">2. Very Frequently
+                          </label>
+                          <label class="btn btn-secondary btn-likert disabled" style="margin: 5px;">
+                            <input type="radio" name="options" id="3">3. Somewhat Frequently
+                          </label>
+                          <label class="btn btn-secondary btn-likert disabled" style="margin: 5px;">
+                            <input type="radio" name="options" id="4" style="margin: 5px;">4. Somewhat Infrequently
+                          </label>
+                          <label class="btn btn-secondary btn-likert disabled">
+                            <input type="radio" name="options" id="5" style="margin: 5px;">5. Very Infrequently
+                          </label>
+                          <label class="btn btn-secondary btn-likert disabled" style="margin: 5px;">
+                            <input type="radio" name="options" id="6">6. Almost Never
+                          </label>
+                        </div>
+                    <hr>
+                    <p>I could be experienceing some emotion and not be conscious of it until some time later.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I break or spill things because of carelessness, not paying attention, or thinking of something else.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I find it difficult to stay focused on what's happening in the present.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I tend to walk quickly to get where I'm going without paying attention to what I experience along the way.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I tend not to notice feelings of physical tension or discomfort until they really grab my attention.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I forget a person's name almost as soon as I've been told it for the first time.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>It seems I am "running on automatic", without much awareness of what I'm doing.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I rush through activities without being really attentive to them.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I get so focused on the goal I want to achieve that I lose touch with what I'm doing right now to get there.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I do jobs or tasks automatically, without being aware of what I'm doing.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I find myself listening to someone with one ear, doing something else at the same time.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I drive places on 'automatic pilot' and then wonder why I went there.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I find myself preoccupied with the future or the past.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I find myself doing things without paying attention.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  <p>I snack without being aware that I'm eating.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="6">6
+                          </label>
+                        </div>
+                    </div>
+                  
+                  <p id="mindfulError" style="color: red; display: none;">You missed a one! Please provide an answer for each.</p>
+                  
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" onclick="closeMindfulModal()">Cancel</button>
-                <button type="button" class="btn btn-success" onclick="saveMindful()">Save</button>
+                <button type="button" class="btn btn-success" onclick="saveMindfulModal()">Save</button>
               </div>
             </div>
           </div>
@@ -452,13 +840,237 @@ it until some time later.</label>
                 <h2 id="curiosityModalLabel">Curiosity and Exploration Inventory (CEI-II)</h2>
               </div>
               <div class="modal-body" style="overflow-y: scroll;">
-                <p><strong>Instructions: </strong>Rate the statements below for how accurately they reflect the way you
+                
+                  <p>
+                      <strong>Instructions:</strong> Rate the statements below for how accurately they reflect the way you
 generally feel and behave. Do not rate what you think you should do, or wish you do, or
-things you no longer do. Please be as honest as possible.</p>
+things you no longer do. Please be as honest as possible. 
+                  </p>  
+                    <hr>
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert disabled" style="margin: 5px;">
+                            <input type="radio" name="options" id="1">1. Very Slightly or Not at All
+                          </label>
+                          <label class="btn btn-secondary btn-likert disabled" style="margin: 5px;">
+                            <input type="radio" name="options" id="2">2. A Little
+                          </label>
+                          <label class="btn btn-secondary btn-likert disabled" style="margin: 5px;">
+                            <input type="radio" name="options" id="3">3. Moderately
+                          </label>
+                          <label class="btn btn-secondary btn-likert disabled" style="margin: 5px;">
+                            <input type="radio" name="options" id="4" style="margin: 5px;">4. Quite a Bit
+                          </label>
+                          <label class="btn btn-secondary btn-likert disabled" style="margin: 5px;">
+                            <input type="radio" name="options" id="4" style="margin: 5px;">5. Extremely
+                          </label>
+                        </div>
+                    <hr>
+                    <p>I actively seek as much information as I can in new situations.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                        </div>
+                    </div>
+                  <p>I am the type of person who really enjoys the uncertainty of everyday life.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                        </div>
+                    </div>
+                  <p>I am at my best when doing something that is complex or challenging.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                        </div>
+                    </div>
+                  <p>Everywhere I go, I am out looking for new things or experiences.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                        </div>
+                    </div>
+                  <p>I view challenging situations as an opportunity to grow and learn.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                        </div>
+                    </div>
+                  <p>I like to do things that are a little frightening.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                        </div>
+                    </div>
+                  <p>I am always looking for experiences that challenge how I think about myself and the world.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                        </div>
+                    </div>
+                  <p>I prefer jobs that are excitingly unpredictable.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                        </div>
+                    </div>
+                  <p>I frequently seek out opportunities to challenge myself and grow as a person.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                        </div>
+                    </div>
+                  <p>I am the kind of person who embraces unfamiliar perople, events and places.</p>
+                    <div class="col-md-12">
+                        <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="1">1
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="2">2
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="3">3
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="4">4
+                          </label>
+                          <label class="btn btn-secondary btn-likert">
+                            <input type="radio" name="options" id="5">5
+                          </label>
+                        </div>
+                    </div>
+                  <p id="curiosityError" style="color: red; display: none;">You missed a one! Please provide an answer for each.</p>
+                  
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" onclick="closeCuriosityModal()">Cancel</button>
-                <button type="button" class="btn btn-success" onclick="saveCuriosity()">Save</button>
+                <button type="button" class="btn btn-success" onclick="saveCuriosityModal()">Save</button>
               </div>
             </div>
           </div>
@@ -530,11 +1142,13 @@ things you no longer do. Please be as honest as possible.</p>
                 var database = firebase.database();
                 
                 var notificationList = []
+                var mindfulScores = []
+                var curiosityScores = []
                 
-                $('#exampleModal').modal({
+                /*$('#exampleModal').modal({
                     backdrop: 'static',
                     keyboard: false
-                })
+                })*/
                 
                 initSubscribe()
                 
@@ -556,25 +1170,55 @@ things you no longer do. Please be as honest as possible.</p>
                 });
                 
                 function mindfulModal(){
-                    $('#mindfulModal').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    })
+                    $('#mindfulModal').modal('show')
                 } 
                 
                 function closeMindfulModal(){
                     $('#mindfulModal').modal('hide')
                 }
                 
+                function saveMindfulModal(){
+                    mindfulScores = []
+                    $('#mindfulError').hide()
+                    var scores = $('#mindfulModal .btn-likert').map(function() { 
+                        if(!this.classList.contains("disabled") && this.classList.contains("active")) 
+                            return this.innerText
+                    }).get();
+                    if(scores.length == 15){
+                        mindfulScores = scores
+                        $('#mindfulModal').modal('hide')
+                        $('#mindfulError').hide()
+                        $('#mindfulScaleButton').removeClass('btn-primary').addClass('btn-success')
+                    }
+                    else{
+                        $('#mindfulError').show()
+                    }
+                }
+                
                 function curiosityModal(){
-                    $('#curiosityModal').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    })
+                    $('#curiosityModal').modal('show')
                 }
                 
                 function closeCuriosityModal(){
-                    $('#curiosityModal').modal('hide')
+                    $('#curiosityModal').modal('destroy')
+                }
+                
+                function saveCuriosityModal(){
+                    curiosityScores = []
+                    $('#curiosityError').hide()
+                    var scores = $('#curiosityModal .btn-likert').map(function() { 
+                        if(!this.classList.contains("disabled") && this.classList.contains("active")) 
+                            return this.innerText
+                    }).get();
+                    if(scores.length == 10){
+                        curiosityScores = scores
+                        $('#curiosityModal').modal('hide')
+                        $('#curiosityError').hide()
+                        $('#curiosityInventoryButton').removeClass('btn-primary').addClass('btn-success')
+                    }
+                    else{
+                        $('#curiosityError').show()
+                    }
                 }
                 
                 function signup(){
@@ -589,6 +1233,8 @@ things you no longer do. Please be as honest as possible.</p>
                 
                 function savePrefs(){
                     
+                    gender = $('#gender').val()
+                    ages = $('#ages').val()
                     topics = $('#topicPrefs').val()
                     posWeb = $('#posWebPrefs').val()
                     negWeb = $('#negWebPrefs').val()
@@ -605,6 +1251,15 @@ things you no longer do. Please be as honest as possible.</p>
                             dismissed.push(id)
                    });
                     
+                    if(gender==null || ages==null){
+                        $.alert({
+                            title: 'Wait!',
+                            type: 'orange',
+                            content: 'You must select a gender <strong>and</strong> age group...',
+                        });
+                        return
+                    }
+                    
                     if(topics.length<2|posWeb.length<2|negWeb.length<2|(opened.length+dismissed.length)<5){
                         $.alert({
                             title: 'Wait!',
@@ -613,31 +1268,43 @@ things you no longer do. Please be as honest as possible.</p>
                         });
                         return
                     }
-                    else{
-                        savePreferences(topics, posWeb, negWeb, opened, dismissed)
-                        
-                        $.confirm({
-                            title: 'Finished',
-                            type: 'green',
-                            content: 'You are now set up. Simply engage with incoming notifiations as normal over the next two weeks. You will receive a final questionnaire via notification at the end of the experiment period which will conclude the study. Thanks for participating!',
-                            buttons: {
-                                confirm: function () {
-                                    $('#exampleModal').modal('hide')
-                                }
-                            }
+                    
+                    if(mindfulScores<15 || curiosityScores<10){
+                        $.alert({
+                            title: 'Wait!',
+                            type: 'orange',
+                            content: 'You\'re almost finished! Please complete the Mindful Scale and Curiosity Inventory...',
                         });
+                        return
                     }
+                    
+                    savePreferences(gender, ages, topics, posWeb, negWeb, opened, dismissed)
+
+                    $.confirm({
+                        title: 'Finished',
+                        type: 'green',
+                        content: 'You are now set up. Simply engage with incoming notifiations as normal over the next two weeks. You will receive a final questionnaire via notification at the end of the experiment period which will conclude the study. Thanks for participating!',
+                        buttons: {
+                            confirm: function () {
+                                $('#exampleModal').modal('hide')
+                            }
+                        }
+                    });
                 }
                 
-                function savePreferences(topics, posWeb, negWeb, opened, dismissed) {
+                function savePreferences(gender, ages, topics, posWeb, negWeb, opened, dismissed) {
                     
                     
                     userId = document.cookie.split('=')[1]
                     if(userId.charAt(0) == '-'){
                         database.ref('participant/'+userId).update({
+                            gender: gender,
+                            ages: ages,
                             topics: topics,
                             pos_web: posWeb,
                             neg_web: negWeb,
+                            mindful_scores: mindfulScores,
+                            curiosity_scores: curiosityScores,
                             init_open: opened,
                             init_dismissed: dismissed
                         });

@@ -209,6 +209,7 @@ function unsubscribeUser() {
         
         userId = document.cookie.split('=')[1]
         database.ref('participant/'+userId).remove();
+        document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         /*var subUrl = "https://autoempushy.herokuapp.com/v1/unsub";
 
         var formData = JSON.stringify({
@@ -237,6 +238,11 @@ function unsubscribeUser() {
         $('#cb-info').prop('checked', false)
         $('#cb-consent').prop('checked', false)
         $('#exampleModal').modal('hide')
+        
+        if($('#curiosityInventoryButton').hasClass('btn-success'))
+            $('#curiosityInventoryButton').removeClass('btn-success').addClass('btn-primary')
+        if($('#mindfulScaleButton').hasClass('btn-success'))
+            $('#mindfulScaleButton').removeClass('btn-success').addClass('btn-primary')
         
         return subscription.unsubscribe();
     }

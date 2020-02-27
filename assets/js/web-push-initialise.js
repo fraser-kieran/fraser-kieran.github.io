@@ -208,41 +208,46 @@ function unsubscribeUser() {
         console.log("Clear all user data on the server")
         
         userId = document.cookie.split('=')[1]
-        database.ref('participant/'+userId).remove();
-        document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        /*var subUrl = "https://autoempushy.herokuapp.com/v1/unsub";
-
-        var formData = JSON.stringify({
-            "userId": null,
-            "subId": subId,
-            "subInfo": subscription            
-        })
-
-        $.ajax ({
-            url: subUrl,
-            type: "POST",
-            data: formData,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            crossDomain: true,
-            success: function(data) {
-                try{
-                    
-                }
-                catch(err){}
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                
-            } 
-        });*/
-        $('#cb-info').prop('checked', false)
-        $('#cb-consent').prop('checked', false)
-        $('#exampleModal').modal('hide')
         
-        if($('#curiosityInventoryButton').hasClass('btn-success'))
-            $('#curiosityInventoryButton').removeClass('btn-success').addClass('btn-primary')
-        if($('#mindfulScaleButton').hasClass('btn-success'))
-            $('#mindfulScaleButton').removeClass('btn-success').addClass('btn-primary')
+        database.ref('participant/'+userId).once('value').then(function(snapshot) {
+            if(snapshot.val()!=null){
+                try{
+                    week1Group = snapshot.val()['weekone']
+                    week2Group = snapshot.val()['weektwo']
+                    week3Group = snapshot.val()['weekthree']
+
+                    database.ref('groups/weekone/'+week1Group+'/'+userId).remove();
+                    database.ref('groups/weektwo/'+week2Group+'/'+userId).remove();
+                    database.ref('groups/weekthree/'+week3Group+'/'+userId).remove();
+
+                    database.ref('participant/'+userId).remove();
+                    document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+                    $('#cb-info').prop('checked', false)
+                    $('#cb-consent').prop('checked', false)
+                    $('#exampleModal').modal('hide')
+
+                    if($('#curiosityInventoryButton').hasClass('btn-success'))
+                        $('#curiosityInventoryButton').removeClass('btn-success').addClass('btn-primary')
+                    if($('#mindfulScaleButton').hasClass('btn-success'))
+                        $('#mindfulScaleButton').removeClass('btn-success').addClass('btn-primary')
+                }
+                catch(err){
+                    $.alert({
+                        title: 'Error!',
+                        type: 'red',
+                        content: 'There was a problem unsubscribing you for this study. Please contact lead researcher!',
+                    });
+                }
+            }
+            else{
+                $.alert({
+                    title: 'Error!',
+                    type: 'red',
+                    content: 'There was a problem unsubscribing you for this study. Please contact lead researcher!',
+                });
+            }
+        });
         
         return subscription.unsubscribe();
     }
@@ -352,10 +357,63 @@ function subNewParticipant(subscription) {
         "subInfo": subscription            
     })
     
-    database.ref('participant/'+userId).set({
-        id: userId,
-        subInfo: subInfo
+    // Assign to groups..
+    // get groups
+    var chosenGroups = {weekone: null, weektwo: null, weekthree: null}
+    
+    database.ref('groups/').once('value').then(function(snapshot) {
+        if(snapshot.val()!=null){
+            var weeks = snapshot.val()
+            for(week in weeks){
+                var groups = weeks[week]
+                var smallest = 999999
+                var chosenGroup = null
+                for(group in groups){
+                    if(getGroupSize(groups[group]) < smallest){
+                        chosenGroup = group
+                        smallest = getGroupSize(groups[group])
+                    }
+                }
+                chosenGroups[week] = chosenGroup
+            }
+            if(chosenGroups['weekone']!=null && chosenGroups['weektwo']!=null && chosenGroups['weekthree']!=null){
+                console.log('Saving user details..')
+                database.ref('participant/'+userId).set({
+                    id: userId,
+                    subInfo: subInfo,
+                    phase: 1,
+                    signedUp: Math.round((new Date()).getTime()),
+                    weekone: chosenGroups['weekone'],
+                    weektwo: chosenGroups['weektwo'],
+                    weekthree: chosenGroups['weekthree']
+                }, function(error) {
+                    if (error) {
+                      $.alert({
+                            title: 'Error!',
+                            type: 'red',
+                            content: 'There was a problem registering you for this study. Please contact lead researcher!',
+                        });
+                        unsubscribeUser()
+                    } else {
+
+                        console.log('Updating groups...')
+                        for(week in chosenGroups)
+                            if(chosenGroups[week] != null)
+                                database.ref('groups/'+week+'/'+chosenGroups[week]+'/'+userId).set({userId})
+                    }
+                });
+            }
+        }
     });
+    
+    
+}
+
+function getGroupSize(group){
+    var counter = 0
+    for(key in group)
+        counter++
+    return counter
 }
 
 function urlB64ToUint8Array(base64String) {

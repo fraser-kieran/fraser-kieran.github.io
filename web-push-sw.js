@@ -25,75 +25,119 @@ self.addEventListener('push', function(event) {
         event.waitUntil(self.registration.showNotification('Pushd Study Alert', options));
     }
     else{
-        const title = notification.domain.replace('https://', '').replace('http://', '');
-    
-        //notification_data = { notification: { data: { notificationId: notification.id, userId: notification.userId } } }
-        //update_engagement(notification_data, 'delivered')
-
+        
+        notification_data = { notification: { data: { notificationId: notification.id,
+                                                      userId: notification.userId,
+                                                      engagement: 'delivered' } } }
+        update_engagement(notification_data, 'delivered')
+        
         var options = {}
-
-        //if(notification.imageURL!=''){
-        options = {
-            body: notification.summary,
-            badge: '/images/badge.png',
-            icon: 'https://'+notification.domain+'/favicon.ico',
-            //image: notification.imageURL,
-            data: {
-                notificationId: notification.id,
-                userId: notification.user,
-                url: notification.url
-            },
-            /*actions: [
-                {
-                  action: 'read-later',
-                  title: '💾 Later',
-                  icon: 'https://pushdweb.github.io/images/ic_later.png'
-                },
-                {
-                  action: 'liked',
-                  title: '👍 Like',
-                  icon: 'https://pushdweb.github.io/images/ic_like.png'
-                },  
-                {
-                  action: 'dismissed',
-                  title: 'Remove',
-                  icon: 'https://pushdweb.github.io/images/ic_like.png'
-                }            
-            ]*/
-        };
-        /*}
-        else {
-            options = {
-                body: notification.message,
-                badge: '/images/badge.png',
-                icon: notification.icon,
-                data: {
-                    notificationId: notification.id,
-                    userId: notification.userId
-                },
-                actions: [
-                    {
-                      action: 'read-later',
-                      title: '💾 Later',
-                      icon: 'https://pushdweb.github.io/images/ic_later.png'
-                    },
-                    {
-                      action: 'liked',
-                      title: '👍 Like',
-                      icon: 'https://pushdweb.github.io/images/ic_like.png'
-                    },  
-                    {
-                      action: 'dismissed',
-                      title: 'Remove',
-                      icon: 'https://pushdweb.github.io/images/ic_like.png'
+        
+        switch(notification.template){
+            case 'control':
+                title = notification.domain
+                options = {
+                    body: notification.summary,
+                    badge: '/images/badge.png',
+                    icon: notification.domain+'/favicon.ico',
+                    data: {
+                        notificationId: notification.id,
+                        userId: notification.user,
+                        url: notification.url
                     }
-                ]
-            };  
-        }*/
-
-        event.waitUntil(self.registration.showNotification(title, options));
+                };
+                event.waitUntil(self.registration.showNotification(title, options));
+                break;
+            case 'emojikey':
+                title = notification.domain
+                options = {
+                    body: summary_to_keywords(notification),
+                    badge: '/images/badge.png',
+                    icon: notification.domain+'/favicon.ico',
+                    data: {
+                        notificationId: notification.id,
+                        userId: notification.user,
+                        url: notification.url
+                    }
+                };
+                event.waitUntil(self.registration.showNotification(title, options));
+                break;
+            case 'emojisen':
+                title = notification.domain
+                options = {
+                    body: summary_to_emoji(notification),
+                    badge: '/images/badge.png',
+                    icon: notification.domain+'/favicon.ico',
+                    data: {
+                        notificationId: notification.id,
+                        userId: notification.user,
+                        url: notification.url
+                    }
+                };
+                event.waitUntil(self.registration.showNotification(title, options));
+                break;
+            case 'empathetic':
+                title = empathetic_title(notification)
+                options = {
+                    body: empathetic_summary(notification),
+                    badge: '/images/badge.png', // sentiment badge
+                    icon: notification.domain+'/favicon.ico',
+                    data: {
+                        notificationId: notification.id,
+                        userId: notification.user,
+                        url: notification.url
+                    }
+                };
+                event.waitUntil(self.registration.showNotification(title, options));
+                break;
+        }
+        
     }
 });
+
+
+function summary_to_keywords(notification){
+    summary = notification['summary'].replace(', ', ' ').toLowerCase()
+    emojis = notification['emoji_key'].split(', ')
+    keywords = notification['keywords'].split(', ')
+    for(var i=0; i<keywords.length; i++)
+        summary = summary.replace(keywords[i], keywords[i]+' '+emojis[i])
+    return capitalizeFirstLetter(summary)
+}
+
+function summary_to_emoji(notification){
+    emojis = notification['emoji_sen']
+    summary = emojis + '\n' + summary
+    return summary
+}
+
+// Put sentiment here based on the value
+function empathetic_title(notification){
+    if(notification.hasOwnProperty('inf_topic'))
+        notification.topic = notification.inf_topic
+    return 'A ' + notification.topic.split(':')[0] + ' message from '+notification.domain
+}
+
+function empathetic_badge(notification){
+    
+}
+
+function empathetic_summary(notification){
+    if(notification.hasOwnProperty('inf_enticement'))
+        notification.enticement = notification.inf_enticement
+    switch(notification.enticement){
+        case 'low':
+            return notification.summary
+        case 'medium':
+            return 'Brief:\n' + notification.keywords
+        case 'high':
+            return 'Brief:\n' + notification.keywords
+    }
+}
+
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 self.addEventListener('notificationclick', function(event) {
     

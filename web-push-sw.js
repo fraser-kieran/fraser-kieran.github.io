@@ -74,7 +74,7 @@ self.addEventListener('push', function(event) {
                 event.waitUntil(self.registration.showNotification(title, options));
                 break;
             case 'emojisen':
-                title = notification['emoji_sen']+'\n'+notification.domain
+                title = notification['emoji_sen']+'\n - '+notification.domain
                 options = {
                     body: notification.summary,
                     badge: '/images/badge.png',
@@ -97,7 +97,7 @@ self.addEventListener('push', function(event) {
                 title = empathetic_title(notification)
                 options = {
                     body: empathetic_summary(notification),
-                    badge: '/images/badge.png', // sentiment badge
+                    badge: empathetic_badge(notification), // sentiment badge
                     icon: notification.domain+'/favicon.ico',
                     data: {
                         notificationId: notification.id,
@@ -137,7 +137,7 @@ function summary_to_emoji(notification){
 function empathetic_title(notification){
     if(notification.hasOwnProperty('inf_topic'))
         notification.topic = notification.inf_topic
-    return 'A ' + notification.topic.split(':')[0] + ' message from '+notification.domain
+    return capitalizeFirstLetter(notification.topic.split(':')[0] + ' message from '+notification.domain)
 }
 
 function empathetic_badge(notification){

@@ -18,7 +18,8 @@ self.addEventListener('push', function(event) {
             data: {
                 notificationId: null,
                 userId: notification.user,
-                url: notification.url
+                url: notification.url,
+                midstudy: true
             },
 
         };
@@ -43,7 +44,12 @@ self.addEventListener('push', function(event) {
                     data: {
                         notificationId: notification.id,
                         userId: notification.user,
-                        url: notification.url
+                        url: notification.url,
+                        topic: notification.topic,
+                        sentiment: notification.sentiment,
+                        enticement: notification.enticement,
+                        keywords: notification.keywords,
+                        emojis: notification.emoji_key
                     }
                 };
                 event.waitUntil(self.registration.showNotification(title, options));
@@ -57,26 +63,37 @@ self.addEventListener('push', function(event) {
                     data: {
                         notificationId: notification.id,
                         userId: notification.user,
-                        url: notification.url
+                        url: notification.url,
+                        topic: notification.topic,
+                        sentiment: notification.sentiment,
+                        enticement: notification.enticement,
+                        keywords: notification.keywords,
+                        emojis: notification.emoji_key
                     }
                 };
                 event.waitUntil(self.registration.showNotification(title, options));
                 break;
             case 'emojisen':
-                title = notification.domain
+                title = notification['emoji_sen']+'\n'+notification.domain
                 options = {
-                    body: summary_to_emoji(notification),
+                    body: notification.summary,
                     badge: '/images/badge.png',
                     icon: notification.domain+'/favicon.ico',
                     data: {
                         notificationId: notification.id,
                         userId: notification.user,
-                        url: notification.url
+                        url: notification.url,
+                        topic: notification.topic,
+                        sentiment: notification.sentiment,
+                        enticement: notification.enticement,
+                        keywords: notification.keywords,
+                        emojis: notification.emoji_key
                     }
                 };
                 event.waitUntil(self.registration.showNotification(title, options));
                 break;
             case 'empathetic':
+                console.log('Empathetic template')
                 title = empathetic_title(notification)
                 options = {
                     body: empathetic_summary(notification),
@@ -85,7 +102,12 @@ self.addEventListener('push', function(event) {
                     data: {
                         notificationId: notification.id,
                         userId: notification.user,
-                        url: notification.url
+                        url: notification.url,
+                        topic: notification.topic,
+                        sentiment: notification.sentiment,
+                        enticement: notification.enticement,
+                        keywords: notification.keywords,
+                        emojis: notification.emoji_key
                     }
                 };
                 event.waitUntil(self.registration.showNotification(title, options));
@@ -107,7 +129,7 @@ function summary_to_keywords(notification){
 
 function summary_to_emoji(notification){
     emojis = notification['emoji_sen']
-    summary = emojis + '\n' + summary
+    summary = emojis + '\n' + notification.summary
     return summary
 }
 
@@ -119,21 +141,81 @@ function empathetic_title(notification){
 }
 
 function empathetic_badge(notification){
-    
+    if(notification.sentiment=='positive')
+        return '/images/pos_badge.png'
+    else if(notification.sentiment=='negative')
+        return '/images/neg_badge.png'
+    else
+        return '/images/badge.png'
 }
 
 function empathetic_summary(notification){
+    const unique = (value, index, self) => {
+      return self.indexOf(value) === index
+    }
     if(notification.hasOwnProperty('inf_enticement'))
         notification.enticement = notification.inf_enticement
     switch(notification.enticement){
         case 'low':
             return notification.summary
         case 'medium':
-            return 'Brief:\n' + notification.keywords
+            keywords = []
+            emojis = []
+            for(var i=0; i<notification.keywords.split(', ').length; i++){
+                try{
+                    keywords.push(notification.keywords.split(', ')[i])
+                    emojis.push(notification.emoji_key.split(', ')[i])
+                }catch(err){}
+            }
+            return emojis.filter(unique).join()+'\n'+
+                keywords.filter(unique).join()
         case 'high':
-            return 'Brief:\n' + notification.keywords
+            keywords = []
+            emojis = []
+            for(var i=0; i<notification.keywords.split(', ').length; i++){
+                try{
+                    keywords.push(notification.keywords.split(', ')[i])
+                    emojis.push(notification.emoji_key.split(', ')[i])
+                }catch(err){}
+            }
+            return emojis.filter(unique).join()+'\n'+
+                keywords.filter(unique).join()
     }
 }
+
+/*
+function multipleEmpatheticTitle(notifications){
+    const unique = (value, index, self) => {
+      return self.indexOf(value) === index
+    }
+    topics = []
+    for(var i=0; i<notifications.length; i++){
+        if(notifications[i].data && notifications[i].data.topic)
+            topics.push(notifications[i].data.topic)
+    }
+    console.log(topics)
+    return 'Messages on '+topics.filter(unique).join()
+}
+
+function multipleEmpatheticBody(notifications){
+    const unique = (value, index, self) => {
+      return self.indexOf(value) === index
+    }
+    keywords = []
+    emojis = []
+    for(var i=0; i<notifications.length; i++){
+        if(notifications[i].data && notifications[i].data.keywords && notifications[i].data.emojis){
+            try{
+                for(var j=0; j<notifications[i].data.keywords.split(', ').length; j++){
+                    keywords.push(notifications[i].data.keywords.split(', ')[j])
+                    emojis.push(notifications[i].data.emojis.split(', ')[j])
+                }
+            }catch(err){}
+        }
+    }
+    return emojis.filter(unique).join()+'\n'+keywords.filter(unique).join()
+}
+*/
 
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);

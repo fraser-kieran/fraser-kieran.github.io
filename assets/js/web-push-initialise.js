@@ -19,11 +19,11 @@ function initSubscribe(){
     
     /* Check if service workers and push messaging is supported by the browser */
     if ('serviceWorker' in navigator && 'PushManager' in window) {
-      console.log('Service Worker and Push is supported');
+      //console.log('Service Worker and Push is supported');
 
       navigator.serviceWorker.register('web-push-sw.js', {scope: '/pushd.html'})
       .then(function(swReg) {
-        console.log('Service Worker is registered', swReg);
+        //console.log('Service Worker is registered', swReg);
 
         swRegistration = swReg;
         initializeUI();
@@ -205,7 +205,6 @@ function unsubscribeUser() {
       
     if (subscription) {
         // unsub api call using subscription object to search for applicable sub
-        console.log("Clear all user data on the server")
         
         userId = document.cookie.split('=')[1]
         

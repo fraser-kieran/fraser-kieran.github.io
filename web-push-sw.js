@@ -4,11 +4,8 @@ self.addEventListener('push', function(event) {
     // applicationServerKey: 
     // BJ-qALtORweP7IZtnNMoY-8gwsFsPSPXlrAYU6dBulwYcv6CPrIIr8-t57PgUPfGMqsg0DfVPre_thVyWqBPaZo
     
-    console.log('[Service Worker] Push Received.');
-    //console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
     notification = event.data.json()
-    console.log(notification)
     
     if(notification.hasOwnProperty('midstudy')){
         options = {
@@ -27,8 +24,8 @@ self.addEventListener('push', function(event) {
     }
     else{
         
-        notification_data = { notification: { data: { notificationId: notification.id,
-                                                      userId: notification.userId,
+        var notification_data = { notification: { data: { notificationId: notification.id,
+                                                      userId: notification.user,
                                                       engagement: 'delivered' } } }
         update_engagement(notification_data, 'delivered')
         
@@ -93,7 +90,7 @@ self.addEventListener('push', function(event) {
                 event.waitUntil(self.registration.showNotification(title, options));
                 break;
             case 'empathetic':
-                console.log('Empathetic template')
+                
                 title = empathetic_title(notification)
                 options = {
                     body: empathetic_summary(notification),
@@ -193,7 +190,6 @@ function multipleEmpatheticTitle(notifications){
         if(notifications[i].data && notifications[i].data.topic)
             topics.push(notifications[i].data.topic)
     }
-    console.log(topics)
     return 'Messages on '+topics.filter(unique).join()
 }
 
@@ -234,42 +230,19 @@ self.addEventListener('notificationclick', function(event) {
     else{
         if (!event.action) {
             // Was a normal notification click
-            console.log('Notification opened');
-
             update_engagement(event, 'opened')
             if (clients.openWindow) {
                 event.waitUntil(clients.openWindow(event.notification.data.url+'?source=pushd'))
             }
             return;
         }
-        console.log(`Unknown action clicked: '${event.action}'`);
         update_engagement(event, 'unknown')
-
-        /*switch (event.action) {
-        case 'read-later':
-            console.log('deliver notification later');
-            update_engagement(event, 'later')
-            break;
-        case 'liked':
-            console.log('Update like metrics for this notification');
-            update_engagement(event, 'liked')
-            break;
-        case 'dismissed':
-            console.log('Update dismiss metrics for this notification');
-            update_engagement(event, 'dismissed')
-            break;
-        default:
-            console.log(`Unknown action clicked: '${event.action}'`);
-            update_engagement(event, 'unknown')
-            break;
-        }*/
     }
     
     
 });
 
 self.addEventListener('notificationclose', function(event) {
-    console.log('Notification dismissed')
     if(event.notification.data.notificationId!=null){
         update_engagement(event, 'dismissed')
     }

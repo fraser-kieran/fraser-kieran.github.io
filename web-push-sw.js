@@ -40,7 +40,7 @@ self.addEventListener('push', function(event) {
                 options = {
                     body: notification.summary,
                     badge: '/images/badge.png',
-                    icon: notification.domain+'/favicon.ico',
+                    icon: 'https://'+notification.domain+'/favicon.ico',
                     data: {
                         notificationId: notification.id,
                         userId: notification.user,
@@ -59,7 +59,7 @@ self.addEventListener('push', function(event) {
                 options = {
                     body: summary_to_keywords(notification),
                     badge: '/images/badge.png',
-                    icon: notification.domain+'/favicon.ico',
+                    icon: 'https://'+notification.domain+'/favicon.ico',
                     data: {
                         notificationId: notification.id,
                         userId: notification.user,
@@ -78,7 +78,7 @@ self.addEventListener('push', function(event) {
                 options = {
                     body: notification.summary,
                     badge: '/images/badge.png',
-                    icon: notification.domain+'/favicon.ico',
+                    icon: 'https://'+notification.domain+'/favicon.ico',
                     data: {
                         notificationId: notification.id,
                         userId: notification.user,
@@ -98,7 +98,7 @@ self.addEventListener('push', function(event) {
                 options = {
                     body: empathetic_summary(notification),
                     badge: empathetic_badge(notification), // sentiment badge
-                    icon: notification.domain+'/favicon.ico',
+                    icon: 'https://'+notification.domain+'/favicon.ico',
                     data: {
                         notificationId: notification.id,
                         userId: notification.user,

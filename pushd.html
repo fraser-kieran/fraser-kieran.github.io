@@ -1228,14 +1228,98 @@ things you no longer do. Please be as honest as possible.
                     }
                 }
                 
-                function signup(){
-                    if($("#cb-info").prop('checked') && $("#cb-consent").prop('checked')){
-                        $("#checkbox-message").hide();
-                        subButtonClick()
+                function checkChrome(){
+                    var isChromium = window.chrome;
+                    var winNav = window.navigator;
+                    var vendorName = winNav.vendor;
+                    var isOpera = typeof window.opr !== "undefined";
+                    var isIEedge = winNav.userAgent.indexOf("Edge") > -1;
+
+                    if(
+                      isChromium !== null &&
+                      typeof isChromium !== "undefined" &&
+                      vendorName === "Google Inc." &&
+                      isOpera === false &&
+                      isIEedge === false
+                    ) {
+                       if($("#cb-info").prop('checked') && $("#cb-consent").prop('checked')){
+                            $("#checkbox-message").hide();
+                            subButtonClick()
+                        }
+                        else{
+                            $("#checkbox-message").show();
+                        }
+                    } else { 
+                       $.confirm({
+                            title: "<h2 style='text-transform: capitalize; letter-spacing: normal; line-spacing: normal;'>Chrome not Detected</h2>",
+                            content: "<h5 style='text-transform: none; letter-spacing: normal; line-spacing: normal;'>We have detected that you may not be using the <strong>Chrome</strong> web browser when signing up. This experiment only supports participation through Google Chrome web browser. If you are sure you are using Google Chrome, please proceed. Otherwise, please install and navigate to this page using <a href='https://play.google.com/store/apps/details?id=com.android.chrome' target='_blank'>Chrome</a>.</h5>",
+                            type: 'orange',
+                            useBootstrap: true,
+                            typeAnimated: true,
+                            buttons: {
+                                grant: {
+                                    text: 'I am using Chrome',
+                                    btnClass: 'btn-green',
+                                    action: function(){
+                                        if($("#cb-info").prop('checked') && $("#cb-consent").prop('checked')){
+                                            $("#checkbox-message").hide();
+                                            subButtonClick()
+                                        }
+                                        else{
+                                            $("#checkbox-message").show();
+                                        }
+                                    }
+                                },
+                                deny: {
+                                    text: 'Cancel Participation',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        return;
+                                    }
+                                }
+                            },
+                            draggable: false,
+                        }); 
                     }
+                }
+                
+                function checkAndroid() { 
+                    var userAgent = navigator.userAgent.toLowerCase(); 
+                    var isAndroid = userAgent.indexOf("android") > -1; 
+
+                    if(isAndroid) { 
+                        checkChrome()
+                    } 
                     else{
-                        $("#checkbox-message").show();
+                        $.confirm({
+                            title: "<h2 style='text-transform: capitalize; letter-spacing: normal; line-spacing: normal;'>Android not Detected</h2>",
+                            content: "<h5 style='text-transform: none; letter-spacing: normal; line-spacing: normal;'>We have detected that you may not be using an <strong>Android</strong> mobile device when signing up. This experiment only supports participation through Android mobile devices. If you are sure this is an Android device, please proceed. Otherwise, please navigate to this page using an Android mobile device and the Google Chrome web browser!</h5>",
+                            type: 'orange',
+                            useBootstrap: true,
+                            typeAnimated: true,
+                            buttons: {
+                                grant: {
+                                    text: 'I am using Android',
+                                    btnClass: 'btn-green',
+                                    action: function(){
+                                        checkChrome();
+                                    }
+                                },
+                                deny: {
+                                    text: 'Cancel Participation',
+                                    btnClass: 'btn-red',
+                                    action: function(){
+                                        return;
+                                    }
+                                }
+                            },
+                            draggable: false,
+                        });
                     }
+                } 
+                
+                function signup(){
+                    checkAndroid()
                 }
                 
                 function savePrefs(){

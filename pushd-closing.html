@@ -64,16 +64,29 @@
                     
 				<!-- One -->
                     <span class="image"><img style="width: 50%; margin: auto;" src="images/pushd/pushd_black_no_caption_3.0.png" alt="pushd logo" /></span>
-					<section id="one">
-                        <p>The Pushd Study has now concluded. Thank you for your participation!
-                        </p>
-                        
-                        
-                        <p>If you have a Prolific Academic account, please enter your id below.</p>
-                        <div class="col-md-12">
-                            <input id="prolificId" onkeydown="displayButton()">
-                            <button id="submitButton" class="btn btn-primary" style="display: none;" onclick="goToProlific()">Submit</button>
+					<section id="one" style="text-align: center">
+                        <h3>Thank you for your participation!
+                        </h3>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p id="delivered" style="font-size: xx-large"></p>
+                                <p># notifications delivered</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p id="answered" style="font-size: xx-large"></p>
+                                <p># questionnaires answered</p>
+                            </div>
+                            <div class="col-md-4" id="daysLeftContainer">
+                                <p id="daysLeft" style="font-size: xx-large"></p>
+                                <p># days left before completion</p>
+                            </div>
                         </div>
+                        <br>
+                        <h5 id="notCompleteMessage" style="display: none;">A link to the Prolific Academic study submission confirmation page will appear here once you have completed the 21 days of the study, please check back again soon.</h5>
+                        <h5 id="alreadyCompleteMessage" style="display: none;">You have confirmed completion.</h5>
+                        <button class="btn btn-success" id="completeButton" style="display: none;" onclick="goToProlific()">Confirm Completion</button>
+                        <button class="btn btn-success" id="completeButtonAlt" style="display: none;" onclick="completed()">Confirm Completion</button>
 					</section>
                 
 				<!-- Two -->
@@ -124,12 +137,16 @@
                 // Initialize Firebase
                 firebase.initializeApp(firebaseConfig);
                 var database = firebase.database();
+                var prolificURL = null
+                var userId = null
                 
                 
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
                         var isAnonymous = user.isAnonymous;
                         var uid = user.uid;
+                        getProlificURLS()
+                        setUp()
                         
                     } else {
                         firebase.auth().signInAnonymously().catch(function(error) {
@@ -143,34 +160,220 @@
                     }
                 });
                 
-                function displayButton(){
-                    $('#submitButton').show()
-                }
-                
-                function goToProlific(){
-                    // get userId from the p parameter!
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const userId = urlParams.get('u');
+                function setUp(){
                     
-                    
-                    var id = $('#prolificId').val()
-                    
-                    if(userId.charAt(0) == '-' && id!='' && id!=null){
-                        database.ref('participant/'+userId).update({
-                            timeCompleted: Math.round((new Date()).getTime()),
-                            prolific: id
-                        }, function(error) {
-                            if (error) {
-                              $.alert({
+                    var prolificId = ''
+                    try{
+                        const urlParams = new URLSearchParams(window.location.search);
+                        prolificId = urlParams.get('PROLIFIC_PID');
+                    }catch(e){}
+                    if(prolificId && prolificId!=''){
+                        try{
+                            database.ref('participant').orderByChild('prolificId').equalTo(prolificId)
+                            .once('value')
+                            .then(function(snapshot) {
+                                if(snapshot && snapshot.val()!=null){
+                                    var user = null
+                                    for(var key in snapshot.val()){
+                                        if(key && key!=null)
+                                            user = snapshot.val()[key]
+                                        break
+                                    }
+                                    console.log(user)
+                                    if(user && user!=null){
+                                        var size = 0
+                                        var answers = 0
+                                        var daysLeft = 0
+                                        var alreadyCompleted = false
+                                        userId = user.id
+                                        
+                                        
+                                        if(user.hasOwnProperty('notifications'))
+                                            size = Object.keys(user.notifications).length
+                                        if(user.hasOwnProperty('midstudy'))
+                                            answers = Object.keys(user.midstudy).length
+                                        if(user.hasOwnProperty('timeCompleted'))
+                                            alreadyCompleted = true
+                                        
+                                        var timeDiff = (new Date()).getTime() - (new Date(user.signedUp)).getTime();
+                                        var daysLeft = timeDiff / (1000 * 3600 * 24);
+                                        daysLeft = 21 - Math.round(daysLeft)
+                                        if(daysLeft < 0)
+                                            daysLeft = 0
+                                        var phase = user.phase
+                                        
+                                        $("#delivered").html(size);
+                                        $("#answered").html(answers);
+                                        $("#daysLeft").html(daysLeft);
+                                        
+                                        if(phase && phase==4 && !alreadyCompleted){
+                                            $('#completeButton').show()
+                                        } 
+                                        else if (alreadyCompleted){
+                                            $('#alreadyCompleteMessage').show()
+                                        }
+                                        else{
+                                            $('#notCompleteMessage').show()
+                                        }
+                                    }
+                                    
+                                }
+                            });
+                            // make sure phase 4 else show how many days left
+                            // show closing link and update user completed.
+
+                            /*if(userId.charAt(0) == '-' && id!='' && id!=null){
+                                database.ref('participant/'+userId).update({
+                                    timeCompleted: Math.round((new Date()).getTime()),
+                                    prolificIdCompleted: id
+                                }, function(error) {
+                                    if (error) {
+                                      $.alert({
+                                            title: 'Error!',
+                                            type: 'red',
+                                            content: 'There was an error submitting. Please contact the lead researcher.',
+                                        });
+                                    return
+                                    } else {
+                                        window.location.replace("http://www.google.com");
+                                    }
+                                  });
+                            }
+                            else{
+                                $.alert({
                                     title: 'Error!',
                                     type: 'red',
                                     content: 'There was an error submitting. Please contact the lead researcher.',
                                 });
+                                return
+                            }*/
+                        }catch(e){
+                            $.alert({
+                                title: 'Error!',
+                                type: 'red',
+                                content: 'There was an error submitting. Please contact the lead researcher.',
+                            });
                             return
+                        }
+                    }
+                    else{
+                        // no prolific id.. get user id.. 
+                        try{
+                            // get userId from the p parameter!
+                            const urlParams = new URLSearchParams(window.location.search);
+                            userId = urlParams.get('u');
+                            
+                            database.ref('participant/'+userId)
+                            .once('value')
+                            .then(function(snapshot) {
+                                if(snapshot && snapshot.val()!=null){
+                                    var user = snapshot.val()
+                                    
+                                    var size = 0
+                                    var answers = 0
+                                    var daysLeft = 0
+                                    var alreadyCompleted = false
+
+                                    if(user.hasOwnProperty('notifications'))
+                                        size = Object.keys(user.notifications).length
+                                    if(user.hasOwnProperty('midstudy'))
+                                        answers = Object.keys(user.midstudy).length
+                                    if(user.hasOwnProperty('timeCompleted'))
+                                        alreadyCompleted = true
+
+                                    var phase = user.phase
+
+                                    $("#delivered").html(size);
+                                    $("#answered").html(answers);
+                                    $("#daysLeftContainer").hide();
+
+                                    if(phase && phase==4 && !alreadyCompleted){
+                                        $('#completeButtonAlt').show()
+                                    }
+                                    else if (alreadyCompleted){
+                                        $('#alreadyCompleteMessage').show()
+                                        
+                                    }
+                                }
+                                else{
+                                    $.alert({
+                                        title: 'Error!',
+                                        type: 'red',
+                                        content: 'There was an error. Please contact the lead researcher.',
+                                    });
+                                }
+                            });
+                            
+                        } catch(e){
+                            $.alert({
+                                title: 'Error!',
+                                type: 'red',
+                                content: 'There was an error. Please contact the lead researcher.',
+                            });
+                        }
+                    }
+                    
+                }
+                
+                function goToProlific(){
+                    
+                    if(userId!=null && prolificURL!=null){
+                        database.ref('participant/'+userId).update({
+                            timeCompleted: Math.round((new Date()).getTime())
+                        }, function(error) {
+                            if (error) {
+                                $.alert({
+                                    title: 'Error!',
+                                    type: 'red',
+                                    content: 'There was an error submitting. Please contact the lead researcher.',
+                                });
+                                return
                             } else {
-                                window.location.replace("http://www.google.com");
+                                window.location.replace(prolificURL);
                             }
-                          });
+                        })
+                    }
+                    else{
+                        $.alert({
+                            title: 'Error!',
+                            type: 'red',
+                            content: 'There was an error submitting. Please contact the lead researcher.',
+                        });
+                        return
+                    }
+                }
+                
+                function getProlificURLS(){
+                    var pushRef = database.ref('prolific_urls/end')
+                    .once('value')
+                    .then(function(snapshot) {
+                        if(snapshot && snapshot.val()!=null){
+                            prolificURL = snapshot.val()
+                        }
+                    });
+                }
+                            
+                function completed(){
+                    if(userId!=null){
+                        database.ref('participant/'+userId).update({
+                            timeCompleted: Math.round((new Date()).getTime())
+                        }, function(error) {
+                            if (error) {
+                                $.alert({
+                                    title: 'Error!',
+                                    type: 'red',
+                                    content: 'There was an error submitting. Please contact the lead researcher.',
+                                });
+                                return
+                            } else {
+                                $.alert({
+                                    title: 'Thank you!',
+                                    type: 'green',
+                                    content: 'Study completed. Your contribution is greatly appreciated.',
+                                });
+                                $('#completeButtonAlt').prop('disabled', true)
+                            }
+                        })
                     }
                     else{
                         $.alert({

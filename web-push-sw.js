@@ -22,6 +22,21 @@ self.addEventListener('push', function(event) {
         };
         event.waitUntil(self.registration.showNotification('Pushd Study Alert', options));
     }
+    else if(notification.hasOwnProperty('closing')){
+        options = {
+            body: 'You have finished the study. Click to confirm submission.',
+            badge: '/images/badge.png',
+            icon: '/images/favicon.png',
+            data: {
+                notificationId: null,
+                userId: notification.user,
+                url: notification.url,
+                closing: true
+            },
+
+        };
+        event.waitUntil(self.registration.showNotification('Pushd Study Alert', options));
+    }
     else{
         
         var notification_data = { notification: { data: { notificationId: notification.id,

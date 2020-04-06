@@ -65,10 +65,8 @@
 				<!-- One -->
                     <span class="image"><img style="width: 50%; margin: auto;" src="images/pushd/pushd_black_no_caption_3.0.png" alt="pushd logo" /></span>
 					<section id="one" style="text-align: center">
-                        <h3>Thank you for your participation!
-                        </h3>
                         <br>
-                        <div class="row">
+                        <div class="row" id="studyStats" style="display: none;">
                             <div class="col-md-4">
                                 <p id="delivered" style="font-size: xx-large"></p>
                                 <p># notifications delivered</p>
@@ -83,10 +81,286 @@
                             </div>
                         </div>
                         <br>
+                        <div id="postQuestionnaire" style="display: none;">
+                            <h3>Please answer the concluding questionnaire regarding your notification engagements. Thank you for your participation!
+                            </h3>
+                            <br>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <h3><strong>Top notification topics which you opened:</strong></h3>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-2">
+                                    Data A:
+                                </div>
+                                <div class="col-md-4">
+                                    <ol id="synthTopics">
+                                    </ol>
+                                </div>
+                                <div class="col-md-2">
+                                    Data B:
+                                </div>
+                                <div class="col-md-4">
+                                    <ol id="realTopics">
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: center;">
+                                <div class="col-md-12">
+                                    <p>Which set of data, A or B, most accurately describes your notification engagements?</p>
+                                    <select id="topics" class="selectpicker">
+                                      <option value="" selected disabled>Nothing selected</option>
+                                      <option>A</option>
+                                      <option>B</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <h3><strong>Top websites from notifications that you opened:</strong></h3>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-2">
+                                    Data A:
+                                </div>
+                                <div class="col-md-4">
+                                    <ol id="synthDomain">
+                                    </ol>
+                                </div>
+                                <div class="col-md-2">
+                                    Data B:
+                                </div>
+                                <div class="col-md-4">
+                                    <ol id="realDomain">
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: center;">
+                                <div class="col-md-12">
+                                    <p>Which set of data, A or B, most accurately describes your notification engagements?</p>
+                                    <select id="domains" class="selectpicker">
+                                      <option value="" selected disabled>Nothing selected</option>
+                                      <option>A</option>
+                                      <option>B</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <h3><strong>Top days you opened notifications:</strong></h3>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-2">
+                                    Data A:
+                                </div>
+                                <div class="col-md-4">
+                                    <ol id="synthDay">
+                                    </ol>
+                                </div>
+                                <div class="col-md-2">
+                                    Data B:
+                                </div>
+                                <div class="col-md-4">
+                                    <ol id="realDay">
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: center;">
+                                <div class="col-md-12">
+                                    <p>Which set of data, A or B, most accurately describes your notification engagements?</p>
+                                    <select id="days" class="selectpicker">
+                                      <option value="" selected disabled>Nothing selected</option>
+                                      <option>A</option>
+                                      <option>B</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <h3><strong>Top time (hour) of the day you opened notifications:</strong></h3>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-2">
+                                    Data A:
+                                </div>
+                                <div class="col-md-4">
+                                    <ol id="synthTime">
+                                    </ol>
+                                </div>
+                                <div class="col-md-2">
+                                    Data B:
+                                </div>
+                                <div class="col-md-4">
+                                    <ol id="realTime">
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: center;">
+                                <div class="col-md-12">
+                                    <p>Which set of data, A or B, most accurately describes your notification engagements?</p>
+                                    <select id="times" class="selectpicker">
+                                      <option value="" selected disabled>Nothing selected</option>
+                                      <option>A</option>
+                                      <option>B</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <h3><strong>Notification Presentation Format Unexpanded</strong></h3>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-2">
+                                    Notification A:
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="images/pushd/control_closed.jpg" style="width: 100%;"/>
+                                </div>
+                                <div class="col-md-2">
+                                    Notification B:
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="images/pushd/emp_closed.jpg"  style="width: 100%;"/>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <p>Which notification, A or B:</p>
+                                    <ol>
+                                        <li><p>is more informative <strong>at a glance</strong></p>
+                                            <select id="formatInformative" class="selectpicker">
+                                              <option value="" selected disabled>Nothing selected</option>
+                                              <option>A</option>
+                                              <option>B</option>
+                                              <option>No difference</option>
+                                            </select>
+                                        </li>
+                                        <li><p>would enable you to make a <strong>quicker</strong> decision (of opening or dismissing the notification)</p>
+                                            <select id="formatDecision" class="selectpicker">
+                                              <option value="" selected disabled>Nothing selected</option>
+                                              <option>A</option>
+                                              <option>B</option>
+                                              <option>No difference</option>
+                                            </select>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <h3><strong>Notification Presentation Format Expanded</strong></h3>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-2">
+                                    Notification A:
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="images/pushd/control_open.jpg" style="width: 100%;"/>
+                                </div>
+                                <div class="col-md-2">
+                                    Notification B:
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="images/pushd/emp_open.jpg"  style="width: 100%;"/>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <p>Which notification format, A or B:</p>
+                                    <ol>
+                                        <li><p>would better protect sensitive/private information, if present, in a notification?</p>
+                                            <select id="formatPrivacy" class="selectpicker">
+                                              <option value="" selected disabled>Nothing selected</option>
+                                              <option>A</option>
+                                              <option>B</option>
+                                              <option>No difference</option>
+                                            </select>
+                                        </li>
+                                        <li><p>would you prefer to be used by a machine making automated decisions on your behalf?</p>
+                                            <select id="formatConsent" class="selectpicker">
+                                              <option value="" selected disabled>Nothing selected</option>
+                                              <option>A</option>
+                                              <option>B</option>
+                                              <option>Neither</option>
+                                            </select>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <h3><strong>Emojis 😀</strong></h3>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-1">
+                                    A:
+                                </div>
+                                <div class="col-md-3">
+                                    <img src="images/pushd/control_open.jpg" style="width: 100%;"/>
+                                </div>
+                                <div class="col-md-1">
+                                    B:
+                                </div>
+                                <div class="col-md-3">
+                                    <img src="images/pushd/keywords.jpg"  style="width: 100%;"/>
+                                </div>
+                                <div class="col-md-1">
+                                    C:
+                                </div>
+                                <div class="col-md-3">
+                                    <img src="images/pushd/sentence.jpg"  style="width: 100%;"/>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <p>Which notification, A or B or C:</p>
+                                    <ol>
+                                        <li><p>is more visually enticing?</p>
+                                            <select id="emojiEnticing" class="selectpicker">
+                                              <option value="" selected disabled>Nothing selected</option>
+                                              <option>A</option>
+                                              <option>B</option>
+                                              <option>C</option>
+                                            </select>
+                                        </li>
+                                        <li><p>makes best use of emojis?</p>
+                                            <select id="emojiUse" class="selectpicker">
+                                              <option value="" selected disabled>Nothing selected</option>
+                                              <option>A</option>
+                                              <option>B</option>
+                                              <option>C</option>
+                                            </select>
+                                        </li>
+                                        <li><p>has the most relevant emojis for the content?</p>
+                                            <select id="emojiRelevant" class="selectpicker">
+                                              <option value="" selected disabled>Nothing selected</option>
+                                              <option>A</option>
+                                              <option>B</option>
+                                              <option>C</option>
+                                            </select>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <br>
+                            <button class="btn btn-success" id="completeButton" style="display: none;" onclick="goToProlific()">Confirm Completion</button>
+                            <button class="btn btn-success" id="completeButtonAlt" style="display: none;" onclick="completed()">Confirm Completion</button>
+                        </div>
                         <h5 id="notCompleteMessage" style="display: none;">A link to the Prolific Academic study submission confirmation page will appear here once you have completed the 21 days of the study, please check back again soon.</h5>
                         <h5 id="alreadyCompleteMessage" style="display: none;">You have confirmed completion.</h5>
-                        <button class="btn btn-success" id="completeButton" style="display: none;" onclick="goToProlific()">Confirm Completion</button>
-                        <button class="btn btn-success" id="completeButtonAlt" style="display: none;" onclick="completed()">Confirm Completion</button>
                         <br>
 					</section>
                 
@@ -140,6 +414,8 @@
                 var database = firebase.database();
                 var prolificURL = null
                 var userId = null
+                var mySynth = null
+                var myReal = null
                 
                 
                 firebase.auth().onAuthStateChanged(function(user) {
@@ -180,7 +456,7 @@
                                             user = snapshot.val()[key]
                                         break
                                     }
-                                    console.log(user)
+                                    
                                     if(user && user!=null){
                                         var size = 0
                                         var answers = 0
@@ -206,9 +482,11 @@
                                         $("#delivered").html(size);
                                         $("#answered").html(answers);
                                         $("#daysLeft").html(daysLeft);
+                                        $('#studyStats').show()
                                         
                                         if(phase && phase==4 && !alreadyCompleted){
                                             $('#completeButton').show()
+                                            getMetrics();
                                         } 
                                         else if (alreadyCompleted){
                                             $('#alreadyCompleteMessage').show()
@@ -216,38 +494,10 @@
                                         else{
                                             $('#notCompleteMessage').show()
                                         }
+                                        
                                     }
-                                    
                                 }
                             });
-                            // make sure phase 4 else show how many days left
-                            // show closing link and update user completed.
-
-                            /*if(userId.charAt(0) == '-' && id!='' && id!=null){
-                                database.ref('participant/'+userId).update({
-                                    timeCompleted: Math.round((new Date()).getTime()),
-                                    prolificIdCompleted: id
-                                }, function(error) {
-                                    if (error) {
-                                      $.alert({
-                                            title: 'Error!',
-                                            type: 'red',
-                                            content: 'There was an error submitting. Please contact the lead researcher.',
-                                        });
-                                    return
-                                    } else {
-                                        window.location.replace("http://www.google.com");
-                                    }
-                                  });
-                            }
-                            else{
-                                $.alert({
-                                    title: 'Error!',
-                                    type: 'red',
-                                    content: 'There was an error submitting. Please contact the lead researcher.',
-                                });
-                                return
-                            }*/
                         }catch(e){
                             $.alert({
                                 title: 'Error!',
@@ -274,6 +524,7 @@
                                     var answers = 0
                                     var daysLeft = 0
                                     var alreadyCompleted = false
+                                    var prolificId = null
 
                                     if(user.hasOwnProperty('notifications'))
                                         size = Object.keys(user.notifications).length
@@ -281,19 +532,48 @@
                                         answers = Object.keys(user.midstudy).length
                                     if(user.hasOwnProperty('timeCompleted'))
                                         alreadyCompleted = true
+                                    try{
+                                    if(user.hasOwnProperty('prolificId') && user.prolificId && user.prolificId!=null
+                                      && user.prolificId!='')
+                                        prolificId = user.prolificId
+                                    }catch(e){}
 
                                     var phase = user.phase
 
                                     $("#delivered").html(size);
                                     $("#answered").html(answers);
-                                    $("#daysLeftContainer").hide();
-
-                                    if(phase && phase==4 && !alreadyCompleted){
-                                        $('#completeButtonAlt').show()
-                                    }
-                                    else if (alreadyCompleted){
-                                        $('#alreadyCompleteMessage').show()
                                         
+                                    if(prolificId!=null){
+                                        
+                                        var timeDiff = (new Date()).getTime() - (new Date(user.signedUp)).getTime();
+                                        var daysLeft = timeDiff / (1000 * 3600 * 24);
+                                        daysLeft = 21 - Math.round(daysLeft)
+                                        if(daysLeft < 0)
+                                            daysLeft = 0
+                                        $("#daysLeft").html(daysLeft);
+                                        $('#studyStats').show()
+                                        
+                                        if(phase && phase==4 && !alreadyCompleted){
+                                            $('#completeButton').show()
+                                            getMetrics();
+                                        } 
+                                        else if (alreadyCompleted){
+                                            $('#alreadyCompleteMessage').show()
+                                        }
+                                        else{
+                                            $('#notCompleteMessage').show()
+                                        }
+                                    }
+                                    else{
+                                        $("#daysLeftContainer").hide();
+                                        $('#studyStats').show()
+                                        if(phase && phase==4 && !alreadyCompleted){
+                                            $('#completeButtonAlt').show()
+                                            getMetrics();
+                                        }
+                                        else if (alreadyCompleted){
+                                            $('#alreadyCompleteMessage').show()
+                                        }
                                     }
                                 }
                                 else{
@@ -316,23 +596,111 @@
                     
                 }
                 
+                
+                // Get the notifications..
+                // Top topics opened
+                // Top domains opened
+                // Hours most receptive
+                // Days of week most receptive
+                function getMetrics(){
+                    if(userId && userId!=''){
+                        var metricsUrl = "http://localhost:4000/v1/pushd/metrics";
+
+                        var formData = JSON.stringify({
+                            "text": userId
+                        })
+
+                        fetch(metricsUrl, {
+                            method: 'post',
+                            headers: {
+                              "Content-type": "application/json; charset=utf-8"
+                            },
+                            body: formData
+                        })
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((data) => {
+                            try{
+                                myReal = data['result']['real'];
+                                mySynth = data['result']['synth'];
+
+                                for(var t of myReal[0])
+                                    $('#realTopics').append('<li>'+t+'</li>')
+                                for(var d of myReal[1])
+                                    $('#realDomain').append('<li>'+d+'</li>')
+                                for(var d of myReal[2])
+                                    $('#realTime').append('<li>'+d+'</li>')
+                                for(var t of myReal[3])
+                                    $('#realDay').append('<li>'+t+'</li>')
+                                
+                                for(var t of mySynth[0])
+                                    $('#synthTopics').append('<li>'+t+'</li>')
+                                for(var d of mySynth[1])
+                                    $('#synthDomain').append('<li>'+d+'</li>')
+                                for(var d of mySynth[2])
+                                    $('#synthTime').append('<li>'+d+'</li>')
+                                for(var t of mySynth[3])
+                                    $('#synthDay').append('<li>'+t+'</li>')
+                                
+                                $('#postQuestionnaire').show()
+                            }catch(e){}
+                        });
+                    }
+                }
+                
                 function goToProlific(){
                     
                     if(userId!=null && prolificURL!=null){
-                        database.ref('participant/'+userId).update({
-                            timeCompleted: Math.round((new Date()).getTime())
-                        }, function(error) {
-                            if (error) {
-                                $.alert({
-                                    title: 'Error!',
-                                    type: 'red',
-                                    content: 'There was an error submitting. Please contact the lead researcher.',
-                                });
-                                return
-                            } else {
-                                window.location.replace(prolificURL);
-                            }
-                        })
+                        
+                        
+                        // get questionnaire results
+                        topics = $('#topics').val()
+                        domains = $('#domains').val()
+                        days = $('#days').val()
+                        times = $('#times').val()
+                        formatInformative = $('#formatInformative').val()
+                        formatDecision = $('#formatDecision').val()
+                        formatPrivacy = $('#formatPrivacy').val()
+                        formatConsent = $('#formatConsent').val()
+                        emojiEnticing = $('#emojiEnticing').val()
+                        emojiUse = $('#emojiUse').val()
+                        emojiRelevant = $('#emojiRelevant').val()
+                        
+                        if(topics!=null && domains!=null && days!=null && 
+                          times!=null && formatInformative!=null && formatDecision!=null && 
+                          formatPrivacy!=null && formatConsent!=null && emojiEnticing!=null && emojiUse!=null &&
+                          emojiRelevant!=null){
+                            
+                            postQuestionnaire = {
+                                                    timeCompleted: Math.round((new Date()).getTime()), 
+                                                    post_study: [topics, domains, days, times, formatInformative,
+                                                               formatDecision, formatPrivacy, formatConsent, emojiEnticing, 
+                                                               emojiUse, emojiRelevant]
+                                                }
+                            
+                            database.ref('participant/'+userId).update(postQuestionnaire, function(error) {
+                                if (error) {
+                                    $.alert({
+                                        title: 'Error!',
+                                        type: 'red',
+                                        content: 'There was an error submitting. Please contact the lead researcher.',
+                                    });
+                                    return
+                                } else {
+                                    window.location.replace(prolificURL);
+                                }
+                            })
+                        }
+                        else{
+                            $.alert({
+                                title: 'Wait!',
+                                type: 'orange',
+                                content: 'You must complete all questionnaire fields to continue..',
+                            });
+                            return
+                        }
+                        
                     }
                     else{
                         $.alert({
@@ -356,25 +724,59 @@
                             
                 function completed(){
                     if(userId!=null){
-                        database.ref('participant/'+userId).update({
-                            timeCompleted: Math.round((new Date()).getTime())
-                        }, function(error) {
-                            if (error) {
-                                $.alert({
-                                    title: 'Error!',
-                                    type: 'red',
-                                    content: 'There was an error submitting. Please contact the lead researcher.',
-                                });
-                                return
-                            } else {
-                                $.alert({
-                                    title: 'Thank you!',
-                                    type: 'green',
-                                    content: 'Study completed. Your contribution is greatly appreciated.',
-                                });
-                                $('#completeButtonAlt').prop('disabled', true)
-                            }
-                        })
+                        
+                        // get questionnaire results
+                        topics = $('#topics').val()
+                        domains = $('#domains').val()
+                        days = $('#days').val()
+                        times = $('#times').val()
+                        formatInformative = $('#formatInformative').val()
+                        formatDecision = $('#formatDecision').val()
+                        formatPrivacy = $('#formatPrivacy').val()
+                        formatConsent = $('#formatConsent').val()
+                        emojiEnticing = $('#emojiEnticing').val()
+                        emojiUse = $('#emojiUse').val()
+                        emojiRelevant = $('#emojiRelevant').val()
+                        
+                        if(topics!=null && domains!=null && days!=null && 
+                          times!=null && formatInformative!=null && formatDecision!=null && 
+                          formatPrivacy!=null && formatConsent!=null && emojiEnticing!=null && emojiUse!=null &&
+                          emojiRelevant!=null){
+                            
+                            postQuestionnaire = {
+                                                    timeCompleted: Math.round((new Date()).getTime()), 
+                                                    post_study: [topics, domains, days, times, formatInformative,
+                                                               formatDecision, formatPrivacy, formatConsent, emojiEnticing, 
+                                                               emojiUse, emojiRelevant]
+                                                }
+                            database.ref('participant/'+userId).update(postQuestionnaire, function(error) {
+                                if (error) {
+                                    $.alert({
+                                        title: 'Error!',
+                                        type: 'red',
+                                        content: 'There was an error submitting. Please contact the lead researcher.',
+                                    });
+                                    return
+                                } else {
+                                    $.alert({
+                                        title: 'Thank you!',
+                                        type: 'green',
+                                        content: 'Study completed. Your contribution is greatly appreciated.',
+                                    });
+                                    $('#completeButtonAlt').prop('disabled', true)
+                                }
+                            })
+                            
+                        }
+                        else{
+                            $.alert({
+                                title: 'Wait!',
+                                type: 'orange',
+                                content: 'You must complete all questionnaire fields to continue..',
+                            });
+                            return
+                        }
+                        
                     }
                     else{
                         $.alert({

@@ -533,9 +533,9 @@
                                     if(user.hasOwnProperty('timeCompleted'))
                                         alreadyCompleted = true
                                     try{
-                                    if(user.hasOwnProperty('prolificId') && user.prolificId && user.prolificId!=null
-                                      && user.prolificId!='')
-                                        prolificId = user.prolificId
+                                        if(user.hasOwnProperty('prolificId') && user.prolificId && user.prolificId!=null
+                                          && user.prolificId!='')
+                                            prolificId = user.prolificId
                                     }catch(e){}
 
                                     var phase = user.phase
@@ -544,7 +544,7 @@
                                     $("#answered").html(answers);
                                         
                                     if(prolificId!=null){
-                                        
+                                        console.log(prolificId)
                                         var timeDiff = (new Date()).getTime() - (new Date(user.signedUp)).getTime();
                                         var daysLeft = timeDiff / (1000 * 3600 * 24);
                                         daysLeft = 21 - Math.round(daysLeft)
@@ -604,7 +604,7 @@
                 // Days of week most receptive
                 function getMetrics(){
                     if(userId && userId!=''){
-                        var metricsUrl = "http://localhost:4000/v1/pushd/metrics";
+                        var metricsUrl = "https://empushy.azurewebsites.net/v1/pushd/metrics";
 
                         var formData = JSON.stringify({
                             "text": userId

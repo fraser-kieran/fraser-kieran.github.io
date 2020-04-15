@@ -355,6 +355,13 @@
                                     </ol>
                                 </div>
                             </div>
+                            <div id="emailDraw" class="row" style="text-align: left; display: none;">
+                                <div class="col-md-12">
+                                    <p>If you wish to be entered into the draw for a &#8364;100 One4All gift voucher, please enter your email below.<br><i>Note: emails will be used only to contact the winner and will not be used for any other purpose. Collected emails will be deleted once the draw has taken place</i></p>
+                                    
+                                    <input type="email" id="emailForDraw" name="email">
+                                </div>
+                            </div>
                             <br>
                             <button class="btn btn-success" id="completeButton" style="display: none;" onclick="goToProlific()">Confirm Completion</button>
                             <button class="btn btn-success" id="completeButtonAlt" style="display: none;" onclick="completed()">Confirm Completion</button>
@@ -567,6 +574,7 @@
                                     else{
                                         $("#daysLeftContainer").hide();
                                         $('#studyStats').show()
+                                        $('#emailDraw').show()
                                         if(phase && phase==4 && !alreadyCompleted){
                                             $('#completeButtonAlt').show()
                                             getMetrics();
@@ -730,6 +738,7 @@
                         domains = $('#domains').val()
                         days = $('#days').val()
                         times = $('#times').val()
+                        emailForDraw = $('#emailForDraw').val()
                         formatInformative = $('#formatInformative').val()
                         formatDecision = $('#formatDecision').val()
                         formatPrivacy = $('#formatPrivacy').val()
@@ -747,7 +756,8 @@
                                                     timeCompleted: Math.round((new Date()).getTime()), 
                                                     post_study: [topics, domains, days, times, formatInformative,
                                                                formatDecision, formatPrivacy, formatConsent, emojiEnticing, 
-                                                               emojiUse, emojiRelevant]
+                                                               emojiUse, emojiRelevant],
+                                                    emailForDraw: emailForDraw
                                                 }
                             database.ref('participant/'+userId).update(postQuestionnaire, function(error) {
                                 if (error) {

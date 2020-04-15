@@ -101,6 +101,7 @@
                                             <div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
                                             <div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
                                             <div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
+                                            <div class="col-12" style="display:none;"><input type="text" name="uId" id="uId" placeholder=""/></div>
                                         </div>
                                         <br/>
                                         <ul class="actions">
@@ -1158,6 +1159,8 @@ things you no longer do. Please be as honest as possible.
                     keyboard: false
                 })*/
                 
+                contactFormInit()
+                
                 initSubscribe()
                 
                 firebase.auth().onAuthStateChanged(function(user) {
@@ -1177,6 +1180,13 @@ things you no longer do. Please be as honest as possible.
                         });
                     }
                 });
+                
+                function contactFormInit(){
+                    var uId = document.cookie.split('=')[1]
+                    if(uId.charAt(0) == '-'){
+                        $('#uId').val(uId)
+                    }
+                }
                 
                 function mindfulModal(){
                     $('#mindfulModal').modal('show')

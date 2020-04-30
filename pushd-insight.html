@@ -40,10 +40,10 @@
                 -webkit-appearance: none;
                 border: solid thin dimgray;
             }
-            ::-webkit-scrollbar {
+            /*::-webkit-scrollbar {
                 width: 0px;
-                background: transparent; /* make scrollbar transparent */
-            }
+                background: transparent;
+            }*/
         </style>
         
 	</head>
@@ -65,7 +65,11 @@
 				<!-- One -->
                     <span class="image"><img style="width: 50%; margin: auto;" src="images/pushd/pushd_black_no_caption_3.0.png" alt="pushd logo" /></span>
 					<section id="one">
+                        
                         <p style="text-align: center">Please answer the following questions relating to your push-notification engagements over the past day.<br><i>Please do not name third parties in any open text field of the questionnaire. Any such replies will be anonymized. In the extremely unlikely event that illicit activity is reported I will be obliged to report it to appropriate authorities.</i></p>
+                        
+                        <p>Quickly study the Pushd notifications you received:</p>
+                        <div id="notificationFeed" style="min-height: 35vh; max-height: 35vh;  overflow-y: scroll; overflow-x: hidden; border-style: solid; border-width: thin; padding-top: 5px;padding-bottom: 5px;padding-left: 20px;padding-right: 20px; margin-bottom: 20px; background-color: gainsboro"></div>
                         
                         <h3>Satisfaction</h3>
                         <p>How satisfied were you with the delivery time of notifications received?</p>
@@ -155,15 +159,38 @@
                             </div>
                         </div>
                         
+                        <h3>Informative</h3>
+                        <p>How informative were the contents (text &amp; format) of the notifications which you received?</p>
+                        <div class="col-md-12">
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">Very uninformative
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">Uninformative 
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">Neutral
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">Informative
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">Very informative
+                              </label>
+                            </div>
+                        </div>
+                        
                         <h3>Engagement Perception</h3>
-                        <p>How many push-notifcations did you receive from this study today?</p>
+                        <p>On average, how many Pushd notifications do you receive per day?</p>
                         <input type="number" id="numPush">
-                        <p>Of these notifications, how many do you believe you opened today?</p>
+                        <p>On average, how many Pushd notifications do you open?</p>
                         <input type="number" id="openedPush">
-                        <p>Which notification topics (can select multiple) do you believe you were most receptive to today?</p>
+                        <p>Of the notifications received, how many did you read, find interesting, but not open?</p>
+                        <input type="number" id="seenPush">
+                        <p>Which notification topics (can select multiple) do you believe you were most receptive to?</p>
                         <select id="topics" class="selectpicker" multiple>
-                            <option>none</option>
-                            <option>arts</option>
+                            <option>arts_culture</option>
                             <option>business</option>
                             <option>college</option>
                             <option>comedy</option>
@@ -172,11 +199,11 @@
                             <option>education</option>
                             <option>entertainment</option>
                             <option>environment</option>
-                            <option>food &amp; drink</option>
-                            <option>good news</option>
+                            <option>food_drink</option>
+                            <option>good_news</option>
                             <option>green</option>
-                            <option>healthy living</option>
-                            <option>home &amp; living</option>
+                            <option>healthy_living</option>
+                            <option>home_living</option>
                             <option>impact</option>
                             <option>media</option>
                             <option>money</option>
@@ -184,14 +211,13 @@
                             <option>politics</option>
                             <option>science</option>
                             <option>sports</option>
-                            <option>style</option>
+                            <option>style_beauty</option>
                             <option>taste</option>
                             <option>tech</option>
                             <option>travel</option>
                             <option>weddings</option>
                             <option>wellness</option>
-                            <option>world news</option>
-                            <option>worldpost</option>
+                            <option>world_news</option>
                         </select>
                         
                         <h3>Final Thoughts</h3>
@@ -279,27 +305,19 @@
                 var notificationString = '<div class="card" style="width: 100%; margin-bottom: 10px">'+
                       '<div class="card-body" style="padding: 10px;">'+
                         '<div class="container-fluid" style="width: 100%; margin: 0px; padding: 0px;">'+
+                            '<p style="text-align: right; font-size: small; margin: 0px;">{{:delivered}}</p>'+
                             '<div class="row">'+
-                                '<div class="col-md-2">'+
-                                    '<img src="https://{{:domain}}/favicon.ico" alt=" " style="height: 35px; padding: 5px; border-radius: 50%; border-radius: 50%;border: solid;border-width: thin;    border-color: black;">'+
+                                '<div class="col-md-1">'+
+                                    '<img src="{{:icon}}" alt=" " style="height: 35px; padding: 5px; border-radius: 50%; border-radius: 50%;border: solid;border-width: thin;    border-color: black;">'+
                                 '</div>'+
                                 '<div class="col-md-10">'+
-                                    '<h5 class="card-title" style="padding: 10px;">{{:title}}</h5>'+
+                                    '<h5 class="card-title" style="font-size: small;">{{:title}}</h5>'+
+                                    '<p class="card-text" style="font-size: small;">{{:body}}</p>'+
                                 '</div>'  +
+                                '<div class="col-md-10">'+
+                                '</div>'+
                             '</div>'+
                         '</div>'  +
-                        /*'<p class="card-text">{{:ticker}}</p>'+*/
-                        '<div style="text-align: center; margin: 0px; padding: 0px;">'+
-                            '<div class="btn-group btn-group-toggle" data-toggle="buttons">'+
-                              '<label class="btn btn-secondary" name="open" id="{{:id}}">'+
-                                '<input type="radio" autocomplete="off">Open'+
-                              '</label>'+
-                              '<label class="btn btn-secondary" name="dismiss" id="{{:id}}">'+
-                                '<input type="radio" autocomplete="off">Dismiss'+
-                              '</label>'+
-                            '</div>'+
-                        '</div>'+
-                        '<p style="text-align: right; font-size: small; margin: 0px;">{{:domain}}</p>'+
                       '</div>'+
                     '</div>'
                 var notificationTemplate = $.templates(notificationString);
@@ -318,7 +336,7 @@
                 firebase.initializeApp(firebaseConfig);
                 var database = firebase.database();
                 
-                var notificationList = []
+                var notifications = []
                 
                 
                 
@@ -327,7 +345,7 @@
                     if (user) {
                         var isAnonymous = user.isAnonymous;
                         var uid = user.uid;
-                        
+                        exampleNotifications()
                     } else {
                         firebase.auth().signInAnonymously().catch(function(error) {
                             $.alert({
@@ -340,6 +358,129 @@
                     }
                 });
                 
+                function exampleNotifications(){
+                    
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const userId = urlParams.get('u');
+                    
+                    var nUrl = "http://localhost:4000/v1/pushd/notification-insights";
+
+                    var formData = JSON.stringify({
+                        "uid": userId
+                    })
+
+                    fetch(nUrl, {
+                        method: 'post',
+                        headers: {
+                          "Content-type": "application/json; charset=utf-8"
+                        },
+                        body: formData
+                    })
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        try{
+                            notifications = data['notifications']
+                            for(notification of notifications){
+                                var date = new Date(notification['delivered'] * 1000);
+                                var hours = date.getHours();
+                                var minutes = "0" + date.getMinutes();
+                                var seconds = "0" + date.getSeconds();
+                                var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                                notification['delivered'] = formattedTime
+                                
+                                
+                                switch(notification.template){
+                                    case 'control':
+                                        notification['title'] = notification.domain
+                                        notification['body'] = notification.summary
+                                        notification['icon'] = 'https://'+notification.domain+'/favicon.ico'
+                                        break;
+                                    case 'emojikey':
+                                        notification['title'] = notification.domain
+                                        notification['body'] = summary_to_keywords(notification)
+                                        notification['icon'] = 'https://'+notification.domain+'/favicon.ico'
+                                        break;
+                                    case 'emojisen':
+                                        notification['title'] = notification['emoji_sen']+'\n - '+notification.domain
+                                        notification['body'] = notification.summary
+                                        notification['icon'] = 'https://'+notification.domain+'/favicon.ico'
+                                        break;
+                                    case 'empathetic':
+                                        notification['title'] = empathetic_title(notification)
+                                        notification['body'] = empathetic_summary(notification)
+                                        notification['icon'] = 'https://'+notification.domain+'/favicon.ico'
+                                        break
+                                }
+                            }
+                            var html = notificationTemplate.render(notifications);
+                            $( "#notificationFeed" ).empty()
+                            $( "#notificationFeed" ).append(html)
+                        }catch(e){}
+                    });  
+                }
+                
+                function capitalizeFirstLetter(str) {
+                    return str.charAt(0).toUpperCase() + str.slice(1);
+                }
+                
+                function summary_to_keywords(notification){
+                    summary = notification['summary'].replace(', ', ' ').toLowerCase()
+                    emojis = notification['emoji_key'].split(', ')
+                    keywords = notification['keywords'].split(', ')
+                    for(var i=0; i<keywords.length; i++)
+                        summary = summary.replace(keywords[i], keywords[i]+' '+emojis[i])
+                    return capitalizeFirstLetter(summary)
+                }
+
+                function summary_to_emoji(notification){
+                    emojis = notification['emoji_sen']
+                    summary = emojis + '\n' + notification.summary
+                    return summary
+                }
+
+                // Put sentiment here based on the value
+                function empathetic_title(notification){
+                    if(notification.hasOwnProperty('inf_topic'))
+                        notification.topic = notification.inf_topic
+                    return capitalizeFirstLetter(notification.topic.split(':')[0] + ' message from '+notification.domain)
+                }
+
+                function empathetic_summary(notification){
+                    const unique = (value, index, self) => {
+                      return self.indexOf(value) === index
+                    }
+                    if(notification.hasOwnProperty('inf_enticement'))
+                        notification.enticement = notification.inf_enticement
+                    switch(notification.enticement){
+                        case 'low':
+                            return notification.summary
+                        case 'medium':
+                            keywords = []
+                            emojis = []
+                            for(var i=0; i<notification.keywords.split(', ').length; i++){
+                                try{
+                                    keywords.push(notification.keywords.split(', ')[i])
+                                    emojis.push(notification.emoji_key.split(', ')[i])
+                                }catch(err){}
+                            }
+                            return emojis.filter(unique).join()+'\n'+
+                                keywords.filter(unique).join()
+                        case 'high':
+                            keywords = []
+                            emojis = []
+                            for(var i=0; i<notification.keywords.split(', ').length; i++){
+                                try{
+                                    keywords.push(notification.keywords.split(', ')[i])
+                                    emojis.push(notification.emoji_key.split(', ')[i])
+                                }catch(err){}
+                            }
+                            return emojis.filter(unique).join()+'\n'+
+                                keywords.filter(unique).join()
+                    }
+                }
+                
                 function submitAnswers(){
                     
                     $('#submitBtn').prop('disabled', true);
@@ -351,14 +492,15 @@
                     }).get();
                     var numPush = $('#numPush').val()
                     var openedPush = $('#openedPush').val()
+                    var seenPush = $('#seenPush').val()
                     var topics = $('#topics').val()
                     var npsReason = $('#npsReason').val()
                     
-                    if(scores.length < 5 || topics.length<1 || numPush=='' || openedPush==''){
+                    if(scores.length < 6 || topics.length<1 || numPush=='' || openedPush==''|| seenPush==''){
                         $.alert({
                             title: 'Wait!',
                             type: 'orange',
-                            content: 'Oops, you missed a mandatory question..',
+                            content: 'Oops, you missed a question..',
                         });
                         return
                     }
@@ -367,14 +509,26 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     const userId = urlParams.get('u');
                     
+                    nList = []
+                    for(n of notifications)
+                        nList.push(n['id'])
+                    
                     if(userId.charAt(0) == '-'){
                         database.ref('participant/'+userId+'/midstudy/').push().set({
+                            notificationsShown: nList,
                             likert: scores,
                             numPush: numPush,
                             openedPush: openedPush,
+                            seenPush: seenPush,
                             topics: topics,
                             npsReason: npsReason,
                             timeSubmitted: Math.round((new Date()).getTime())
+                        });
+                        
+                        $.alert({
+                            title: 'Finished',
+                            type: 'green',
+                            content: 'Submitted, thank you!',
                         });
                     }
                     else{
@@ -383,14 +537,7 @@
                             type: 'red',
                             content: 'There was an error submitting. Please contact the lead researcher.',
                         });
-                        return
                     }
-                    
-                    $.alert({
-                        title: 'Finished',
-                        type: 'green',
-                        content: 'Submitted, thank you!',
-                    });
                 }
                 
             </script>

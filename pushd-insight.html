@@ -363,7 +363,7 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     const userId = urlParams.get('u');
                     
-                    var nUrl = "http://localhost:4000/v1/pushd/notification-insights";
+                    var nUrl = "https://empushy.azurewebsites.net/v1/pushd/notification-insights";
 
                     var formData = JSON.stringify({
                         "uid": userId

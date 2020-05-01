@@ -73,10 +73,12 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 function contactFormInit(){
-    var uId = document.cookie.split('=')[1]
-    if(uId.charAt(0) == '-'){
-        $('#uId').val(uId)
-    }
+    try{
+        var uId = document.cookie.split('=')[1]
+        if(uId.charAt(0) == '-'){
+            $('#uId').val(uId)
+        }
+    catch(){}
 }
 
 function mindfulModal(){

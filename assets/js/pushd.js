@@ -78,7 +78,7 @@ function contactFormInit(){
         if(uId.charAt(0) == '-'){
             $('#uId').val(uId)
         }
-    catch(){}
+    catch(e){}
 }
 
 function mindfulModal(){

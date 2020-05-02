@@ -135,7 +135,7 @@ self.addEventListener('pushsubscriptionchange', e => {
     e.waitUntil(registration.pushManager.subscribe(e.oldSubscription.options)  
     .then(subscription => {  
 
-        var resubURL = "http://localhost:4000/v1/pushd/resubscribe";
+        var resubURL = "https://empushy.azurewebsites.net/v1/pushd/resubscribe";
 
         var formData = JSON.stringify({
             "oldsub": oldsub,

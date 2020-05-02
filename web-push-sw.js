@@ -129,6 +129,34 @@ self.addEventListener('push', function(event) {
     }
 });
 
+// https://developers.google.com/web/updates/2016/09/options-of-a-pushsubscription
+self.addEventListener('pushsubscriptionchange', e => {  
+    var oldsub = e.oldSubscription
+    e.waitUntil(registration.pushManager.subscribe(e.oldSubscription.options)  
+    .then(subscription => {  
+
+        var resubURL = "http://localhost:4000/v1/pushd/resubscribe";
+
+        var formData = JSON.stringify({
+            "oldsub": oldsub,
+            "newsub": subscription
+        })
+
+        fetch(resubURL, {
+            method: 'post',
+            headers: {
+              "Content-type": "application/json; charset=utf-8"
+            },
+            body: formData
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log("Updated subscription")
+        })
+    }));  
+});
 
 function summary_to_keywords(notification){
     summary = notification['summary'].replace(', ', ' ').toLowerCase()

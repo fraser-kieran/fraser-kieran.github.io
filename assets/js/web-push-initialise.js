@@ -21,7 +21,7 @@ function initSubscribe(){
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       //console.log('Service Worker and Push is supported');
 
-      navigator.serviceWorker.register('web-push-sw.js', {scope: '/pushd.html'})
+      navigator.serviceWorker.register('/web-push-sw.js', {scope: '/pushd.html'})
       .then(function(swReg) {
         //console.log('Service Worker is registered', swReg);
 
@@ -47,6 +47,7 @@ function initializeUI() {
     isSubscribed = !(subscription === null);
 
     if (isSubscribed) {
+        
       console.log('User IS subscribed.');
       // check both boxes
       $('#cb-info').prop('checked', true)
@@ -203,6 +204,7 @@ function unsubscribeUser() {
       
     const params = new URLSearchParams(window.location.search); 
       
+      
     if (subscription) {
         // unsub api call using subscription object to search for applicable sub
         
@@ -275,7 +277,6 @@ function subscribeUser() {
   })
   .then(function(subscription) {
     console.log('User is subscribed.');
-
       
     updateSubscriptionOnServer(subscription);
     isSubscribed = true;
@@ -394,7 +395,7 @@ function subNewParticipant(subscription) {
                         });
                         unsubscribeUser()
                     } else {
-
+                        
                         console.log('Updating groups...')
                         for(week in chosenGroups)
                             if(chosenGroups[week] != null)

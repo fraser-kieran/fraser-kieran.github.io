@@ -48,6 +48,7 @@ function initializeUI() {
 
     if (isSubscribed) {
         
+      $("#subId").html(JSON.stringify({"exp":subscription.expirationTime}))
       console.log('User IS subscribed.');
       // check both boxes
       $('#cb-info').prop('checked', true)

@@ -55,23 +55,25 @@ function initializeUI() {
     } else {
       console.log('User is NOT subscribed.');
         // check if userId present.. if so, refresh subscription
-        var uId = document.cookie.split('=')[1]
-        if(uId.charAt(0) == '-'){
-            // userId present - update subscription
-            const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-            swRegistration.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: applicationServerKey
-            })
-            .then(function(subscription) {
-                console.log('User refreshed subscribed.');
-                if(subscription){
-                    refreshSub(subscription, uId);
-                    isSubscribed = true;
-                    updateBtn()
-                }
-            })
-        }
+        try{
+            var uId = document.cookie.split('=')[1]
+            if(uId.charAt(0) == '-'){
+                // userId present - update subscription
+                const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+                swRegistration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: applicationServerKey
+                })
+                .then(function(subscription) {
+                    console.log('User refreshed subscribed.');
+                    if(subscription){
+                        refreshSub(subscription, uId);
+                        isSubscribed = true;
+                        updateBtn()
+                    }
+                })
+            }
+        catch(e){console.log("Could not update user subscription")}
     }
 
     updateBtn();

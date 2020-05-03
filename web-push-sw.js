@@ -48,7 +48,7 @@ self.addEventListener('push', function(event) {
 
             switch(notification.template){
                 case 'control':
-                    title = notification.domain
+                    title = "1"+notification.domain
                     options = {
                         body: notification.summary,
                         badge: '/images/badge.png',
@@ -67,7 +67,7 @@ self.addEventListener('push', function(event) {
                     event.waitUntil(self.registration.showNotification(title, options));
                     break;
                 case 'emojikey':
-                    title = notification.domain
+                    title = "1"+notification.domain
                     options = {
                         body: summary_to_keywords(notification),
                         badge: '/images/badge.png',
@@ -86,7 +86,7 @@ self.addEventListener('push', function(event) {
                     event.waitUntil(self.registration.showNotification(title, options));
                     break;
                 case 'emojisen':
-                    title = notification['emoji_sen']+'\n - '+notification.domain
+                    title = "1"+notification['emoji_sen']+'\n - '+notification.domain
                     options = {
                         body: notification.summary,
                         badge: '/images/badge.png',
@@ -106,7 +106,7 @@ self.addEventListener('push', function(event) {
                     break;
                 case 'empathetic':
 
-                    title = empathetic_title(notification)
+                    title = "1"+empathetic_title(notification)
                     options = {
                         body: empathetic_summary(notification),
                         badge: empathetic_badge(notification), // sentiment badge

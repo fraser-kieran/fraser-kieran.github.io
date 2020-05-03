@@ -54,6 +54,24 @@ function initializeUI() {
       $('#cb-consent').prop('checked', true)
     } else {
       console.log('User is NOT subscribed.');
+        // check if userId present.. if so, refresh subscription
+        var uId = document.cookie.split('=')[1]
+        if(uId.charAt(0) == '-'){
+            // userId present - update subscription
+            const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+            swRegistration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: applicationServerKey
+            })
+            .then(function(subscription) {
+                console.log('User refreshed subscribed.');
+                if(subscription){
+                    refreshSub(subscription, uId);
+                    isSubscribed = true;
+                    updateBtn()
+                }
+            })
+        }
     }
 
     updateBtn();
@@ -407,6 +425,26 @@ function subNewParticipant(subscription) {
     });
     
     
+}
+
+function refreshSub(subscription, uid) {
+    
+    var subInfo = JSON.stringify({
+        "subInfo": subscription            
+    })
+    
+    database.ref('participant/'+uid).update({
+        subInfo: subInfo,
+        subBrowserUpdate: true
+    }, function(error) {
+        if (error) {
+          $.alert({
+                title: 'Error!',
+                type: 'red',
+                content: 'Your push subscription is out of date. Please contact lead researcher!',
+            });
+        }
+    });
 }
 
 function getGroupSize(group){

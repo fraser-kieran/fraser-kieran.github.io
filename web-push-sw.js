@@ -131,7 +131,7 @@ self.addEventListener('push', function(event) {
 });
 
 // https://developers.google.com/web/updates/2016/09/options-of-a-pushsubscription
-self.addEventListener('pushsubscriptionchange', e => {  
+/*self.addEventListener('pushsubscriptionchange', e => {  
     try{
         var oldsub = e.oldSubscription
         e.waitUntil(registration.pushManager.subscribe(e.oldSubscription.options)  
@@ -159,6 +159,20 @@ self.addEventListener('pushsubscriptionchange', e => {
             })
         })); 
     }catch(e){}
+});*/
+
+// https://pushpad.xyz/service-worker.js
+self.addEventListener('pushsubscriptionchange', function(event) {
+  event.waitUntil(
+    fetch('https://empushy.azurewebsites.net/v1/pushd/resubscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({
+        "oldsub": event.oldSubscription,
+        "newsub": event.newSubscription
+      })
+    })
+  );
 });
 
 function summary_to_keywords(notification){

@@ -77,6 +77,7 @@ function initializeUI() {
                     }
                 })
             }
+        }
         catch(e){console.log("Could not update user subscription")}
     }
 

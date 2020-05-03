@@ -4,158 +4,161 @@ self.addEventListener('push', function(event) {
     // applicationServerKey: 
     // BJ-qALtORweP7IZtnNMoY-8gwsFsPSPXlrAYU6dBulwYcv6CPrIIr8-t57PgUPfGMqsg0DfVPre_thVyWqBPaZo
     
+    try{
+        notification = event.data.json()
 
-    notification = event.data.json()
-    
-    if(notification.hasOwnProperty('midstudy')){
-        options = {
-            body: 'Nightly Survey',
-            badge: '/images/badge.png',
-            icon: '/images/favicon.png',
-            data: {
-                notificationId: null,
-                userId: notification.user,
-                url: notification.url,
-                midstudy: true
-            },
+        if(notification.hasOwnProperty('midstudy')){
+            options = {
+                body: 'Nightly Survey',
+                badge: '/images/badge.png',
+                icon: '/images/favicon.png',
+                data: {
+                    notificationId: null,
+                    userId: notification.user,
+                    url: notification.url,
+                    midstudy: true
+                },
 
-        };
-        event.waitUntil(self.registration.showNotification('Pushd Study Alert', options));
-    }
-    else if(notification.hasOwnProperty('closing')){
-        options = {
-            body: 'You have finished the study. Click to confirm submission.',
-            badge: '/images/badge.png',
-            icon: '/images/favicon.png',
-            data: {
-                notificationId: null,
-                userId: notification.user,
-                url: notification.url,
-                closing: true
-            },
-
-        };
-        event.waitUntil(self.registration.showNotification('Pushd Study Alert', options));
-    }
-    else{
-        
-        var notification_data = { notification: { data: { notificationId: notification.id,
-                                                      userId: notification.user,
-                                                      engagement: 'delivered' } } }
-        update_engagement(notification_data, 'delivered')
-        
-        var options = {}
-        
-        switch(notification.template){
-            case 'control':
-                title = notification.domain
-                options = {
-                    body: notification.summary,
-                    badge: '/images/badge.png',
-                    icon: 'https://'+notification.domain+'/favicon.ico',
-                    data: {
-                        notificationId: notification.id,
-                        userId: notification.user,
-                        url: notification.url,
-                        topic: notification.topic,
-                        sentiment: notification.sentiment,
-                        enticement: notification.enticement,
-                        keywords: notification.keywords,
-                        emojis: notification.emoji_key
-                    }
-                };
-                event.waitUntil(self.registration.showNotification(title, options));
-                break;
-            case 'emojikey':
-                title = notification.domain
-                options = {
-                    body: summary_to_keywords(notification),
-                    badge: '/images/badge.png',
-                    icon: 'https://'+notification.domain+'/favicon.ico',
-                    data: {
-                        notificationId: notification.id,
-                        userId: notification.user,
-                        url: notification.url,
-                        topic: notification.topic,
-                        sentiment: notification.sentiment,
-                        enticement: notification.enticement,
-                        keywords: notification.keywords,
-                        emojis: notification.emoji_key
-                    }
-                };
-                event.waitUntil(self.registration.showNotification(title, options));
-                break;
-            case 'emojisen':
-                title = notification['emoji_sen']+'\n - '+notification.domain
-                options = {
-                    body: notification.summary,
-                    badge: '/images/badge.png',
-                    icon: 'https://'+notification.domain+'/favicon.ico',
-                    data: {
-                        notificationId: notification.id,
-                        userId: notification.user,
-                        url: notification.url,
-                        topic: notification.topic,
-                        sentiment: notification.sentiment,
-                        enticement: notification.enticement,
-                        keywords: notification.keywords,
-                        emojis: notification.emoji_key
-                    }
-                };
-                event.waitUntil(self.registration.showNotification(title, options));
-                break;
-            case 'empathetic':
-                
-                title = empathetic_title(notification)
-                options = {
-                    body: empathetic_summary(notification),
-                    badge: empathetic_badge(notification), // sentiment badge
-                    icon: 'https://'+notification.domain+'/favicon.ico',
-                    data: {
-                        notificationId: notification.id,
-                        userId: notification.user,
-                        url: notification.url,
-                        topic: notification.topic,
-                        sentiment: notification.sentiment,
-                        enticement: notification.enticement,
-                        keywords: notification.keywords,
-                        emojis: notification.emoji_key
-                    }
-                };
-                event.waitUntil(self.registration.showNotification(title, options));
-                break;
+            };
+            event.waitUntil(self.registration.showNotification('Pushd Study Alert', options));
         }
-        
-    }
+        else if(notification.hasOwnProperty('closing')){
+            options = {
+                body: 'You have finished the study. Click to confirm submission.',
+                badge: '/images/badge.png',
+                icon: '/images/favicon.png',
+                data: {
+                    notificationId: null,
+                    userId: notification.user,
+                    url: notification.url,
+                    closing: true
+                },
+
+            };
+            event.waitUntil(self.registration.showNotification('Pushd Study Alert', options));
+        }
+        else{
+
+            var notification_data = { notification: { data: { notificationId: notification.id,
+                                                          userId: notification.user,
+                                                          engagement: 'delivered' } } }
+            update_engagement(notification_data, 'delivered')
+
+            var options = {}
+
+            switch(notification.template){
+                case 'control':
+                    title = notification.domain
+                    options = {
+                        body: notification.summary,
+                        badge: '/images/badge.png',
+                        icon: 'https://'+notification.domain+'/favicon.ico',
+                        data: {
+                            notificationId: notification.id,
+                            userId: notification.user,
+                            url: notification.url,
+                            topic: notification.topic,
+                            sentiment: notification.sentiment,
+                            enticement: notification.enticement,
+                            keywords: notification.keywords,
+                            emojis: notification.emoji_key
+                        }
+                    };
+                    event.waitUntil(self.registration.showNotification(title, options));
+                    break;
+                case 'emojikey':
+                    title = notification.domain
+                    options = {
+                        body: summary_to_keywords(notification),
+                        badge: '/images/badge.png',
+                        icon: 'https://'+notification.domain+'/favicon.ico',
+                        data: {
+                            notificationId: notification.id,
+                            userId: notification.user,
+                            url: notification.url,
+                            topic: notification.topic,
+                            sentiment: notification.sentiment,
+                            enticement: notification.enticement,
+                            keywords: notification.keywords,
+                            emojis: notification.emoji_key
+                        }
+                    };
+                    event.waitUntil(self.registration.showNotification(title, options));
+                    break;
+                case 'emojisen':
+                    title = notification['emoji_sen']+'\n - '+notification.domain
+                    options = {
+                        body: notification.summary,
+                        badge: '/images/badge.png',
+                        icon: 'https://'+notification.domain+'/favicon.ico',
+                        data: {
+                            notificationId: notification.id,
+                            userId: notification.user,
+                            url: notification.url,
+                            topic: notification.topic,
+                            sentiment: notification.sentiment,
+                            enticement: notification.enticement,
+                            keywords: notification.keywords,
+                            emojis: notification.emoji_key
+                        }
+                    };
+                    event.waitUntil(self.registration.showNotification(title, options));
+                    break;
+                case 'empathetic':
+
+                    title = empathetic_title(notification)
+                    options = {
+                        body: empathetic_summary(notification),
+                        badge: empathetic_badge(notification), // sentiment badge
+                        icon: 'https://'+notification.domain+'/favicon.ico',
+                        data: {
+                            notificationId: notification.id,
+                            userId: notification.user,
+                            url: notification.url,
+                            topic: notification.topic,
+                            sentiment: notification.sentiment,
+                            enticement: notification.enticement,
+                            keywords: notification.keywords,
+                            emojis: notification.emoji_key
+                        }
+                    };
+                    event.waitUntil(self.registration.showNotification(title, options));
+                    break;
+            }
+
+        }
+    }catch(e){}
 });
 
 // https://developers.google.com/web/updates/2016/09/options-of-a-pushsubscription
 self.addEventListener('pushsubscriptionchange', e => {  
-    var oldsub = e.oldSubscription
-    e.waitUntil(registration.pushManager.subscribe(e.oldSubscription.options)  
-    .then(subscription => {  
+    try{
+        var oldsub = e.oldSubscription
+        e.waitUntil(registration.pushManager.subscribe(e.oldSubscription.options)  
+        .then(subscription => {  
 
-        var resubURL = "https://empushy.azurewebsites.net/v1/pushd/resubscribe";
+            var resubURL = "https://empushy.azurewebsites.net/v1/pushd/resubscribe";
 
-        var formData = JSON.stringify({
-            "oldsub": oldsub,
-            "newsub": subscription
-        })
+            var formData = JSON.stringify({
+                "oldsub": oldsub,
+                "newsub": subscription
+            })
 
-        fetch(resubURL, {
-            method: 'post',
-            headers: {
-              "Content-type": "application/json; charset=utf-8"
-            },
-            body: formData
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            console.log("Updated subscription")
-        })
-    }));  
+            fetch(resubURL, {
+                method: 'post',
+                headers: {
+                  "Content-type": "application/json; charset=utf-8"
+                },
+                body: formData
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Updated subscription")
+            })
+        })); 
+    }catch(e){}
 });
 
 function summary_to_keywords(notification){
@@ -261,34 +264,37 @@ function capitalizeFirstLetter(str) {
 }
 
 self.addEventListener('notificationclick', function(event) {
-    
-    event.notification.close();
-    
-    if(event.notification.data.notificationId==null){
-        if (clients.openWindow) {
-            event.waitUntil(clients.openWindow(event.notification.data.url+event.notification.data.userId))
-        }
-        return
-    }
-    else{
-        if (!event.action) {
-            // Was a normal notification click
-            update_engagement(event, 'opened')
+    try{
+        event.notification.close();
+
+        if(event.notification.data.notificationId==null){
             if (clients.openWindow) {
-                event.waitUntil(clients.openWindow(event.notification.data.url+'?source=pushd'))
+                event.waitUntil(clients.openWindow(event.notification.data.url+event.notification.data.userId))
             }
-            return;
+            return
         }
-        update_engagement(event, 'unknown')
-    }
+        else{
+            if (!event.action) {
+                // Was a normal notification click
+                update_engagement(event, 'opened')
+                if (clients.openWindow) {
+                    event.waitUntil(clients.openWindow(event.notification.data.url+'?source=pushd'))
+                }
+                return;
+            }
+            update_engagement(event, 'unknown')
+        }    
+    }catch(e){}
     
     
 });
 
 self.addEventListener('notificationclose', function(event) {
-    if(event.notification.data.notificationId!=null){
-        update_engagement(event, 'dismissed')
-    }
+    try{
+        if(event.notification.data.notificationId!=null){
+            update_engagement(event, 'dismissed')
+        }
+    }catch(e){}
 });
 
 function update_engagement(event, engagement){

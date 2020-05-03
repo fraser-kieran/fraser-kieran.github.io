@@ -56,8 +56,10 @@ function initializeUI() {
       console.log('User is NOT subscribed.');
         // check if userId present.. if so, refresh subscription
         try{
+            $("#subId").html($("#subId").html()+"userIdPresent")
             var uId = document.cookie.split('=')[1]
             if(uId.charAt(0) == '-'){
+            $("#subId").html($("#subId").html()+" "+uId)
                 // userId present - update subscription
                 const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
                 swRegistration.pushManager.subscribe({
@@ -65,6 +67,8 @@ function initializeUI() {
                     applicationServerKey: applicationServerKey
                 })
                 .then(function(subscription) {
+                    
+                    $("#subId").html($("#subId").html()+" "+JSON.stringify({"sub": subscription}))
                     console.log('User refreshed subscribed.');
                     if(subscription){
                         refreshSub(subscription, uId);

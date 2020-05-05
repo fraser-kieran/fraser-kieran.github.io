@@ -165,8 +165,8 @@ self.addEventListener('push', function(event) {
 self.addEventListener('pushsubscriptionchange', function(event) {
   event.waitUntil(
     fetch('https://empushy.azurewebsites.net/v1/pushd/resubscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      method: 'post',
+      headers: { "Content-type": 'application/json; charset=utf-8' },
       body: JSON.stringify({
         "oldsub": event.oldSubscription,
         "newsub": event.newSubscription

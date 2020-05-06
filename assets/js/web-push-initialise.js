@@ -3,10 +3,8 @@
 var db = null;
 var swRegistration = null;
 var isSubscribed = false;
-const applicationServerPublicKey = 
-      'BJ-qALtORweP7IZtnNMoY-8gwsFsPSPXlrAYU6dBulwYcv6CPrIIr8-t57PgUPfGMqsg0DfVPre_thVyWqBPaZo';
-
-//var applicationServerPublicKey = null;
+// const applicationServerPublicKey = 'BJ-qALtORweP7IZtnNMoY-8gwsFsPSPXlrAYU6dBulwYcv6CPrIIr8-t57PgUPfGMqsg0DfVPre_thVyWqBPaZo';
+const applicationServerPublicKey = "BD103tOeK6s6X5VVyB99y04clTMWRPzR8onmMsrsYvHxQ1ci5yuZ9HCijtyHFG9OZtwVLyOLu5ngt2a9uWPEJqk"
 
 /*
 First function called. Checks if service worker and push active or possible.

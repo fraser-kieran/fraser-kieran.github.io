@@ -373,7 +373,7 @@ function updateSubscriptionOnServer(token) {
   }
 }
 
-function subNewParticipant(subscription) {
+function subNewParticipant(token) {
     
     var userId = database.ref('participant/').push().key;
     

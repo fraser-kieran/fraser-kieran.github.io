@@ -269,9 +269,6 @@ function unsubscribeUser() {
                     database.ref('participant/'+userId).remove();
                     document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-                    $('#cb-info').prop('checked', false)
-                    $('#cb-consent').prop('checked', false)
-                    $('#exampleModal').modal('hide')
 
                     if($('#curiosityInventoryButton').hasClass('btn-success'))
                         $('#curiosityInventoryButton').removeClass('btn-success').addClass('btn-primary')
@@ -286,16 +283,12 @@ function unsubscribeUser() {
                     });
                 }
             }
-            else{
-                $.alert({
-                    title: 'Error!',
-                    type: 'red',
-                    content: 'There was a problem unsubscribing you for this study. Please contact lead researcher!',
-                });
-            }
         });
           
         console.log('User is unsubscribed.');
+        $('#cb-info').prop('checked', false)
+        $('#cb-consent').prop('checked', false)
+        $('#exampleModal').modal('hide')
         isSubscribed = false;
 
         updateBtn();

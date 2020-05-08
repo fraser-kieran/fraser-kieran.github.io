@@ -94,12 +94,12 @@ Set button text depending if user subbed or not
 */
 function initializeUI() {
     var uId = document.cookie.split('=')[1]
-    if(uId.charAt(0) == '-'){
+    if(uId && uId.charAt(0) && uId.charAt(0) == '-'){
         console.log('userId present - therefore subscribed')
         $('#cb-info').prop('checked', true)
         $('#cb-consent').prop('checked', true)
-        sendTokenToServer(currentToken);
-        updateUIForPushEnabled(currentToken);
+        //sendTokenToServer(currentToken);
+        //updateUIForPushEnabled(currentToken);
         // check both boxes
     }
     else{

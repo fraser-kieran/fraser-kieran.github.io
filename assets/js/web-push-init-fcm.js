@@ -286,7 +286,7 @@ function unsubscribeUser() {
           } catch(e){}
           
         console.log('User is unsubscribed.');
-        document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         $('#cb-info').prop('checked', false)
         $('#cb-consent').prop('checked', false)
         $('#exampleModal').modal('hide')

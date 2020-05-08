@@ -253,39 +253,40 @@ function unsubscribeUser() {
         setTokenSentToServer(false);
         // [START_EXCLUDE]
         // Once token is deleted update UI.
-        userId = document.cookie.split('=')[1]
-        
-        database.ref('participant/'+userId).once('value').then(function(snapshot) {
-            if(snapshot.val()!=null){
-                try{
-                    week1Group = snapshot.val()['weekone']
-                    week2Group = snapshot.val()['weektwo']
-                    week3Group = snapshot.val()['weekthree']
+          try{
+                userId = document.cookie.split('=')[1]
 
-                    database.ref('groups/weekone/'+week1Group+'/'+userId).remove();
-                    database.ref('groups/weektwo/'+week2Group+'/'+userId).remove();
-                    database.ref('groups/weekthree/'+week3Group+'/'+userId).remove();
+                database.ref('participant/'+userId).once('value').then(function(snapshot) {
+                    if(snapshot.val()!=null){
+                        try{
+                            week1Group = snapshot.val()['weekone']
+                            week2Group = snapshot.val()['weektwo']
+                            week3Group = snapshot.val()['weekthree']
 
-                    database.ref('participant/'+userId).remove();
-                    document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                            database.ref('groups/weekone/'+week1Group+'/'+userId).remove();
+                            database.ref('groups/weektwo/'+week2Group+'/'+userId).remove();
+                            database.ref('groups/weekthree/'+week3Group+'/'+userId).remove();
 
+                            database.ref('participant/'+userId).remove();
 
-                    if($('#curiosityInventoryButton').hasClass('btn-success'))
-                        $('#curiosityInventoryButton').removeClass('btn-success').addClass('btn-primary')
-                    if($('#mindfulScaleButton').hasClass('btn-success'))
-                        $('#mindfulScaleButton').removeClass('btn-success').addClass('btn-primary')
-                }
-                catch(err){
-                    $.alert({
-                        title: 'Error!',
-                        type: 'red',
-                        content: 'There was a problem unsubscribing you for this study. Please contact lead researcher!',
-                    });
-                }
-            }
-        });
+                            if($('#curiosityInventoryButton').hasClass('btn-success'))
+                                $('#curiosityInventoryButton').removeClass('btn-success').addClass('btn-primary')
+                            if($('#mindfulScaleButton').hasClass('btn-success'))
+                                $('#mindfulScaleButton').removeClass('btn-success').addClass('btn-primary')
+                        }
+                        catch(err){
+                            $.alert({
+                                title: 'Error!',
+                                type: 'red',
+                                content: 'There was a problem unsubscribing you for this study. Please contact lead researcher!',
+                            });
+                        }
+                    }
+                });
+          } catch(e){}
           
         console.log('User is unsubscribed.');
+        document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         $('#cb-info').prop('checked', false)
         $('#cb-consent').prop('checked', false)
         $('#exampleModal').modal('hide')

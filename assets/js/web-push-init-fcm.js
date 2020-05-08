@@ -98,6 +98,7 @@ function initializeUI() {
         console.log('userId present - therefore subscribed')
         $('#cb-info').prop('checked', true)
         $('#cb-consent').prop('checked', true)
+        isSubscribed = true
         //sendTokenToServer(currentToken);
         //updateUIForPushEnabled(currentToken);
         // check both boxes

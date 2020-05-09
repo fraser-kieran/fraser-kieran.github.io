@@ -53,6 +53,249 @@ const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
     
+    try{
+        if(payload && payload.data && payload.data.notification){
+    
+            notification = JSON.parse(payload.data.notification)
+
+            if(notification.hasOwnProperty('midstudy')){
+                options = {
+                    body: 'Nightly Survey',
+                    badge: '/images/badge.png',
+                    icon: '/images/favicon.png',
+                    data: {
+                        notificationId: null,
+                        userId: notification.user,
+                        url: notification.url,
+                        midstudy: true
+                    },
+
+                };
+                return self.registration.showNotification('Pushd Study Alert', options);
+            }
+            else if(notification.hasOwnProperty('closing')){
+                options = {
+                    body: 'You have finished the study. Click to confirm submission.',
+                    badge: '/images/badge.png',
+                    icon: '/images/favicon.png',
+                    data: {
+                        notificationId: null,
+                        userId: notification.user,
+                        url: notification.url,
+                        closing: true
+                    },
+
+                };
+                return self.registration.showNotification('Pushd Study Alert', options);
+            }
+            else{
+
+                var notification_data = { notification: { data: { notificationId: notification.id,
+                                                              userId: notification.user,
+                                                              engagement: 'delivered' } } }
+                update_engagement(notification_data, 'delivered')
+
+                var options = {}
+
+                switch(notification.template){
+                    case 'control':
+                        title = "1"+notification.domain
+                        options = {
+                            body: notification.summary,
+                            badge: '/images/badge.png',
+                            icon: 'https://'+notification.domain+'/favicon.ico',
+                            data: {
+                                notificationId: notification.id,
+                                userId: notification.user,
+                                url: notification.url,
+                                topic: notification.topic,
+                                sentiment: notification.sentiment,
+                                enticement: notification.enticement,
+                                keywords: notification.keywords,
+                                emojis: notification.emoji_key
+                            }
+                        };
+                        return self.registration.showNotification(title, options);
+                    case 'emojikey':
+                        title = "1"+notification.domain
+                        options = {
+                            body: summary_to_keywords(notification),
+                            badge: '/images/badge.png',
+                            icon: 'https://'+notification.domain+'/favicon.ico',
+                            data: {
+                                notificationId: notification.id,
+                                userId: notification.user,
+                                url: notification.url,
+                                topic: notification.topic,
+                                sentiment: notification.sentiment,
+                                enticement: notification.enticement,
+                                keywords: notification.keywords,
+                                emojis: notification.emoji_key
+                            }
+                        };
+                        return self.registration.showNotification(title, options);
+                    case 'emojisen':
+                        title = "1"+notification['emoji_sen']+'\n - '+notification.domain
+                        options = {
+                            body: notification.summary,
+                            badge: '/images/badge.png',
+                            icon: 'https://'+notification.domain+'/favicon.ico',
+                            data: {
+                                notificationId: notification.id,
+                                userId: notification.user,
+                                url: notification.url,
+                                topic: notification.topic,
+                                sentiment: notification.sentiment,
+                                enticement: notification.enticement,
+                                keywords: notification.keywords,
+                                emojis: notification.emoji_key
+                            }
+                        };
+                        return self.registration.showNotification(title, options);
+                    case 'empathetic':
+
+                        title = "1"+empathetic_title(notification)
+                        options = {
+                            body: empathetic_summary(notification),
+                            badge: empathetic_badge(notification), // sentiment badge
+                            icon: 'https://'+notification.domain+'/favicon.ico',
+                            data: {
+                                notificationId: notification.id,
+                                userId: notification.user,
+                                url: notification.url,
+                                topic: notification.topic,
+                                sentiment: notification.sentiment,
+                                enticement: notification.enticement,
+                                keywords: notification.keywords,
+                                emojis: notification.emoji_key
+                            }
+                        };
+                        return self.registration.showNotification(title, options);
+                }
+
+            }
+        }
+    }catch(e){console.log(e)}
+});
+
+function summary_to_keywords(notification){
+    summary = notification['summary'].replace(', ', ' ').toLowerCase()
+    emojis = notification['emoji_key'].split(', ')
+    keywords = notification['keywords'].split(', ')
+    for(var i=0; i<keywords.length; i++)
+        summary = summary.replace(keywords[i], keywords[i]+' '+emojis[i])
+    return capitalizeFirstLetter(summary)
+}
+
+function summary_to_emoji(notification){
+    emojis = notification['emoji_sen']
+    summary = emojis + '\n' + notification.summary
+    return summary
+}
+
+// Put sentiment here based on the value
+function empathetic_title(notification){
+    if(notification.hasOwnProperty('inf_topic'))
+        notification.topic = notification.inf_topic
+    return capitalizeFirstLetter(notification.topic.split(':')[0] + ' message from '+notification.domain)
+}
+
+function empathetic_badge(notification){
+    if(notification.sentiment=='positive')
+        return '/images/pos_badge.png'
+    else if(notification.sentiment=='negative')
+        return '/images/neg_badge.png'
+    else
+        return '/images/badge.png'
+}
+
+function empathetic_summary(notification){
+    const unique = (value, index, self) => {
+      return self.indexOf(value) === index
+    }
+    if(notification.hasOwnProperty('inf_enticement'))
+        notification.enticement = notification.inf_enticement
+    switch(notification.enticement){
+        case 'low':
+            return notification.summary
+        case 'medium':
+            keywords = []
+            emojis = []
+            for(var i=0; i<notification.keywords.split(', ').length; i++){
+                try{
+                    keywords.push(notification.keywords.split(', ')[i])
+                    emojis.push(notification.emoji_key.split(', ')[i])
+                }catch(err){console.log(err)}
+            }
+            return emojis.filter(unique).join()+'\n'+
+                keywords.filter(unique).join()
+        case 'high':
+            keywords = []
+            emojis = []
+            for(var i=0; i<notification.keywords.split(', ').length; i++){
+                try{
+                    keywords.push(notification.keywords.split(', ')[i])
+                    emojis.push(notification.emoji_key.split(', ')[i])
+                }catch(err){console.log(err)}
+            }
+            return emojis.filter(unique).join()+'\n'+
+                keywords.filter(unique).join()
+    }
+}
+
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+self.addEventListener('notificationclick', function(event) {
+    try{
+        event.notification.close();
+
+        if(event.notification.data.notificationId==null){
+            if (clients.openWindow) {
+                event.waitUntil(clients.openWindow(event.notification.data.url+event.notification.data.userId))
+            }
+            return
+        }
+        else{
+            if (!event.action) {
+                // Was a normal notification click
+                update_engagement(event, 'opened')
+                if (clients.openWindow) {
+                    event.waitUntil(clients.openWindow(event.notification.data.url+'?source=pushd'))
+                }
+                return;
+            }
+            update_engagement(event, 'unknown')
+        }    
+    }catch(e){console.log(e)}
+    
     
 });
 
+self.addEventListener('notificationclose', function(event) {
+    try{
+        if(event.notification.data.notificationId!=null){
+            update_engagement(event, 'dismissed')
+        }
+    }catch(e){console.log(e)}
+});
+
+function update_engagement(event, engagement){
+
+    var engageUrl = "https://empushy.azurewebsites.net/v1/pushd/engagement";
+
+    var formData = JSON.stringify({
+        "userId": event.notification.data.userId,
+        "notificationId": event.notification.data.notificationId,
+        "engagement": engagement
+    })
+    
+    fetch(engageUrl, {
+        method: 'post',
+        headers: {
+          "Content-type": "application/json; charset=utf-8"
+        },
+        body: formData
+    })
+}

@@ -99,7 +99,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
 
                 switch(notification.template){
                     case 'control':
-                        title = "1"+notification.domain
+                        title = notification.domain
                         options = {
                             body: notification.summary,
                             badge: '/images/badge.png',
@@ -117,7 +117,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
                         };
                         return self.registration.showNotification(title, options);
                     case 'emojikey':
-                        title = "1"+notification.domain
+                        title = notification.domain
                         options = {
                             body: summary_to_keywords(notification),
                             badge: '/images/badge.png',
@@ -135,7 +135,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
                         };
                         return self.registration.showNotification(title, options);
                     case 'emojisen':
-                        title = "1"+notification['emoji_sen']+'\n - '+notification.domain
+                        title = notification['emoji_sen']+'\n - '+notification.domain
                         options = {
                             body: notification.summary,
                             badge: '/images/badge.png',
@@ -154,7 +154,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
                         return self.registration.showNotification(title, options);
                     case 'empathetic':
 
-                        title = "1"+empathetic_title(notification)
+                        title = empathetic_title(notification)
                         options = {
                             body: empathetic_summary(notification),
                             badge: empathetic_badge(notification), // sentiment badge

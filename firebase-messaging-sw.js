@@ -51,7 +51,6 @@ const messaging = firebase.messaging();
 // implement this optional method.
 // [START background_handler]
 messaging.setBackgroundMessageHandler(function(payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
     
     try{
         if(payload && payload.data && payload.data.notification){

@@ -179,7 +179,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
 
             }
         }
-    }catch(e){console.log(err)}
+    }catch(e){console.log(e)}
 });
 
 function summary_to_keywords(notification){
@@ -272,7 +272,7 @@ self.addEventListener('notificationclick', function(event) {
             }
             update_engagement(event, 'unknown')
         }    
-    }catch(e){console.log(err)}
+    }catch(e){console.log(e)}
     
     
 });
@@ -282,7 +282,7 @@ self.addEventListener('notificationclose', function(event) {
         if(event.notification.data.notificationId!=null){
             update_engagement(event, 'dismissed')
         }
-    }catch(e){console.log(err)}
+    }catch(e){console.log(e)}
 });
 
 function update_engagement(event, engagement){

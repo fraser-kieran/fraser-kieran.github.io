@@ -65,6 +65,18 @@ messaging.onTokenRefresh(() => {
       setTokenSentToServer(false);
       // Send Instance ID token to app server.
       //sendTokenToServer(refreshedToken);
+      var uId = document.cookie.split('=')[1]
+        if(uId && uId.charAt(0) && uId.charAt(0) == '-'){
+            database.ref('participant/'+userId).update({
+                    token: refreshedToken
+            }, function(error) {
+                if (error) {
+                  setTokenSentToServer(false)
+                } else {
+                    setTokenSentToServer(true);
+                }
+            });
+        }
       // [START_EXCLUDE]
       // Display new Instance ID token and clear UI of all previous messages.
       //resetUI();
@@ -81,7 +93,7 @@ messaging.onTokenRefresh(() => {
 // - the user clicks on an app notification created by a service worker
 //   `messaging.setBackgroundMessageHandler` handler.
 messaging.onMessage((payload) => {
-    console.log('Message received. ', payload);
+    console.log('Message received foreground. ', payload);
     // [START_EXCLUDE]
     // Update the UI to include the received message.
     //appendMessage(payload);
@@ -421,6 +433,7 @@ function subNewParticipant(token) {
                         unsubscribeUser()
                     } else {
                         
+                        setTokenSentToServer(true);
                         console.log('Updating groups...')
                         for(week in chosenGroups)
                             if(chosenGroups[week] != null)

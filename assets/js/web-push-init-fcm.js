@@ -17,7 +17,6 @@ var database = firebase.database();
 const messaging = firebase.messaging();
 messaging.usePublicVapidKey("BFEbzP7FmcXf3RrZ2c7UnYt7wQIbTL2vEkNj6sbEVL6BRpuZfQsDF2-fUyvrdjBQowasSKVLBrmi_s1oYetKaBQ");
 
-var swRegistration = null;
 var isSubscribed = false;
 
 /*
@@ -29,19 +28,7 @@ function initSubscribe(){
    
     /* Check if service workers and push messaging is supported by the browser */
     if ('serviceWorker' in navigator && 'PushManager' in window) {
-      //console.log('Service Worker and Push is supported');
-
-      navigator.serviceWorker.register('/web-push-sw.js', {scope: '/pushd.html'})
-      .then(function(swReg) {
-        //console.log('Service Worker is registered', swReg);
-
-        swRegistration = swReg;
-        initializeUI();
-
-      })
-      .catch(function(error) {
-        console.error('Service Worker Error', error);
-      });
+      initializeUI();
     } else {
       console.warn('Push messaging is not supported');
     }

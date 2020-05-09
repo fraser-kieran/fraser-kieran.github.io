@@ -162,6 +162,9 @@ self.addEventListener('push', function(event) {
 });*/
 
 // https://pushpad.xyz/service-worker.js
+// pushsubscriptionchange is not called in chrome! In roadmap.. 
+// https://bugs.chromium.org/p/chromium/issues/detail?id=1078367&q=pushsubscriptionchange&can=2
+// potentially this instead (stackoverflow.com/questions/42362235/web-pushnotification-unauthorizedregistration-or-gone-or-unauthorized-sub)
 self.addEventListener('pushsubscriptionchange', function(event) {
   event.waitUntil(
     fetch('https://empushy.azurewebsites.net/v1/pushd/resubscribe', {

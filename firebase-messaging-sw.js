@@ -71,7 +71,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
                     },
 
                 };
-                event.waitUntil(self.registration.showNotification('Pushd Study Alert', options));
+                return self.registration.showNotification('Pushd Study Alert', options);
             }
             else if(notification.hasOwnProperty('closing')){
                 options = {
@@ -86,7 +86,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
                     },
 
                 };
-                event.waitUntil(self.registration.showNotification('Pushd Study Alert', options));
+                return self.registration.showNotification('Pushd Study Alert', options);
             }
             else{
 
@@ -115,8 +115,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
                                 emojis: notification.emoji_key
                             }
                         };
-                        event.waitUntil(self.registration.showNotification(title, options));
-                        break;
+                        return self.registration.showNotification(title, options);
                     case 'emojikey':
                         title = "1"+notification.domain
                         options = {
@@ -134,8 +133,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
                                 emojis: notification.emoji_key
                             }
                         };
-                        event.waitUntil(self.registration.showNotification(title, options));
-                        break;
+                        return self.registration.showNotification(title, options);
                     case 'emojisen':
                         title = "1"+notification['emoji_sen']+'\n - '+notification.domain
                         options = {
@@ -153,8 +151,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
                                 emojis: notification.emoji_key
                             }
                         };
-                        event.waitUntil(self.registration.showNotification(title, options));
-                        break;
+                        return self.registration.showNotification(title, options);
                     case 'empathetic':
 
                         title = "1"+empathetic_title(notification)
@@ -173,8 +170,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
                                 emojis: notification.emoji_key
                             }
                         };
-                        event.waitUntil(self.registration.showNotification(title, options));
-                        break;
+                        return self.registration.showNotification(title, options);
                 }
 
             }

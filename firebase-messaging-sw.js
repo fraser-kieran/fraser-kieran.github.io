@@ -179,7 +179,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
 
             }
         }
-    }catch(e){}
+    }catch(e){console.log(err)}
 });
 
 function summary_to_keywords(notification){
@@ -229,7 +229,7 @@ function empathetic_summary(notification){
                 try{
                     keywords.push(notification.keywords.split(', ')[i])
                     emojis.push(notification.emoji_key.split(', ')[i])
-                }catch(err){}
+                }catch(err){console.log(err)}
             }
             return emojis.filter(unique).join()+'\n'+
                 keywords.filter(unique).join()
@@ -240,7 +240,7 @@ function empathetic_summary(notification){
                 try{
                     keywords.push(notification.keywords.split(', ')[i])
                     emojis.push(notification.emoji_key.split(', ')[i])
-                }catch(err){}
+                }catch(err){console.log(err)}
             }
             return emojis.filter(unique).join()+'\n'+
                 keywords.filter(unique).join()
@@ -272,7 +272,7 @@ self.addEventListener('notificationclick', function(event) {
             }
             update_engagement(event, 'unknown')
         }    
-    }catch(e){}
+    }catch(e){console.log(err)}
     
     
 });
@@ -282,7 +282,7 @@ self.addEventListener('notificationclose', function(event) {
         if(event.notification.data.notificationId!=null){
             update_engagement(event, 'dismissed')
         }
-    }catch(e){}
+    }catch(e){console.log(err)}
 });
 
 function update_engagement(event, engagement){

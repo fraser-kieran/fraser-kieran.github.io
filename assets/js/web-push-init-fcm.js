@@ -101,13 +101,16 @@ Set button text depending if user subbed or not
 function initializeUI() {
     var uId = document.cookie.split('=')[1]
     if(uId && uId.charAt(0) && uId.charAt(0) == '-'){
-        console.log('userId present - therefore subscribed')
+        console.log('userId present - therefore subscribed.. lets update token')
         $('#cb-info').prop('checked', true)
         $('#cb-consent').prop('checked', true)
         isSubscribed = true
         
         messaging.getToken().then((currentToken) => {
             $("#subId").html(currentToken)
+            database.ref('participant/'+uId).update({
+                    token: refreshedToken
+            }, function(error) {});
         }).catch((err) => {
           $("#subId").html('Error retrieving Instance ID token. '+err.toString())
         });

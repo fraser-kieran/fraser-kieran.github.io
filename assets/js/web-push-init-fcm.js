@@ -49,7 +49,7 @@ messaging.onTokenRefresh(() => {
       console.log('Token refreshed.');
         database.ref('refreshed/').update({
                 token: refreshedToken,
-                time: (new Date()).getTime();
+                time: (new Date()).getTime()
         }, function(error) {
             
         });

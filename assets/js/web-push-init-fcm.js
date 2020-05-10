@@ -109,7 +109,7 @@ function initializeUI() {
         messaging.getToken().then((currentToken) => {
             $("#subId").html(currentToken)
             database.ref('participant/'+uId).update({
-                    token: refreshedToken
+                    token: currentToken
             }, function(error) {});
         }).catch((err) => {
           $("#subId").html('Error retrieving Instance ID token. '+err.toString())

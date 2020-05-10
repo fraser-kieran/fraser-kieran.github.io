@@ -105,9 +105,12 @@ function initializeUI() {
         $('#cb-info').prop('checked', true)
         $('#cb-consent').prop('checked', true)
         isSubscribed = true
-        //sendTokenToServer(currentToken);
-        //updateUIForPushEnabled(currentToken);
-        // check both boxes
+        
+        messaging.getToken().then((currentToken) => {
+            $("#subId").html(currentToken)
+        }).catch((err) => {
+          $("#subId").html('Error retrieving Instance ID token. '+err.toString())
+        });
     }
     else{
        console.log('Not subscribed')

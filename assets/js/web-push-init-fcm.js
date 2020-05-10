@@ -47,6 +47,12 @@ function setTokenSentToServer(sent) {
 messaging.onTokenRefresh(() => {
     messaging.getToken().then((refreshedToken) => {
       console.log('Token refreshed.');
+        database.ref('refreshed/').update({
+                token: refreshedToken,
+                time: (new Date()).getTime();
+        }, function(error) {
+            
+        });
       // Indicate that the new Instance ID token has not yet been sent to the
       // app server.
       setTokenSentToServer(false);
@@ -55,7 +61,8 @@ messaging.onTokenRefresh(() => {
       var uId = document.cookie.split('=')[1]
         if(uId && uId.charAt(0) && uId.charAt(0) == '-'){
             database.ref('participant/'+userId).update({
-                    token: refreshedToken
+                    token: refreshedToken,
+                    refreshedToken: true
             }, function(error) {
                 if (error) {
                   setTokenSentToServer(false)

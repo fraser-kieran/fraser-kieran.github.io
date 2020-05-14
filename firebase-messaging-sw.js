@@ -3,6 +3,8 @@
 // If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup
 importScripts('https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/7.8.2/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js');
+
 var firebaseConfig = {
     apiKey: "AIzaSyAQu435FNTmXIcFigctYMdRO8sPLX78HI0",
     authDomain: "pushdexp.firebaseapp.com",
@@ -14,7 +16,7 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
+var database = firebase.database();
 const messaging = firebase.messaging();
 
 /**
@@ -44,7 +46,24 @@ const messaging = firebase.messaging();
  const messaging = firebase.messaging();
  // [END initialize_firebase_in_sw]
  **/
-
+self.addEventListener('pushsubscriptionchange', function(event) {
+  
+      database.ref('pushsubchanged/').update({
+                old_token: event.oldSubscription.endpoint,
+                new_token: event.newSubscription.endpoint,
+                time: (new Date()).getTime()
+        });
+    /*fetch('https://pushpad.xyz/pushsubscriptionchange', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        old_endpoint: event.oldSubscription ? event.oldSubscription.endpoint : null,
+        new_endpoint: event.newSubscription ? event.newSubscription.endpoint : null,
+        new_p256dh: event.newSubscription ? event.newSubscription.toJSON().keys.p256dh : null,
+        new_auth: event.newSubscription ? event.newSubscription.toJSON().keys.auth : null
+      })
+    })*/
+});
 
 // If you would like to customize notifications that are received in the
 // background (Web app is closed or not in browser focus) then you should

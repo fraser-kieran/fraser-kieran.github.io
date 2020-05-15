@@ -31,6 +31,46 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
+// [START refresh_token]
+// Callback fired if Instance ID token is updated.
+messaging.onTokenRefresh(() => {
+    messaging.getToken().then((refreshedToken) => {
+        console.log('Token refreshed.');
+        database.ref('refreshed/').update({
+                token: refreshedToken,
+                time: (new Date()).getTime()
+        }, function(error) {
+            
+        });
+      // Indicate that the new Instance ID token has not yet been sent to the
+      // app server.
+      // setTokenSentToServer(false);
+      // Send Instance ID token to app server.
+      //sendTokenToServer(refreshedToken);
+      var uId = document.cookie.split('=')[1]
+        if(uId && uId.charAt(0) && uId.charAt(0) == '-'){
+            database.ref('participant/'+userId).update({
+                    token: refreshedToken,
+                    refreshedToken: true
+            }, function(error) {
+                if (error) {
+                  setTokenSentToServer(false)
+                } else {
+                    setTokenSentToServer(true);
+                }
+            });
+        }
+      // [START_EXCLUDE]
+      // Display new Instance ID token and clear UI of all previous messages.
+      //resetUI();
+      // [END_EXCLUDE]
+    }).catch((err) => {
+      console.log('Unable to retrieve refreshed token ', err);
+    });
+});
+// [END refresh_token]
+
+
 /*
 First function called. Checks if service worker and push active or possible.
 todo - print message to user if not eligible

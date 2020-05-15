@@ -31,32 +31,18 @@ var mindfulScores = []
 var curiosityScores = []
 var prolificURL = ''
 
-/*$('#exampleModal').modal({
-    backdrop: 'static',
-    keyboard: false
-})*/
-
-contactFormInit()
-
-initSubscribe()
-
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         var isAnonymous = user.isAnonymous;
         var uid = user.uid;
         getAllNotifications()
         getProlificURLS()
-    } else {
-        firebase.auth().signInAnonymously().catch(function(error) {
-            $.alert({
-                title: 'Oops!',
-                type: 'red',
-                content: 'Something went wrong. Please try again later.',
-            });
-
-        });
     }
 });
+
+contactFormInit()
+
+initSubscribe()
 
 function contactFormInit(){
     try{

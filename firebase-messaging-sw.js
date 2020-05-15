@@ -2,6 +2,7 @@
 // These scripts are made available when the app is served or deployed on Firebase Hosting
 // If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup
 importScripts('https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js');
 importScripts('https://www.gstatic.com/firebasejs/7.8.2/firebase-messaging.js');
 importScripts('https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js');
 
@@ -18,7 +19,12 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 const messaging = firebase.messaging();
-messaging.usePublicVapidKey("BFEbzP7FmcXf3RrZ2c7UnYt7wQIbTL2vEkNj6sbEVL6BRpuZfQsDF2-fUyvrdjBQowasSKVLBrmi_s1oYetKaBQ");
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (!user) {
+        firebase.auth().signInAnonymously().catch(function(error){});
+    }
+});
 
 // [START refresh_token]
 // Callback fired if Instance ID token is updated.

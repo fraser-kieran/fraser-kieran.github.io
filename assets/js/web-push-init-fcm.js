@@ -19,6 +19,18 @@ messaging.usePublicVapidKey("BFEbzP7FmcXf3RrZ2c7UnYt7wQIbTL2vEkNj6sbEVL6BRpuZfQs
 
 var isSubscribed = false;
 
+firebase.auth().onAuthStateChanged(function(user) {
+    if (!user) {
+        firebase.auth().signInAnonymously().catch(function(error) {
+            $.alert({
+                title: 'Oops!',
+                type: 'red',
+                content: 'Something went wrong. Please try again later.',
+            });
+        });
+    }
+});
+
 /*
 First function called. Checks if service worker and push active or possible.
 todo - print message to user if not eligible

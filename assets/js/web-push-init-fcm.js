@@ -120,12 +120,12 @@ function initializeUI() {
         isSubscribed = true
         
         messaging.getToken().then((currentToken) => {
-            $("#subId").html(currentToken)
+            //$("#subId").html(currentToken)
             database.ref('participant/'+uId).update({
                     token: currentToken
             }, function(error) {});
         }).catch((err) => {
-          $("#subId").html('Error retrieving Instance ID token. '+err.toString())
+          //$("#subId").html('Error retrieving Instance ID token. '+err.toString())
         });
     }
     else{
@@ -357,8 +357,8 @@ function subscribeUser() {
             try{
                 var uId = document.cookie.split('=')[1]
                 if(uId.charAt(0) == '-'){
-                    $("#subId").html($("#subId").html()+"userIdPresent")
-                    $("#subId").html($("#subId").html()+" "+uId)
+                    //$("#subId").html($("#subId").html()+"userIdPresent")
+                    //$("#subId").html($("#subId").html()+" "+uId)
                     // userId present - update subscription
                 }
             }

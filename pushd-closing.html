@@ -355,6 +355,16 @@
                                     </ol>
                                 </div>
                             </div>
+                            <div class="row" onclick="checkboxCalc()" id="completeCheckboxes"  style="display: none;">
+                                <div class="col-md-12">
+                                    <input type="checkbox" id="cb-yesProlific" name="cb-info">
+                                    <label for="cb-yesProlific">I signed up using Prolific Academic</label>
+
+                                    <input type="checkbox" id="cb-noProlific" name="cb-consent">
+                                    <label for="cb-noProlific">I did not sign up using Prolific Academic</label>
+                                </div>
+                                <br>
+                            </div>
                             <div id="emailDraw" class="row" style="text-align: left; display: none;">
                                 <div class="col-md-12">
                                     <p>If you wish to be entered into the draw for a &#8364;100 One4All gift voucher, please enter your email below.<br><i>Note: emails will be used only to contact the winner and will not be used for any other purpose. Collected emails will be deleted once the draw has taken place</i></p>
@@ -366,7 +376,7 @@
                             <button class="btn btn-success" id="completeButton" style="display: none;" onclick="goToProlific()">Confirm Completion</button>
                             <button class="btn btn-success" id="completeButtonAlt" style="display: none;" onclick="completed()">Confirm Completion</button>
                         </div>
-                        <h5 id="notCompleteMessage" style="display: none;">A link to the Prolific Academic study submission confirmation page will appear here once you have completed the 21 days of the study, please check back again soon.</h5>
+                        <h5 id="notCompleteMessage" style="display: none;">A link to the Prolific Academic study submission confirmation page will appear here once you have completed all days of the study, please check back again soon.</h5>
                         <h5 id="alreadyCompleteMessage" style="display: none;">You have confirmed completion.</h5>
                         <br>
 					</section>
@@ -481,7 +491,7 @@
                                         
                                         var timeDiff = (new Date()).getTime() - (new Date(user.signedUp)).getTime();
                                         var daysLeft = timeDiff / (1000 * 3600 * 24);
-                                        daysLeft = 21 - Math.round(daysLeft)
+                                        daysLeft = 9 - Math.round(daysLeft)
                                         if(daysLeft < 0)
                                             daysLeft = 0
                                         var phase = user.phase
@@ -554,14 +564,15 @@
                                         console.log(prolificId)
                                         var timeDiff = (new Date()).getTime() - (new Date(user.signedUp)).getTime();
                                         var daysLeft = timeDiff / (1000 * 3600 * 24);
-                                        daysLeft = 21 - Math.round(daysLeft)
+                                        daysLeft = 9 - Math.round(daysLeft)
                                         if(daysLeft < 0)
                                             daysLeft = 0
                                         $("#daysLeft").html(daysLeft);
                                         $('#studyStats').show()
                                         
                                         if(phase && phase==4 && !alreadyCompleted){
-                                            $('#completeButton').show()
+                                            // show checkboxes
+                                            $('#completeCheckboxes').show()
                                             getMetrics();
                                         } 
                                         else if (alreadyCompleted){
@@ -574,9 +585,9 @@
                                     else{
                                         $("#daysLeftContainer").hide();
                                         $('#studyStats').show()
-                                        $('#emailDraw').show()
                                         if(phase && phase==4 && !alreadyCompleted){
-                                            $('#completeButtonAlt').show()
+                                            // show checkboxes
+                                            $('#completeCheckboxes').show()
                                             getMetrics();
                                         }
                                         else if (alreadyCompleted){
@@ -798,6 +809,27 @@
                     }
                 }
                 
+                function checkboxCalc(){
+                    if($("#cb-yesProlific").prop('checked')){
+                        $('#completeButton').show()
+                        $('#completeButtonAlt').hide()
+                        $('#emailDraw').hide()
+                        $("#cb-noProlific").prop('checked', false)
+                    }
+                    else{
+                        $('#completeButton').hide()
+                    }
+                    if($("#cb-noProlific").prop('checked')){
+                        $('#completeButtonAlt').show()
+                        $('#completeButton').hide()
+                        $('#emailDraw').show()
+                        $("#cb-yesProlific").prop('checked', false)
+                    }
+                    else{
+                        $('#completeButtonAlt').hide()
+                        $('#emailDraw').hide()
+                    }
+                }
             </script>
             
 			<script src="assets/js/jquery.poptrox.min.js"></script>

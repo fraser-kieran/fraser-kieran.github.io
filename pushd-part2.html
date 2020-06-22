@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Pushd Experiment</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="apple-touch-icon" href="images/favicon.png">
+        <link rel="shortcut icon" href="images/favicon.png">
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="assets/css/pushd.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+        
+        <style>
+        
+            .modal-body p {
+                margin-bottom: 0px;
+            }
+            .btn-likert.active {
+                background-color: #079198!important;
+            }
+            .btn-group-sm.btn-group-toggle {
+                margin-bottom: 20px;
+            }
+            .modal { overflow: auto !important; }
+            
+            ::-webkit-scrollbar {
+                width: 0px;
+                background: transparent; /* make scrollbar transparent */
+            }
+            .bootstrap-select {
+		      border: solid thin dimgray;
+                margin-bottom: 20px;
+            }
+        </style>
+        
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header" style="background-color: black">
+				<div class="inner">
+					<!--<a href="" class="image avatar"><img src="images/LinkedInProfiler.png" alt="" /></a>
+					<h1><strong>Kieran Fraser</strong><br />
+                        PhD Candidate @ ADAPT Centre<br/>
+                        Trinity College Dublin</h1>-->
+				</div>
+			</header>
+
+		<!-- Main -->
+			<div id="main">
+                    
+				<!-- One -->
+                    <span class="image"><img style="width: 50%; margin: auto;" src="images/pushd/pushd_black_no_caption_3.0.png" alt="pushd logo" /></span>
+					<section id="one">
+                        <p>Welcome to <strong>Part 2 of the Pushd study</strong>. Once again, this study aims to test alternate methods of creating and delivering push-notifications in order to improve the engagement experience for notification receivers. This is achieved by monitoring engagements with notifications and identifying patterns of preference for content and delivery. 
+                        </p>
+                        <p>As you have already subscribed to receive push-notifications during this study, you do not have to do anything more on this page. You will receive push-notifications daily and you can engage with them however you please over the next number of days! We will send you a push-notification containing a questionnaire each evening, keep an eye out for it. It takes approx. 30 seconds to complete. At the end of the study, you will receive one final notification from us which will bring you to a final questionnaire. After submitting this questionnaire you will find the link to bring you back to Prolific Academic and complete submission for this Part of the study.</p>
+                        
+                        <p><strong class="text-danger">Important:</strong> Please do not delete your history or cache for the duration of the study, as we will be unable to send push-notifications and you will be unable to successfully complete the study. If you find you are not receiving any push-notifications daily, navigate to <a class="text-danger" href="/pushd.html">the study home page</a> (no need to click any buttons on the page, just visit it). If you are still not receiving notifications, please contact us via the Prolific Academic platform and we will do our best to troubleshoot the problem!</p>
+                        
+                        <p>
+                         Thanks for your participation!
+                        </p>
+					</section>
+                
+				<!-- Two -->
+					<section id="four">
+                        <div class="container-fluid">
+                            <p id="subId"></p>
+                            <h2>Get In Touch</h2>
+                            <p>If you have any questions regarding the <strong>Pushd</strong> Experiment, please use the form below or the email address provided and I will follow up ASAP! If you are signing up with Prolific Academic, please use that platform to contact us.</p>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <form id='contact' action="https://formspree.io/kieran.fraser@adaptcentre.ie" method="POST">
+                                        <div class="row gtr-uniform gtr-50">
+                                            <div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
+                                            <div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
+                                            <div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
+                                            <div class="col-12" style="display:none;"><input type="text" name="uId" id="uId" placeholder=""/></div>
+                                        </div>
+                                        <br/>
+                                        <ul class="actions">
+                                            <li><input type="submit" value="Send Message" /></li>
+                                        </ul>
+                                    </form>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="labeled-icons">
+                                        <li>
+                                            <h3 class="icon fa-home"><span class="label">Location</span></h3>
+                                            Dublin, Ireland<br />
+                                        </li>
+                                        <li>
+                                            <h3 class="icon fa-envelope-o"><span class="label">Email</span></h3>
+                                            <a href="#">kfraser@tcd.ie</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="copyright">
+						<!--<li>Kieran Fraser @ ADAPT Centre</li><li>Trinity College Dublin</li>-->
+					</ul>
+				</div>
+			</footer>
+        
+		<!-- Scripts -->
+            <script
+              src="https://code.jquery.com/jquery-3.4.1.min.js"
+              integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+              crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+        
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.4/jsrender.min.js"></script>
+        
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+           
+
+	</body>
+</html>

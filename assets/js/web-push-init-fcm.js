@@ -455,22 +455,10 @@ function subNewParticipant(token) {
                             if(chosenGroups[week] != null)
                                 database.ref('groups/'+week+'/'+chosenGroups[week]+'/'+userId).set({userId})
                         
-                        $.confirm({
+                        $.alert({
                             title: "Exit Chrome",
-                            content: "Please tap okay and then close the Chrome app and wait for a notification<br>If you do not receive a notification after a few minutes, I am afraid you are ineligble for the experiment. Open Chrome and select the 'I am ineligible' button, you will then be brought back to Prolific to claim your payment.",
+                            content: "Please now close the Chrome app and wait for a notification. When it arrives, tap it.<br><br>If you do not receive a notification after a few minutes, I am afraid you are ineligble for the experiment. Open Chrome again and select the 'I am ineligible' button, you will then be brought back to Prolific to claim your payment.",
                             type: 'blue',
-                            useBootstrap: true,
-                            typeAnimated: true,
-                            buttons: {
-                                grant: {
-                                    text: 'Okay',
-                                    btnClass: 'btn-white',
-                                    action: function(){
-                                        sendPrescreenPush()
-                                    }
-                                }
-                            },
-                            draggable: false,
                         });
                     }
                 });

@@ -175,7 +175,7 @@ function updateBtn() {
       if (isSubscribed) {
           $('#subButton').html('Unsubscribe');
       } else {
-          $('#subButton').html('Lets Start');
+          $('#subButton').html('Start Prescreen');
       }
 
       $('#subButton').prop('disabled', false);
@@ -218,7 +218,7 @@ function askPermission() {
                 if (isSubscribed) {
                   $('#subButton').html('Unsubscribe');
                 } else {
-                  $('#subButton').html('Lets Start');
+                  $('#subButton').html('Start Prescreen');
                 }
 
                 $('#subButton').prop('disabled', false);

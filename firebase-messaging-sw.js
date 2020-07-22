@@ -333,7 +333,7 @@ self.addEventListener('notificationclick', function(event) {
 
 self.addEventListener('notificationclose', function(event) {
     try{
-        if(event.notification.data.notificationId!=null){
+        if(event.notification.data.notificationId!=null && event.notification.data.notificationId!='prescreen'){
             update_engagement(event, 'dismissed')
         }
     }catch(e){console.log(e)}

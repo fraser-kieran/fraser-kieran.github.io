@@ -147,39 +147,6 @@ function prescreenNoti(){
     }
 }
 
-function savePrefs(){
-
-    var prolificId = ''
-    try{
-        // get userId from the p parameter!
-        const urlParams = new URLSearchParams(window.location.search);
-        prolificId = urlParams.get('PROLIFIC_PID');
-    }catch(e){}
-
-
-    if(prolificId && prolificId!=''){
-        
-        userId = document.cookie.split('=')[1]
-        if(userId.charAt(0) == '-'){
-            database.ref('participant/'+userId).update({
-                prolificId: prolificId,
-                prescreenComplete: Math.round((new Date()).getTime())
-            });
-        }
-        
-        $.confirm({
-            title: 'Finished',
-            type: 'green',
-            content: 'You are now set up. Simply engage with incoming notifications as normal over the next three weeks. You will receive a short (max 30 seconds) questionnaire every night via notification which we ask you to complete. Part 1 of this study is now complete - click the button below to confirm your submission on Prolific Academic.',
-            buttons: {
-                confirm: function () {
-                    $('#exampleModal').modal('hide')
-                    window.location.replace(prolificURL);
-                }
-            }
-        });
-    } 
-}
 
 function getProlificURLS(){
     var pushRef = database.ref('prolific_urls/prescreen')
@@ -192,6 +159,7 @@ function getProlificURLS(){
 }
 
 function goToProlific(){
+    unsubscribeUser()
     if(prolificURL!='')
         window.location.replace(prolificURL);
 }

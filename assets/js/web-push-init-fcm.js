@@ -457,7 +457,7 @@ function subNewParticipant(token) {
                         
                         $.confirm({
                             title: "Exit Chrome",
-                            content: "Please tap okay and then close the Chrome app and wait for a notification<br>If you do not receive one after 2 minutes, I am afraid you are ineligble for the experiment.",
+                            content: "Please tap okay and then close the Chrome app and wait for a notification<br>If you do not receive a notification after a few minutes, I am afraid you are ineligble for the experiment. Open Chrome and select the 'I am ineligible' button, you will then be brought back to Prolific to claim your payment.",
                             type: 'blue',
                             useBootstrap: true,
                             typeAnimated: true,

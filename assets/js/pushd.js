@@ -191,36 +191,7 @@ function getProlificURLS(){
     });
 }
 
-function sendPrescreenNotification(){
-    if(pushAttempts<3){
-        
-        userId = document.cookie.split('=')[1]
-        if(userId.charAt(0) == '-' && prolificURL!=''){
-            var prescreenPushURL = "https://empushy.azurewebsites.net/v1/pushd/prescreen-push";
-
-            var formData = JSON.stringify({
-                "userId": userId,
-                "url": prolificURL
-            })
-
-            fetch(prescreenPushURL, {
-                method: 'post',
-                headers: {
-                  "Content-type": "application/json; charset=utf-8"
-                },
-                body: formData
-            })
-        }
-        pushAttempts += 1 
-        $('#pushNotiButton').attr('disabled', true);
-        
-        setTimeout(function() { 
-            $('#pushNotiButton').attr('disabled', true);
-        }, 5000);
-        
-    }  
-    else{
-        if(prolificURL!='')
-            window.location.replace(prolificURL);
-    }
+function goToProlific(){
+    if(prolificURL!='')
+        window.location.replace(prolificURL);
 }

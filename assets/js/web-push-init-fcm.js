@@ -99,13 +99,13 @@ function setTokenSentToServer(sent) {
 // - a message is received while the app has focus
 // - the user clicks on an app notification created by a service worker
 //   `messaging.setBackgroundMessageHandler` handler.
-/*messaging.onMessage((payload) => {
-    console.log('Message received foreground. ', payload);
-    // [START_EXCLUDE]
-    // Update the UI to include the received message.
-    //appendMessage(payload);
-    // [END_EXCLUDE]
-});*/
+messaging.onMessage((payload) => {
+    $.alert({
+        title: 'Exit Chrome',
+        type: 'blue',
+        content: 'Please close the Chrome app and wait for a notification.',
+    });
+});
 // [END receive_message]
 
 /* 
@@ -174,6 +174,7 @@ function updateBtn() {
   else if(Notification.permission === 'granted'){      
       if (isSubscribed) {
           $('#subButton').html('Unsubscribe');
+          $('#ineligible').show()
       } else {
           $('#subButton').html('Start Prescreen');
       }
@@ -217,6 +218,7 @@ function askPermission() {
             if(result==='granted'){
                 if (isSubscribed) {
                   $('#subButton').html('Unsubscribe');
+                  $('#ineligible').show()
                 } else {
                   $('#subButton').html('Start Prescreen');
                 }
@@ -447,13 +449,29 @@ function subNewParticipant(token) {
                         
                         setTokenSentToServer(true);
                         
-                        $('#pushNotiButton').show()
                         $('#subButton').hide()
-                        sendPrescreenPush()
-                        
+                    
                         for(week in chosenGroups)
                             if(chosenGroups[week] != null)
                                 database.ref('groups/'+week+'/'+chosenGroups[week]+'/'+userId).set({userId})
+                        
+                        $.confirm({
+                            title: "Exit Chrome",
+                            content: "Please tap okay and then close the Chrome app and wait for a notification<br>If you do not receive one after 2 minutes, I am afraid you are ineligble for the experiment.",
+                            type: 'blue',
+                            useBootstrap: true,
+                            typeAnimated: true,
+                            buttons: {
+                                grant: {
+                                    text: 'Okay',
+                                    btnClass: 'btn-white',
+                                    action: function(){
+                                        sendPrescreenPush()
+                                    }
+                                }
+                            },
+                            draggable: false,
+                        });
                     }
                 });
             }
@@ -481,11 +499,6 @@ function sendPrescreenPush(){
             body: formData
         })
     }
-    $('#pushNotiButton').attr('disabled', true);
-
-    setTimeout(function() { 
-        $('#pushNotiButton').attr('disabled', true);
-    }, 5000);
 }
 
 function getGroupSize(group){

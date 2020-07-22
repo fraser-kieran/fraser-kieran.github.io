@@ -429,6 +429,14 @@ function subNewParticipant(token) {
             }
             if(chosenGroups['weekone']!=null && chosenGroups['weektwo']!=null && chosenGroups['weekthree']!=null){
                 console.log('Saving user details..')
+                
+                var prolificId = ''
+                try{
+                    // get userId from the p parameter!
+                    const urlParams = new URLSearchParams(window.location.search);
+                    prolificId = urlParams.get('PROLIFIC_PID');
+                }catch(e){}
+                
                 database.ref('participant/'+userId).set({
                     id: userId,
                     token: token,
@@ -436,7 +444,8 @@ function subNewParticipant(token) {
                     signedUp: Math.round((new Date()).getTime()),
                     weekone: chosenGroups['weekone'],
                     weektwo: chosenGroups['weektwo'],
-                    weekthree: chosenGroups['weekthree']
+                    weekthree: chosenGroups['weekthree'],
+                    prolificId: prolificId
                 }, function(error) {
                     if (error) {
                       $.alert({

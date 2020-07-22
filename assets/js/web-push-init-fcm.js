@@ -448,6 +448,7 @@ function subNewParticipant(token) {
                         setTokenSentToServer(true);
                         
                         $('#pushNotiButton').show()
+                        $('#subButton').hide()
                         sendPrescreenPush()
                         
                         for(week in chosenGroups)

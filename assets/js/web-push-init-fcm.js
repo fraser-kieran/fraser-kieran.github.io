@@ -457,7 +457,7 @@ function subNewParticipant(token) {
                         
                         $.alert({
                             title: "Exit Chrome",
-                            content: "Please now close the Chrome app and wait for a notification. When it arrives, tap it.<br><br>If you do not receive a notification after a few minutes, I am afraid you are ineligble for the experiment. Open Chrome again and select the 'I am ineligible' button, you will then be brought back to Prolific to claim your payment.",
+                            content: "Please now close the Chrome app and wait for a notification. When it arrives, tap it. You will brought to Prolific to confirm submission.<br><br>If you do not receive a notification after a few minutes, I am afraid you are ineligble for the experiment. Open Chrome again and select the 'I am ineligible' button, you will then be brought back to Prolific to claim your payment.",
                             type: 'blue',
                         });
                     }

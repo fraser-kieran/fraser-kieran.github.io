@@ -82,7 +82,7 @@
                         </div>
                         <br>
                         <div id="postQuestionnaire" style="display: none;">
-                            <h3>Please answer the concluding questionnaire regarding your notification engagements. Thank you for your participation!
+                            <h3>Please answer the concluding questionnaire regarding your notification engagements. This could take you approximately 5 minutes. Ensure you are free and have enough time to complete in full. If you wish to complete later, just exit the page and you will receive a reminder notification in a few hours.<br> Thank you for your participation!
                             </h3>
                             <br>
                             <div class="row" style="text-align: left;">
@@ -127,14 +127,14 @@
                                     Data A:
                                 </div>
                                 <div class="col-md-4">
-                                    <ol id="synthDomain">
+                                    <ol id="realDomain">
                                     </ol>
                                 </div>
                                 <div class="col-md-2">
                                     Data B:
                                 </div>
                                 <div class="col-md-4">
-                                    <ol id="realDomain">
+                                    <ol id="synthDomain">
                                     </ol>
                                 </div>
                             </div>
@@ -339,7 +339,6 @@
                                         <li><p>makes best use of emojis?</p>
                                             <select id="emojiUse" class="selectpicker">
                                               <option value="" selected disabled>Nothing selected</option>
-                                              <option>A</option>
                                               <option>B</option>
                                               <option>C</option>
                                             </select>
@@ -347,9 +346,46 @@
                                         <li><p>has the most relevant emojis for the content?</p>
                                             <select id="emojiRelevant" class="selectpicker">
                                               <option value="" selected disabled>Nothing selected</option>
-                                              <option>A</option>
                                               <option>B</option>
                                               <option>C</option>
+                                            </select>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <h3><strong>Activity</strong></h3>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: left;">
+                                <div class="col-md-12">
+                                    <p>For notifications which you opened during the study:</p>
+                                    <ol>
+                                        <li><p>how much <strong>time</strong>, on average, do you think you spent reading the web page that was presented?</p>
+                                            <select id="timeAverage" class="selectpicker">
+                                              <option value="" selected disabled>Nothing selected</option>
+                                              <option>I didn't open any</option>
+                                              <option>Less than a minute</option>
+                                              <option>Between 1 and 5 minutes</option>
+                                              <option>Over 5 minutes</option>
+                                            </select>
+                                        </li>
+                                        <li><p>did you often <strong>browse other stories</strong> on Chrome after opening and reading the notification?</p>
+                                            <select id="browseOther" class="selectpicker">
+                                              <option value="" selected disabled>Nothing selected</option>
+                                              <option>I didn't open any</option>
+                                              <option>No</option>
+                                              <option>Sometimes</option>
+                                              <option>Yes</option>
+                                            </select>
+                                        </li>
+                                        <li><p>would you subscribe to web notifications again in the future?</p>
+                                            <select id="subFuture" class="selectpicker">
+                                              <option value="" selected disabled>Nothing selected</option>
+                                              <option>No</option>
+                                              <option>Perhaps</option>
+                                              <option>Yes</option>
                                             </select>
                                         </li>
                                     </ol>
@@ -433,6 +469,7 @@
                 var userId = null
                 var mySynth = null
                 var myReal = null
+                var isSynth = 'unk'
                 
                 
                 firebase.auth().onAuthStateChanged(function(user) {
@@ -643,6 +680,7 @@
                             try{
                                 myReal = data['result']['real'];
                                 mySynth = data['result']['synth'];
+                                isSynth = data['result']['isSynth'];
 
                                 for(var t of myReal[0])
                                     $('#realTopics').append('<li>'+t+'</li>')
@@ -685,17 +723,20 @@
                         emojiEnticing = $('#emojiEnticing').val()
                         emojiUse = $('#emojiUse').val()
                         emojiRelevant = $('#emojiRelevant').val()
+                        duration = $('#timeAverage').val()
+                        browse = $('#browseOther').val()
+                        future = $('#subFuture').val()
                         
                         if(topics!=null && domains!=null && days!=null && 
                           times!=null && formatInformative!=null && formatDecision!=null && 
                           formatPrivacy!=null && formatConsent!=null && emojiEnticing!=null && emojiUse!=null &&
-                          emojiRelevant!=null){
+                          emojiRelevant!=null && duration!=null && browse!=null && future!=null){
                             
                             postQuestionnaire = {
                                                     timeCompleted: Math.round((new Date()).getTime()), 
                                                     post_study: [topics, domains, days, times, formatInformative,
-                                                               formatDecision, formatPrivacy, formatConsent, emojiEnticing, 
-                                                               emojiUse, emojiRelevant]
+                                                               formatDecision, formatPrivacy, formatConsent, emojiEnticing, emojiUse, emojiRelevant,
+                                                                duration, browse, future, isSynth]
                                                 }
                             
                             database.ref('participant/'+userId).update(postQuestionnaire, function(error) {

@@ -1,3 +1,18 @@
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyAQu435FNTmXIcFigctYMdRO8sPLX78HI0",
+    authDomain: "pushdexp.firebaseapp.com",
+    databaseURL: "https://pushdexp.firebaseio.com",
+    projectId: "pushdexp",
+    storageBucket: "pushdexp.appspot.com",
+    messagingSenderId: "84430156157",
+    appId: "1:84430156157:web:b4fc89624448507bb05c14"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+
+
 var notificationString = '<div class="card" style="width: 100%; margin-bottom: 10px">'+
       '<div class="card-body" style="padding: 10px;">'+
         '<div class="container-fluid" style="width: 100%; margin: 0px; padding: 0px;">'+

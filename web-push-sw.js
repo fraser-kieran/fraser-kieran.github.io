@@ -24,7 +24,7 @@ self.addEventListener('push', function(event) {
         }
         else if(notification.hasOwnProperty('closing')){
             options = {
-                body: 'You have finished the study. Click to confirm submission.',
+                body: 'Tap to complete the final questionnaire. It will take approx 5 minutes. If you do not have time now, a reminder notification will be sent in a few hours. Thanks for your participation :)',
                 badge: '/images/badge.png',
                 icon: '/images/favicon.png',
                 data: {
@@ -36,6 +36,21 @@ self.addEventListener('push', function(event) {
 
             };
             event.waitUntil(self.registration.showNotification('Pushd Study Alert', options));
+        }
+        else if(notification.hasOwnProperty('prescreen')){
+            options = {
+                body: 'Please tap to confirm.',
+                badge: '/images/badge.png',
+                icon: '/images/favicon.png',
+                data: {
+                    notificationId: 'prescreen',
+                    userId: notification.user,
+                    url: notification.url,
+                    prescreen: true
+                },
+
+            };
+            event.waitUntil(self.registration.showNotification('Prescreen Success', options));
         }
         else{
 
@@ -197,16 +212,27 @@ function summary_to_emoji(notification){
 function empathetic_title(notification){
     if(notification.hasOwnProperty('inf_topic'))
         notification.topic = notification.inf_topic
-    return capitalizeFirstLetter(notification.topic.split(':')[0] + ' message from '+notification.domain)
+    if(notification.sentiment=='positive')
+        return 'Positive '+notification.topic.split(':')[0]+' article'
+    else if(notification.sentiment=='negative')
+        return 'Negative '+notification.topic.split(':')[0]+' article'
+    else
+        return capitalizeFirstLetter(notification.topic.split(':')[0] + ' article')
 }
 
-function empathetic_badge(notification){
+function empathetic_badge_old(notification){
     if(notification.sentiment=='positive')
         return '/images/pos_badge.png'
     else if(notification.sentiment=='negative')
         return '/images/neg_badge.png'
     else
         return '/images/badge.png'
+}
+
+function empathetic_badge(notification){
+    if(notification.hasOwnProperty('inf_topic'))
+        notification.topic = notification.inf_topic
+    return '/images/topics/'+notification.topic.split(':')[0].replace('_', ' ')+'.png'
 }
 
 function empathetic_summary(notification){
@@ -290,6 +316,13 @@ self.addEventListener('notificationclick', function(event) {
             }
             return
         }
+        else if(event.notification.data.notificationId=='prescreen'){
+            update_prescreen(event)
+            if (clients.openWindow) {
+                event.waitUntil(clients.openWindow(event.notification.data.url))
+            }
+            return
+        }
         else{
             if (!event.action) {
                 // Was a normal notification click
@@ -325,6 +358,23 @@ function update_engagement(event, engagement){
     })
     
     fetch(engageUrl, {
+        method: 'post',
+        headers: {
+          "Content-type": "application/json; charset=utf-8"
+        },
+        body: formData
+    })
+}
+
+function update_prescreen(event){
+
+    var prescreenURL = "https://empushy.azurewebsites.net/v1/pushd/prescreen-result";
+
+    var formData = JSON.stringify({
+        "userId": event.notification.data.userId
+    })
+    
+    fetch(prescreenURL, {
         method: 'post',
         headers: {
           "Content-type": "application/json; charset=utf-8"

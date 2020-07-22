@@ -99,13 +99,13 @@ function setTokenSentToServer(sent) {
 // - a message is received while the app has focus
 // - the user clicks on an app notification created by a service worker
 //   `messaging.setBackgroundMessageHandler` handler.
-messaging.onMessage((payload) => {
+/*messaging.onMessage((payload) => {
     console.log('Message received foreground. ', payload);
     // [START_EXCLUDE]
     // Update the UI to include the received message.
     //appendMessage(payload);
     // [END_EXCLUDE]
-});
+});*/
 // [END receive_message]
 
 /* 
@@ -314,7 +314,7 @@ function unsubscribeUser() {
         document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         $('#cb-info').prop('checked', false)
         $('#cb-consent').prop('checked', false)
-        $('#exampleModal').modal('hide')
+        //$('#exampleModal').modal('hide')
         isSubscribed = false;
 
         updateBtn();
@@ -344,10 +344,10 @@ function subscribeUser() {
           updateSubscriptionOnServer(currentToken);
           isSubscribed = true;
 
-          $('#exampleModal').modal({
+          /*$('#exampleModal').modal({
               backdrop: 'static',
               keyboard: false
-          })
+          })*/
         } else {
             setTokenSentToServer(false);
             // Show permission request.
@@ -385,7 +385,6 @@ function updateSubscriptionOnServer(token) {
 
   if (!isTokenSentToServer()) {
       console.log("Updating the subscription on the server")
-      
       subNewParticipant(token)
       
   } else {
@@ -431,7 +430,7 @@ function subNewParticipant(token) {
                 database.ref('participant/'+userId).set({
                     id: userId,
                     token: token,
-                    phase: 1,
+                    phase: 0,
                     signedUp: Math.round((new Date()).getTime()),
                     weekone: chosenGroups['weekone'],
                     weektwo: chosenGroups['weektwo'],
@@ -447,7 +446,10 @@ function subNewParticipant(token) {
                     } else {
                         
                         setTokenSentToServer(true);
-                        console.log('Updating groups...')
+                        
+                        $('#pushNotiButton').show()
+                        sendPrescreenPush()
+                        
                         for(week in chosenGroups)
                             if(chosenGroups[week] != null)
                                 database.ref('groups/'+week+'/'+chosenGroups[week]+'/'+userId).set({userId})
@@ -460,12 +462,36 @@ function subNewParticipant(token) {
     
 }
 
+function sendPrescreenPush(){
+    userId = document.cookie.split('=')[1]
+    if(userId.charAt(0) == '-' && prolificURL!=''){
+        var prescreenPushURL = "https://empushy.azurewebsites.net/v1/pushd/prescreen-push";
+
+        var formData = JSON.stringify({
+            "userId": userId,
+            "url": prolificURL
+        })
+
+        fetch(prescreenPushURL, {
+            method: 'post',
+            headers: {
+              "Content-type": "application/json; charset=utf-8"
+            },
+            body: formData
+        })
+    }
+    $('#pushNotiButton').attr('disabled', true);
+
+    setTimeout(function() { 
+        $('#pushNotiButton').attr('disabled', true);
+    }, 5000);
+}
+
 function getGroupSize(group){
     var counter = 0
     for(key in group)
         counter++
     return counter
 }
-
   
 

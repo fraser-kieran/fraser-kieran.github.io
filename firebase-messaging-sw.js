@@ -126,7 +126,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
                     },
 
                 };
-                event.waitUntil(self.registration.showNotification('Prescreen Success', options));
+                return self.registration.showNotification('Prescreen Success', options);
             }
             else{
 
@@ -238,11 +238,11 @@ function empathetic_title(notification){
     if(notification.hasOwnProperty('inf_topic'))
         notification.topic = notification.inf_topic
     if(notification.sentiment=='positive')
-        return 'Positive '+notification.topic.split(':')[0]+' article'
+        return 'Positive '+notification.topic.split(':')[0].replace('_', ' ')+' article'
     else if(notification.sentiment=='negative')
-        return 'Negative '+notification.topic.split(':')[0]+' article'
+        return 'Negative '+notification.topic.split(':')[0].replace('_', ' ')+' article'
     else
-        return capitalizeFirstLetter(notification.topic.split(':')[0] + ' article')
+        return capitalizeFirstLetter(notification.topic.split(':')[0].replace('_', ' ') + ' article')
 }
 
 function empathetic_badge_old(notification){
@@ -257,7 +257,7 @@ function empathetic_badge_old(notification){
 function empathetic_badge(notification){
     if(notification.hasOwnProperty('inf_topic'))
         notification.topic = notification.inf_topic
-    return '/images/topics/'+notification.topic.split(':')[0].replace('_', ' ')+'.png'
+    return '/images/topics/'+notification.topic.split(':')[0]+'.png'
 }
 
 function empathetic_summary(notification){

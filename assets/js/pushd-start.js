@@ -12,6 +12,18 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
+firebase.auth().onAuthStateChanged(function(user) {
+    if (!user) {
+        firebase.auth().signInAnonymously().catch(function(error) {
+            $.alert({
+                title: 'Oops!',
+                type: 'red',
+                content: 'Something went wrong. Please try again later.',
+            });
+        });
+    }
+});
+
 
 var notificationString = '<div class="card" style="width: 100%; margin-bottom: 10px">'+
       '<div class="card-body" style="padding: 10px;">'+

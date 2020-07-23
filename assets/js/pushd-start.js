@@ -181,7 +181,7 @@ function savePrefs(){
         $.alert({
             title: 'Wait!',
             type: 'orange',
-            content: 'You must select a gender <strong>and</strong> age group...',
+            content: 'You missed an answer!',
         });
         return
     }

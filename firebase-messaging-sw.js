@@ -238,11 +238,11 @@ function empathetic_title(notification){
     if(notification.hasOwnProperty('inf_topic'))
         notification.topic = notification.inf_topic
     if(notification.sentiment=='positive')
-        return 'Positive message on '+notification.topic.split(':')[0].replace('_', ' ')
+        return 'Positive '+notification.topic.split(':')[0].replace('_', ' ')+' message'
     else if(notification.sentiment=='negative')
-        return 'Negative message on '+notification.topic.split(':')[0].replace('_', ' ')
+        return 'Negative '+notification.topic.split(':')[0].replace('_', ' ')+' message'
     else
-        return 'Message on '+notification.topic.split(':')[0].replace('_', ' ')
+        return capitalizeFirstLetter(notification.topic.split(':')[0].replace('_', ' '))+' message'
 }
 
 function empathetic_badge_old(notification){

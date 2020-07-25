@@ -114,36 +114,53 @@ function checkAndroid() {
 } 
 
 function prescreenNoti(){
-    if (Notification.permission === 'denied') {
-        $('#subButton').prop('disabled', true);
+    
+    var prolificId = ''
+    try{
+        // get userId from the p parameter!
+        const urlParams = new URLSearchParams(window.location.search);
+        prolificId = urlParams.get('PROLIFIC_PID');
+    }catch(e){}
+    
+    if(prolificId && prolificId!=''){
+        if (Notification.permission === 'denied') {
+            $('#subButton').prop('disabled', true);
 
-        $.confirm({
-            title: "<h2 style='text-transform: capitalize; letter-spacing: normal; line-spacing: normal;'>Notification Permissions</h2>",
-            content: "<h5 style='text-transform: none; letter-spacing: normal; line-spacing: normal;'>To receive <strong style='text-transform: capitalize;'>Pushd</strong> notifications from the content creators on this platform, you must grant push-notification permission to <strong style='text-transform: capitalize;'>Pushd</strong>.</h5>",
-            type: 'blue',
-            useBootstrap: true,
-            typeAnimated: true,
-            buttons: {
-                grant: {
-                    text: 'Grant',
-                    btnClass: 'btn-white',
-                    action: function(){
-                        askPermission()
+            $.confirm({
+                title: "<h2 style='text-transform: capitalize; letter-spacing: normal; line-spacing: normal;'>Notification Permissions</h2>",
+                content: "<h5 style='text-transform: none; letter-spacing: normal; line-spacing: normal;'>To receive <strong style='text-transform: capitalize;'>Pushd</strong> notifications from the content creators on this platform, you must grant push-notification permission to <strong style='text-transform: capitalize;'>Pushd</strong>.</h5>",
+                type: 'blue',
+                useBootstrap: true,
+                typeAnimated: true,
+                buttons: {
+                    grant: {
+                        text: 'Grant',
+                        btnClass: 'btn-white',
+                        action: function(){
+                            askPermission()
+                        }
+                    },
+                    deny: {
+                        text: 'Deny',
+                        btnClass: 'btn-white',
+                        action: function(){
+                            return;
+                        }
                     }
                 },
-                deny: {
-                    text: 'Deny',
-                    btnClass: 'btn-white',
-                    action: function(){
-                        return;
-                    }
-                }
-            },
-            draggable: false,
-        });
-    }
+                draggable: false,
+            });
+        }
+        else{
+            checkAndroid()
+        }
+    }  
     else{
-        checkAndroid()
+        $.alert({
+            title: 'Hmm hang on!',
+            type: 'orange',
+            content: 'You must use the link provided on the Prolific Academic page for this study, as we need to record your Prolific Id. Return to the Prolific webpage for this study and use the link provided.<br><br> Thank you :)',
+        });
     }
 }
 

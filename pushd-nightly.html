@@ -1,0 +1,348 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Pushd Experiment</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="apple-touch-icon" href="images/favicon.png">
+        <link rel="shortcut icon" href="images/favicon.png">
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="assets/css/pushd.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+        <style>
+            .btn-likert.active {
+                background-color: #079198!important;
+            }
+            p {
+                margin-bottom: 10px;
+            }
+            h3 {
+                margin-bottom: 5px;
+            }
+            .btn-group-sm.btn-group-toggle {
+                margin-bottom: 20px;
+            }
+            .bootstrap-select {
+		      border: solid thin dimgray;
+                margin-bottom: 20px;
+            }
+            textarea {
+                margin-bottom: 20px;
+            }
+            input[type=number] {
+                -webkit-appearance: none;
+                border: solid thin dimgray;
+            }
+            /*::-webkit-scrollbar {
+                width: 0px;
+                background: transparent;
+            }*/
+        </style>
+        
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header" style="background-color: black">
+				<div class="inner">
+					<!--<a href="" class="image avatar"><img src="images/LinkedInProfiler.png" alt="" /></a>
+					<h1><strong>Kieran Fraser</strong><br />
+                        PhD Candidate @ ADAPT Centre<br/>
+                        Trinity College Dublin</h1>-->
+				</div>
+			</header>
+
+		<!-- Main -->
+			<div id="main">
+                    
+				<!-- One -->
+                    <span class="image"><img style="width: 50%; margin: auto;" src="images/pushd/pushd_black_no_caption_3.0.png" alt="pushd logo" /></span>
+					<section id="one">
+                        
+                        <p style="text-align: center">Please answer the following questions relating to your push-notification engagements <strong>over the past day</strong>.<br><i>Please do not name third parties in any open text field of the questionnaire. Any such replies will be anonymized. In the extremely unlikely event that illicit activity is reported I will be obliged to report it to appropriate authorities. If you do not wish to complete, simply close this tab!</i></p>
+                        
+                        <h3>Satisfaction</h3>
+                        <p>How satisfied were you with the delivery time of notifications received?</p>
+                        <div class="col-md-12">
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">Very unsatisfied
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">Unsatisfied
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">Neutral
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">Satisfied
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">Very satisfied
+                              </label>
+                            </div>
+                        </div>
+                        
+                        <h3>Trust</h3>
+                        <p>How trustful were you of the notifications which you received?</p>
+                        <div class="col-md-12">
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">Very unsatisfied
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">Unsatisfied
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">Neutral
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">Satisfied
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">Very satisfied
+                              </label>
+                            </div>
+                        </div>
+                        
+                        <h3>Relevance</h3>
+                        <p>How <strong>relevant</strong> (with regard your interests and context) were the notifications which you received?</p>
+                        <div class="col-md-12">
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">Very irrelevant
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">Irrelevant
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">Neutral
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">Relevant
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">Very relevant
+                              </label>
+                            </div>
+                        </div>
+                        
+                        <h3>Enticement</h3>
+                        <p>How enticing were the contents (text &amp; format) of the notifications which you received?</p>
+                        <div class="col-md-12">
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">Very similar
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">Somewhat similar 
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">Neither similar or diverse
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">Somewhat diverse
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">Very diverse
+                              </label>
+                            </div>
+                        </div>
+                        
+                        <h3>Engagement Perception</h3>
+                        <p>On average, how many Pushd notifications do you receive per day?</p>
+                        <input type="number" id="numPush">
+                        <p>On average, how many Pushd notifications do you open?</p>
+                        <input type="number" id="openedPush">
+                        <p>Which notification topics (can select multiple) do you believe you were most receptive to?</p>
+                        <select id="topics" class="selectpicker" multiple>
+                            <option>arts_culture</option>
+                            <option>business</option>
+                            <option>college</option>
+                            <option>comedy</option>
+                            <option>crime</option>
+                            <option>divorce</option>
+                            <option>education</option>
+                            <option>entertainment</option>
+                            <option>environment</option>
+                            <option>food_drink</option>
+                            <option>good_news</option>
+                            <option>green</option>
+                            <option>healthy_living</option>
+                            <option>home_living</option>
+                            <option>impact</option>
+                            <option>media</option>
+                            <option>money</option>
+                            <option>parenting</option>
+                            <option>politics</option>
+                            <option>science</option>
+                            <option>sports</option>
+                            <option>style_beauty</option>
+                            <option>taste</option>
+                            <option>tech</option>
+                            <option>travel</option>
+                            <option>weddings</option>
+                            <option>wellness</option>
+                            <option>world_news</option>
+                        </select>
+                        
+                        <h3>Final Thoughts</h3>
+                        <p>On a scale of zero to ten, how likely are you to recommend the notification service to a friend or colleague?</p>
+                        <div class="col-md-12">                        
+                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="0">0
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="1">1
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="2">2
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="3">3
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="4">4
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="5">5
+                              </label>
+                                <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="6">6
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="7">7
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="8">8
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="9">9
+                              </label>
+                              <label class="btn btn-secondary btn-likert">
+                                <input type="radio" name="options" id="10">10
+                              </label>
+                            </div>
+                        </div>
+                        <p>What is the primary reason for your score? (optional)</p>
+                        <textarea rows="2" id="npsReason"></textarea>
+                        <div class="col-md-12" style="text-align: center; margin-bottom: 20px;">
+                            <button class="btn btn-success" id="submitBtn" onclick="submitAnswers()">Submit</button>
+                        </div>
+                       
+					</section>
+                
+				<!-- Two -->
+					
+			</div>
+
+		<!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <ul class="copyright">
+                    <!--<li>Kieran Fraser @ ADAPT Centre</li><li>Trinity College Dublin</li>-->
+                </ul>
+            </div>
+        </footer>
+        
+        
+		<!-- Scripts -->
+            <script
+              src="https://code.jquery.com/jquery-3.4.1.min.js"
+              integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+              crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+        
+            <!-- The core Firebase JS SDK is always required and must be listed first -->
+            <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
+        
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.4/jsrender.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+        
+            <script>
+                
+                var notificationString = '<div class="card" style="width: 100%; margin-bottom: 10px">'+
+                      '<div class="card-body" style="padding: 10px;">'+
+                        '<div class="container-fluid" style="width: 100%; margin: 0px; padding: 0px;">'+
+                            '<p style="text-align: right; font-size: small; margin: 0px;">{{:delivered}}</p>'+
+                            '<div class="row">'+
+                                '<div class="col-md-1">'+
+                                    '<img src="{{:icon}}" alt=" " style="height: 35px; padding: 5px; border-radius: 50%; border-radius: 50%;border: solid;border-width: thin;    border-color: black;">'+
+                                '</div>'+
+                                '<div class="col-md-10">'+
+                                    '<h5 class="card-title" style="font-size: small;">{{:title}}</h5>'+
+                                    '<p class="card-text" style="font-size: small;">{{:body}}</p>'+
+                                '</div>'  +
+                                '<div class="col-md-10">'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'  +
+                        '<div style="text-align: right; margin: 0px; padding: 0px;">'  +
+                            '<div class="btn-group btn-group-toggle" data-toggle="buttons">'  +
+                              '<label class="btn btn-danger" name="enticing" id="{{:id}}">'  +
+                                '<input type="radio" autocomplete="off">Enticing'  +
+                              '</label>'  +
+                              '<label class="btn btn-primary" name="neutral" id="{{:id}}">'  +
+                                '<input type="radio" autocomplete="off">Neutral'  +
+                              '</label>'  +
+                            '</div>'  +
+                        '</div>'  +
+                      '</div>'+
+                    '</div>'
+                var notificationTemplate = $.templates(notificationString);
+                
+                // Your web app's Firebase configuration
+                var firebaseConfig = {
+                    apiKey: "AIzaSyAQu435FNTmXIcFigctYMdRO8sPLX78HI0",
+                    authDomain: "pushdexp.firebaseapp.com",
+                    databaseURL: "https://pushdexp.firebaseio.com",
+                    projectId: "pushdexp",
+                    storageBucket: "pushdexp.appspot.com",
+                    messagingSenderId: "84430156157",
+                    appId: "1:84430156157:web:b4fc89624448507bb05c14"
+                };
+                // Initialize Firebase
+                firebase.initializeApp(firebaseConfig);
+                var database = firebase.database();
+                
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {} else {
+                        firebase.auth().signInAnonymously().catch(function(error) {
+                            $.alert({
+                                title: 'Oops!',
+                                type: 'red',
+                                content: 'Something went wrong. Please try again later.',
+                            });
+                            
+                        });
+                    }
+                });
+                
+                function submitAnswers(){
+                    $('#submitBtn').prop('disabled', true);
+                    $('#submitBtn').attr('disabled', true);
+                }
+            </script>
+            
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+           
+
+	</body>
+</html>

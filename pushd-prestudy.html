@@ -88,6 +88,7 @@
                 <h2 id="exampleModalLabel">Pre-Study Questionnaire <i>(max 3 mins)</i></h2>
               </div>
               <div class="modal-body" style="overflow-y: scroll;">
+                  <h6>Required answers are denoted by *</h6>
                 <ol>
                     <!--<li>Prolific Id (if you have an account):<br>
                         <input type="text" id="prolificId">
@@ -111,7 +112,7 @@
                           <option>60+</option>
                         </select>
                     </li>
-                    <li>Select multiple (min 2) topics which you would like to receive notifications on:<br>(you can scroll in the box)<br>
+                    <li>Select multiple (min 2) topics which you would like to receive notifications on: *<br>(you can scroll in the box)<br>
                         <select id="topicPrefs" class="selectpicker" multiple>
                             <option>arts_culture</option>
                             <option>business</option>
@@ -143,7 +144,7 @@
                             <option>world_news</option>
                         </select>
                     </li>
-                    <li>Select multiple websites which you <strong>would</strong> like to receive notifications from:<br>(you can scroll in the box)<br>
+                    <li>Select multiple websites which you <strong>would</strong> like to receive notifications from: *<br>(you can scroll in the box)<br>
                         <select id="posWebPrefs" class="selectpicker" data-max-options="15" multiple onchange="generateTestNotifications()">
                             <optgroup label="arts">
                             <option>imdb.com</option>
@@ -227,7 +228,7 @@
                             <option>ikea.com</option>
                         </select>
                     </li>
-                    <li>Select multiple websites which you <strong>would NOT</strong> like to receive notifications from:<br>(you can scroll in the box)<br>
+                    <li>Select multiple websites which you <strong>would NOT</strong> like to receive notifications from: *<br>(you can scroll in the box)<br>
                         <select id="negWebPrefs" class="selectpicker" data-max-options="15" multiple onchange="generateTestNotifications()">
                             <optgroup label="arts">
                             <option>imdb.com</option>
@@ -713,7 +714,7 @@ other item. </p>
                         </div>
                     </div>
                   
-                  <p id="mindfulError" style="color: red; display: none;">You missed a one! Please provide an answer for each.</p>
+                  <p id="mindfulError" style="color: red; display: none;">You missed one! Please provide an answer for each.</p>
                   
               </div>
               <div class="modal-footer">
@@ -957,7 +958,7 @@ things you no longer do. Please be as honest as possible.
                           </label>
                         </div>
                     </div>
-                  <p id="curiosityError" style="color: red; display: none;">You missed a one! Please provide an answer for each.</p>
+                  <p id="curiosityError" style="color: red; display: none;">You missed one! Please provide an answer for each.</p>
                   
               </div>
               <div class="modal-footer">
@@ -987,7 +988,7 @@ things you no longer do. Please be as honest as possible.
             <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-messaging.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.4/jsrender.min.js"></script>
             <!--<script src="assets/js/web-push-init-fcm.js"></script>-->
-            <script src="assets/js/pushd-start.js"></script>
+            <script src="assets/js/pushd-prestudy.js"></script>
         
         
             

@@ -16,6 +16,11 @@
 		<link rel="stylesheet" href="assets/css/pushd.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script>
+            google.charts.load('current', {packages: ['corechart', 'bar']});
+            
+        </script>
         <style>
             .btn-likert.active {
                 background-color: #079198!important;
@@ -44,10 +49,31 @@
                 width: 0px;
                 background: transparent;
             }*/
+            .myloader {
+              border: 16px solid #f3f3f3;
+              border-radius: 50%;
+              border-top: 16px solid #6d6d6c;
+              border-bottom: 16px solid #6d6d6c;
+              width: 120px;
+              height: 120px;
+              -webkit-animation: spin 2s linear infinite;
+              animation: spin 2s linear infinite;
+            }
+
+            @-webkit-keyframes spin {
+              0% { -webkit-transform: rotate(0deg); }
+              100% { -webkit-transform: rotate(360deg); }
+            }
+
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+            
         </style>
         
 	</head>
-	<body class="is-preload">
+	<body>
 
 		<!-- Header -->
 			<header id="header" style="background-color: black">
@@ -68,232 +94,288 @@
                         
                         <p style="text-align: center">Please answer the following questions relating to your push-notification engagements <strong>over the past day</strong>.<br><i>Please do not name third parties in any open text field of the questionnaire. Any such replies will be anonymized. In the extremely unlikely event that illicit activity is reported I will be obliged to report it to appropriate authorities.</i></p>
                         
-                        <p>Quickly study the Pushd notifications you received in the list below. Consider whether the notification text is deliberately enticing or not. Mark each as <i>enticing</i> or <i>neutral</i> as you see fit.</p>
-                        <div id="notificationFeed" style="min-height: 35vh; max-height: 35vh;  overflow-y: scroll; overflow-x: hidden; border-style: solid; border-width: thin; padding-top: 5px;padding-bottom: 5px;padding-left: 20px;padding-right: 20px; margin-bottom: 20px; background-color: gainsboro"></div>
-                        
-                        <h3>Satisfaction</h3>
-                        <p>How satisfied were you with the delivery time of notifications received?</p>
-                        <div class="col-md-12">
-                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="1">Very unsatisfied
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="2">Unsatisfied
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="3">Neutral
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="4">Satisfied
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="5">Very satisfied
-                              </label>
-                            </div>
+                        <div id="myloader" style="margin-top: 20px; width: 100%; text-align: center">
+                            <div class="myloader" style="margin: auto;"></div>
+                            <p style="margin-top: 10px;">Setting up, please wait..</p>
                         </div>
                         
-                        <h3>Relevance</h3>
-                        <p>How <strong>relevant</strong> (with regard your interests and context) were the notifications which you received?</p>
-                        <div class="col-md-12">
-                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="1">Very irrelevant
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="2">Irrelevant
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="3">Neutral
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="4">Relevant
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="5">Very relevant
-                              </label>
+                        <div id="mainQuestionnaire" style="display: none;">
+                            <h3>Enticement</h3>
+                            <p>Quickly study the Pushd notifications you received in the list below. Consider whether the notification text is deliberately enticing or not. Mark each as <i>enticing</i> or <i>neutral</i> as you see fit.</p>
+
+                            <div id="notificationFeed" style="min-height: 35vh; max-height: 35vh;  overflow-y: scroll; overflow-x: hidden; border-style: solid; border-width: thin; padding-top: 5px;padding-bottom: 5px;padding-left: 20px;padding-right: 20px; margin-bottom: 20px; background-color: gainsboro"></div>
+
+                            <div id="explainSection" style="display: none; margin-bottom: 20px;">
+                                <h3>Explainable</h3>
+                                <p>The list below shows a sample of your notification engagements. Tap on each notification to view  how it may influence your action (open/dismiss) using persuasive principles. Please then answer the four questions that follow.</p>
+
+                                <div id="explainableFeed" style="min-height: 35vh; max-height: 35vh;  overflow-y: scroll; overflow-x: hidden; border-style: solid; border-width: thin; padding-top: 5px;padding-bottom: 5px;padding-left: 20px;padding-right: 20px; margin-bottom: 20px; background-color: gainsboro"></div>
+
+                                <p>1. How understandable were the explanations for each notification's influence?</p>
+                                <select id="cialdiniUnderstand" class="form-control form-control-sm">
+                                    <option value="" selected disabled hidden>Choose here</option>
+                                    <option value="1">No understanding</option>
+                                    <option value="2">Low understanding</option>
+                                    <option value="3">Neutral</option>
+                                    <option value="4">High understanding</option>
+                                    <option value="5">Complete understanding</option>
+                                </select>
+
+                                <p>2. After using the tool, how trusting are you of the apps/websites wich sent you notifications?</p>
+                                <select id="cialdiniTrust" class="form-control form-control-sm">
+                                    <option value="" selected disabled hidden>Choose here</option>
+                                    <option value="1">No trust</option>
+                                    <option value="2">Low trust</option>
+                                    <option value="3">Neutral</option>
+                                    <option value="4">High trust</option>
+                                    <option value="5">Complete trust</option>
+                                </select>
+
+                                <p>3. Did this tool help you identify the reason why these notifications were delivered to you?</p>
+                                <select id="cialdiniHelp" class="form-control form-control-sm">
+                                    <option value="" selected disabled hidden>Choose here</option>
+                                    <option value="1">Very unhelpful</option>
+                                    <option value="2">Slightly unhelpful</option>
+                                    <option value="3">Neutral</option>
+                                    <option value="4">Somewhat helpful</option>
+                                    <option value="5">Very helpful</option>
+                                </select>
+
+                                <p>4. Is knowing the reason why these notifications were delivered to you, useful to know?</p>
+                                <select id="cialdiniUseful" class="form-control form-control-sm">
+                                    <option value="" selected disabled hidden>Choose here</option>
+                                    <option value="1">Very useless</option>
+                                    <option value="2">Slightly useless</option>
+                                    <option value="3">Neutral</option>
+                                    <option value="4">Somewhat useful</option>
+                                    <option value="5">Very useful</option>
+                                </select>
                             </div>
-                        </div>
-                        
-                        <h3>Diversity</h3>
-                        <p>How <strong>similar or diverse</strong> were the notifications you received? <br>(were they all the same topic or a mix of topics, were they all from the same source or a mix of sources)</p>
-                        <div class="col-md-12">
-                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="1">Very similar
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="2">Somewhat similar 
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="3">Neither similar or diverse
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="4">Somewhat diverse
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="5">Very diverse
-                              </label>
+
+                            <h3>Satisfaction</h3>
+                            <p>How satisfied were you with the delivery time of notifications received?</p>
+                            <div class="col-md-12">
+                                <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="1">Very unsatisfied
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="2">Unsatisfied
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="3">Neutral
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="4">Satisfied
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="5">Very satisfied
+                                  </label>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <h3>Informative</h3>
-                        <p>How informative was the <strong>content of the notifications</strong> which you received?</p>
-                        <div class="col-md-12">
-                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="1">Very uninformative
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="2">Uninformative 
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="3">Neutral
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="4">Informative
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="5">Very informative
-                              </label>
+
+                            <h3>Relevance</h3>
+                            <p>How <strong>relevant</strong> (with regard your interests and context) were the notifications which you received?</p>
+                            <div class="col-md-12">
+                                <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="1">Very irrelevant
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="2">Irrelevant
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="3">Neutral
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="4">Relevant
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="5">Very relevant
+                                  </label>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <h3>Credibility</h3>
-                        <p>On a scale of 1 - 4, how <strong>believable</strong> were the notifications you received?<br>(4 = very believable)</p>
-                        <div class="col-md-12">
-                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="1">1
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="2">2 
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="3">3
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="4">4
-                              </label>
+
+                            <h3>Diversity</h3>
+                            <p>How <strong>similar or diverse</strong> were the notifications you received? <br>(were they all the same topic or a mix of topics, were they all from the same source or a mix of sources)</p>
+                            <div class="col-md-12">
+                                <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="1">Very similar
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="2">Somewhat similar 
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="3">Neither similar or diverse
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="4">Somewhat diverse
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="5">Very diverse
+                                  </label>
+                                </div>
                             </div>
-                        </div>
-                        <p>On a scale of 1 - 4, how <strong>accurate</strong> were the notifications you received?<br>(4 = very accurate)</p>
-                        <div class="col-md-12">
-                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="1">1
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="2">2 
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="3">3
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="4">4
-                              </label>
+
+                            <h3>Informative</h3>
+                            <p>How informative was the <strong>content of the notifications</strong> which you received?</p>
+                            <div class="col-md-12">
+                                <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="1">Very uninformative
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="2">Uninformative 
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="3">Neutral
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="4">Informative
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="5">Very informative
+                                  </label>
+                                </div>
                             </div>
-                        </div>
-                        <p>On a scale of 1 - 4, how <strong>clear</strong> were the notifications you received?<br>(4 = very clear)</p>
-                        <div class="col-md-12">
-                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="1">1
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="2">2 
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="3">3
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="4">4
-                              </label>
+
+                            <h3>Credibility</h3>
+                            <p>On a scale of 1 - 4, how <strong>believable</strong> were the notifications you received?<br>(4 = very believable)</p>
+                            <div class="col-md-12">
+                                <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="1">1
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="2">2 
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="3">3
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="4">4
+                                  </label>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <h3>Engagement Perception</h3>
-                        <p>On average, how many Pushd notifications do you receive per day?</p>
-                        <input type="number" id="numPush">
-                        <p>On average, how many Pushd notifications do you open?</p>
-                        <input type="number" id="openedPush">
-                        <p>Of the notifications received, how many did you read, find interesting, but not open?</p>
-                        <input type="number" id="seenPush">
-                        <p>Which notification topics (can select multiple) do you believe you were most receptive to?</p>
-                        <select id="topics" class="selectpicker" multiple>
-                            <option>arts_culture</option>
-                            <option>business</option>
-                            <option>college</option>
-                            <option>comedy</option>
-                            <option>crime</option>
-                            <option>divorce</option>
-                            <option>education</option>
-                            <option>entertainment</option>
-                            <option>environment</option>
-                            <option>food_drink</option>
-                            <option>good_news</option>
-                            <option>green</option>
-                            <option>healthy_living</option>
-                            <option>home_living</option>
-                            <option>impact</option>
-                            <option>media</option>
-                            <option>money</option>
-                            <option>parenting</option>
-                            <option>politics</option>
-                            <option>science</option>
-                            <option>sports</option>
-                            <option>style_beauty</option>
-                            <option>taste</option>
-                            <option>tech</option>
-                            <option>travel</option>
-                            <option>weddings</option>
-                            <option>wellness</option>
-                            <option>world_news</option>
-                        </select>
-                        
-                        <h3>Final Thoughts</h3>
-                        <p>On a scale of zero to ten, how likely are you to recommend the notification service to a friend or colleague?</p>
-                        <div class="col-md-12">                        
-                            <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="0">0
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="1">1
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="2">2
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="3">3
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="4">4
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="5">5
-                              </label>
-                                <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="6">6
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="7">7
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="8">8
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="9">9
-                              </label>
-                              <label class="btn btn-secondary btn-likert">
-                                <input type="radio" name="options" id="10">10
-                              </label>
+                            <p>On a scale of 1 - 4, how <strong>accurate</strong> were the notifications you received?<br>(4 = very accurate)</p>
+                            <div class="col-md-12">
+                                <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="1">1
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="2">2 
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="3">3
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="4">4
+                                  </label>
+                                </div>
                             </div>
-                        </div>
-                        <p>What is the primary reason for your score? (optional)</p>
-                        <textarea rows="2" id="npsReason"></textarea>
-                        <div class="col-md-12" style="text-align: center; margin-bottom: 20px;">
-                            <button class="btn btn-success" id="submitBtn" onclick="submitAnswers()">Submit</button>
+                            <p>On a scale of 1 - 4, how <strong>clear</strong> were the notifications you received?<br>(4 = very clear)</p>
+                            <div class="col-md-12">
+                                <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="1">1
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="2">2 
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="3">3
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="4">4
+                                  </label>
+                                </div>
+                            </div>
+
+                            <h3>Engagement Perception</h3>
+                            <p>On average, how many Pushd notifications do you receive per day?</p>
+                            <input type="number" id="numPush">
+                            <p>On average, how many Pushd notifications do you open?</p>
+                            <input type="number" id="openedPush">
+                            <p>Of the notifications received, how many did you read, find interesting, but not open?</p>
+                            <input type="number" id="seenPush">
+                            <p>Which notification topics (can select multiple) do you believe you were most receptive to?</p>
+                            <select id="topics" class="selectpicker" multiple>
+                                <option>arts_culture</option>
+                                <option>business</option>
+                                <option>college</option>
+                                <option>comedy</option>
+                                <option>crime</option>
+                                <option>divorce</option>
+                                <option>education</option>
+                                <option>entertainment</option>
+                                <option>environment</option>
+                                <option>food_drink</option>
+                                <option>good_news</option>
+                                <option>green</option>
+                                <option>healthy_living</option>
+                                <option>home_living</option>
+                                <option>impact</option>
+                                <option>media</option>
+                                <option>money</option>
+                                <option>parenting</option>
+                                <option>politics</option>
+                                <option>science</option>
+                                <option>sports</option>
+                                <option>style_beauty</option>
+                                <option>taste</option>
+                                <option>tech</option>
+                                <option>travel</option>
+                                <option>weddings</option>
+                                <option>wellness</option>
+                                <option>world_news</option>
+                            </select>
+
+                            <h3>Final Thoughts</h3>
+                            <p>On a scale of zero to ten, how likely are you to recommend the notification service to a friend or colleague?</p>
+                            <div class="col-md-12">                        
+                                <div class="btn-group-sm btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="0">0
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="1">1
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="2">2
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="3">3
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="4">4
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="5">5
+                                  </label>
+                                    <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="6">6
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="7">7
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="8">8
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="9">9
+                                  </label>
+                                  <label class="btn btn-secondary btn-likert">
+                                    <input type="radio" name="options" id="10">10
+                                  </label>
+                                </div>
+                            </div>
+                            <p>What is the primary reason for your score? (optional)</p>
+                            <textarea rows="2" id="npsReason"></textarea>
+                            <div class="col-md-12" style="text-align: center; margin-bottom: 20px;">
+                                <button class="btn btn-success" id="submitBtn" onclick="submitAnswers()">Submit</button>
+                            </div>
                         </div>
                        
 					</section>
@@ -301,6 +383,39 @@
 				<!-- Two -->
 					
 			</div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="max-width: none;">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 id="exampleModalLabel">Notification Influence</h2>
+                  <button type="button" class="close" aria-label="Close" onclick="closeModal()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+              </div>
+              <div class="modal-body" style="overflow-y: scroll; max-width: 100%;">
+                  
+                  <p style="text-align: justify">One of this notification's strongest influencing traits is <strong id="traitStrongest">Scarcity</strong>. </p>
+                  <p id="traitExplain"></p>
+                  <p><i id="traitExample"></i></p>
+                  
+                  <div id="chart_div" style="display: block;"></div>
+                  
+                  <p style="margin-bottom: 0px; margin-top: 10px;"><strong>Unity:</strong> it is a notification created by a source that shares/promotes topics you identify with most.</p>
+                  <p style="margin-bottom: 0px;"><strong>Scarcity:</strong> it is a notification that is not delivered to you often and thus may spark curiosity and entice engagement.</p>
+                  <p style="margin-bottom: 0px;"><strong>Liking:</strong> it is a notification that contains content you are known to like and thus may entice further engagement.</p>
+                  <p style="margin-bottom: 0px;"><strong>Social Proof:</strong> it is a notification that your peers usually engages positively with and thus may entice positive engagement from you.</p>
+                  <p style="margin-bottom: 0px;"><strong>Consistency:</strong> it is a notification that contains elements which you have acted positively toward in the past thus you may be enticed to behave similarly out of habit.</p>
+                  <p style="margin-bottom: 0px;"><strong>Reciprocity:</strong> It is a notification created by a source which previously gave you valuable information. Even if the content of <i>this</i> notification is not useful, you may be enticed to engage due to the value obtained previously.</p>                  
+                  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="closeModal()">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
 		<!-- Footer -->
         <footer id="footer">
@@ -361,7 +476,28 @@
                         '</div>'  +
                       '</div>'+
                     '</div>'
+                
+                var explainableNotiString = '<div class="card" style="width: 100%; margin-bottom: 10px" onclick="showExplainable([{{:cialdini}}])">'+
+                      '<div class="card-body" style="padding: 10px;">'+
+                        '<div class="container-fluid" style="width: 100%; margin: 0px; padding: 0px;">'+
+                            '<p style="text-align: right; font-size: small; margin: 0px;">{{:delivered}}</p>'+
+                            '<div class="row">'+
+                                '<div class="col-md-1">'+
+                                    '<img src="{{:icon}}" alt=" " style="height: 35px; padding: 5px; border-radius: 50%; border-radius: 50%;border: solid;border-width: thin;    border-color: black;">'+
+                                '</div>'+
+                                '<div class="col-md-10">'+
+                                    '<h5 class="card-title" style="font-size: small;">{{:title}}</h5>'+
+                                    '<p class="card-text" style="font-size: small;">{{:body}}</p>'+
+                                '</div>'  +
+                                '<div class="col-md-10">'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'  +
+                      '</div>'+
+                    '</div>'
+                
                 var notificationTemplate = $.templates(notificationString);
+                var explainNotiTemplate = $.templates(explainableNotiString);
                 
                 // Your web app's Firebase configuration
                 var firebaseConfig = {
@@ -419,7 +555,8 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     const userId = urlParams.get('u');
                     
-                    var nUrl = "https://empushy.azurewebsites.net/v1/pushd/notification-insights";
+                    // var nUrl = "https://empushy.azurewebsites.net/v1/pushd/notification-insights";
+                    var nUrl = "http://localhost:4000/v1/pushd/notification-insights";
 
                     var formData = JSON.stringify({
                         "uid": userId
@@ -438,6 +575,7 @@
                     .then((data) => {
                         try{
                             notifications = data['notifications']
+                            console.log(notifications)
                             for(notification of notifications){
                                 var date = new Date(notification['delivered'] * 1000);
                                 var hours = date.getHours();
@@ -445,6 +583,10 @@
                                 var seconds = "0" + date.getSeconds();
                                 var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
                                 notification['delivered'] = formattedTime
+                                
+                                try{
+                                    notification['cialdini'] = JSON.parse(notification['cialdini']);
+                                }catch(e){}
                                 
                                 
                                 switch(notification.template){
@@ -473,7 +615,15 @@
                             var html = notificationTemplate.render(notifications);
                             $( "#notificationFeed" ).empty()
                             $( "#notificationFeed" ).append(html)
+                            try{
+                                var html = explainNotiTemplate.render(notifications);
+                                $( "#explainableFeed" ).empty()
+                                $( "#explainableFeed" ).append(html)  
+                                $( "#explainSection" ).show()
+                            } catch(e){}
                         }catch(e){}
+                        $('#myloader').hide()
+                        $('#mainQuestionnaire').show()
                     });  
                 }
                 
@@ -538,7 +688,6 @@
                 }
                 
                 function submitAnswers(){
-                    
                     $('#submitBtn').prop('disabled', true);
                     $('#submitBtn').attr('disabled', true);
                     
@@ -581,6 +730,17 @@
                     for(n of notifications)
                         nList.push(n['id'])
                     
+                    var cUnderstand = -1
+                    var cTrust = -1
+                    var cHelp = -1
+                    var cUseful = -1
+                    try{
+                        cUnderstand = $('#cialdiniUnderstand').find("option:selected").val();
+                        cTrust = $('#cialdiniTrust').find("option:selected").val();
+                        cHelp = $('#cialdiniHelp').find("option:selected").val();
+                        cUseful = $('#cialdiniUseful').find("option:selected").val();
+                    }catch(e){}
+                    
                     if(userId.charAt(0) == '-'){
                         database.ref('participant/'+userId+'/midstudy/').push().set({
                             notificationsShown: nList,
@@ -593,7 +753,11 @@
                             enticing: enticing,
                             neutral: neutral,
                             timeSubmitted: Math.round((new Date()).getTime()),
-                            phase: currentPhase
+                            phase: currentPhase,
+                            cUnderstand: cUnderstand,
+                            cTrust: cTrust,
+                            cHelp: cHelp,
+                            cUseful: cUseful
                         });
                         
                         $.alert({
@@ -609,6 +773,98 @@
                             content: 'There was an error submitting. Please contact the lead researcher.',
                         });
                     }
+                }
+                
+                function getAllIndexes(arr, val) {
+                    var indexes = [], i;
+                    for(i = 0; i < arr.length; i++)
+                        if (arr[i] === val)
+                            indexes.push(i);
+                    return indexes;
+                }
+                
+                function showExplainable(scores){
+                    try{
+                        $('#exampleModal').modal('show');
+                        
+                        traits = ['Unity', 'Scarcity', 'Liking', 'Social Proof', 'Consistency', 'Reciprocity']
+                        explainations = ['It is a notification created by a source that shares/promotes topics you identify                     with most.',
+                                         'It is a notification that is not delivered to you often and thus may spark curiosity and entice engagement.',
+                                         'It is a notification that contains content you are known to like and thus may entice further engagement.',
+                                         'It is a notification that your peers usually engages positively with and thus may entice positive engagement from you.',
+                                         'It is a notification that contains elements which you have acted positively toward in the past thus you may be enticed to behave similarly out of habit.',
+                                         'It is a notification created by a source which previously gave you valuable information. Even if the content of <strong>this</strong> notification is not useful, you may be enticed to engage due to the value obtained previously.']
+                        examples = ['Example: The only topics included in notifications pushed by this source might be ones                you identify strongly with. Thus you identify strongly with this brand and you are more                open to being interrupted by them.',
+                                    'Example: It could reference a topic never seen before or be deliverd from a source that does not regularly push notifications to you.',
+                                    'Example: You are known to enjoy reading sports content. Therefore notification with topics of sports are pushed at you.',
+                                    'Example: A story is trending about a household name all over the world. The vast majority of people will read the story if sent via notification, so it is sent to you.',
+                                    'Example: It can be identified that you always engage positively with a certain topic. Therefore you are pushed more and more of this topic.',
+                                    'Example: You have recently opened a notification from a source or recently used an app/website. Therefore, you may be more willing to open a notification from this app/website as your last experience of the app/website was valuable to you and you give the benefit of the doubt that this next experience will be too.']
+
+                        colors = ['#6da3ea','#6da3ea','#6da3ea','#6da3ea','#6da3ea','#6da3ea']
+                        maxVal = Math.max.apply(Math, scores)
+                        if(maxVal>0){
+                            var items = getAllIndexes(scores, maxVal)
+                            if(items.length > 0){
+                                var item = items[Math.floor(Math.random() * items.length)];
+                                if(item>-1){
+                                    colors[item] = '#e85804'
+                                    $('#traitStrongest').html(traits[item])
+                                    $('#traitExplain').html(explainations[item])
+                                    $('#traitExample').html(examples[item])
+                                }
+                            }
+                        }
+
+                        var data = google.visualization.arrayToDataTable([
+                            ["trait", "score", { role: 'annotation' }, { role: "style" }],
+                            ["unity", parseInt(scores[0]), scores[0] + '%', colors[0]],
+                            ["scarcity", parseInt(scores[1]), scores[1] + '%', colors[1]],
+                            ["liking", parseInt(scores[2]), scores[2] + '%', colors[2]],
+                            ["social proof", parseInt(scores[3]), scores[3] + '%', colors[3]],
+                            ["consistency", parseInt(scores[4]), scores[4] + '%', colors[4]],
+                            ["reciprocity", parseInt(scores[5]), scores[5] + '%', colors[5]]
+                          ]);
+
+                        var view = new google.visualization.DataView(data);
+                        view.setColumns([0, 1,
+                                           { calc: "stringify",
+                                             sourceColumn: 1,
+                                             type: "string",
+                                             role: "annotation" }]);
+                        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+                          var options = {
+                            title: "Notification Persuasive Traits",
+                            width: 350,
+                            height: 300,
+                            bar: {groupWidth: "80%"},
+                            legend: { position: "none" },
+                            hAxis: {
+                                slantedText: true,
+                                slantedTextAngle: -45
+                            },
+                            vAxis: {
+                                maxValue: 100,
+                                minValue: 0,
+                                title: "Strength (%)",
+                                ticks: [0, 25, 50, 75, 100],
+                                format: 'percent'
+                            }
+                          };
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+                        chart.draw(data, options);
+                        return
+                    }catch(e){}
+                    setTimeout(function() {
+                          closeModal()
+                        }, 10);
+                    
+                }
+                
+                function closeModal(){
+                    $('#exampleModal').modal('hide');
                 }
                 
             </script>

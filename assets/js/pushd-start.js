@@ -210,7 +210,7 @@ function savePrefs(){
         $.confirm({
             title: 'Finished',
             type: 'green',
-            content: 'Submission received. Your task now is to engage with incoming notifications as normal over the next 12 days. You will receive a short (max 30 seconds) questionnaire every night via notification which we ask you to complete. This part of the study is finished. You will shortly receive an invitation for the next part. Pleasea tap on the button below to confirm your submission on Prolific Academic.',
+            content: 'Submission received. Your task now is to engage with incoming notifications as normal over the next 12 days. You will receive a short (max 30 seconds) questionnaire every night via notification which we ask you to complete. This part of the study is finished. You will shortly receive an invitation for the next part. Please tap on the button below to confirm your submission on Prolific Academic.',
             buttons: {
                 confirm: function () {
                     $('#exampleModal').modal('hide')

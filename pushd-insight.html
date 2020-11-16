@@ -734,12 +734,23 @@
                     var cTrust = -1
                     var cHelp = -1
                     var cUseful = -1
+                    
                     try{
                         cUnderstand = $('#cialdiniUnderstand').find("option:selected").val();
                         cTrust = $('#cialdiniTrust').find("option:selected").val();
                         cHelp = $('#cialdiniHelp').find("option:selected").val();
                         cUseful = $('#cialdiniUseful').find("option:selected").val();
                     }catch(e){}
+                    
+                    
+                    cList = []
+                    try{
+                        for(n of notifications)
+                            cList.push(n['cialdini'])
+                    }catch(e){}
+                    
+                    
+                        
                     
                     if(userId.charAt(0) == '-'){
                         database.ref('participant/'+userId+'/midstudy/').push().set({
@@ -757,7 +768,8 @@
                             cUnderstand: cUnderstand,
                             cTrust: cTrust,
                             cHelp: cHelp,
-                            cUseful: cUseful
+                            cUseful: cUseful,
+                            cialdiniShown: cList
                         });
                         
                         $.alert({

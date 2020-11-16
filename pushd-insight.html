@@ -555,8 +555,8 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     const userId = urlParams.get('u');
                     
-                    var nUrl = "https://empushy.azurewebsites.net/v1/pushd/notification-insights";
-                    // var nUrl = "http://localhost:4000/v1/pushd/notification-insights";
+                    //var nUrl = "https://empushy.azurewebsites.net/v1/pushd/notification-insights";
+                    var nUrl = "http://localhost:4000/v1/pushd/notification-insights";
 
                     var formData = JSON.stringify({
                         "uid": userId
@@ -576,6 +576,7 @@
                         try{
                             notifications = data['notifications']
                             console.log(notifications)
+                            var showCialdini = true;
                             for(notification of notifications){
                                 var date = new Date(notification['delivered'] * 1000);
                                 var hours = date.getHours();
@@ -586,7 +587,9 @@
                                 
                                 try{
                                     notification['cialdini'] = JSON.parse(notification['cialdini']);
-                                }catch(e){}
+                                }catch(e){
+                                    showCialdini = false;
+                                }
                                 
                                 
                                 switch(notification.template){
@@ -615,15 +618,17 @@
                             var html = notificationTemplate.render(notifications);
                             $( "#notificationFeed" ).empty()
                             $( "#notificationFeed" ).append(html)
-                            try{
-                                var html = explainNotiTemplate.render(notifications);
-                                $( "#explainableFeed" ).empty()
-                                $( "#explainableFeed" ).append(html)  
-                                $( "#explainSection" ).show()
-                            } catch(e){}
+                            if(showCialdini){
+                                try{
+                                    var html = explainNotiTemplate.render(notifications);
+                                    $( "#explainableFeed" ).empty()
+                                    $( "#explainableFeed" ).append(html)  
+                                    $( "#explainSection" ).show()
+                                } catch(e){}
+                            }
+                            $('#myloader').hide()
+                            $('#mainQuestionnaire').show()
                         }catch(e){}
-                        $('#myloader').hide()
-                        $('#mainQuestionnaire').show()
                     });  
                 }
                 
@@ -811,7 +816,7 @@
                                     'Example: You are known to enjoy reading sports content. Therefore notification with topics of sports are pushed at you.',
                                     'Example: A story is trending about a household name all over the world. The vast majority of people will read the story if sent via notification, so it is sent to you.',
                                     'Example: It can be identified that you always engage positively with a certain topic. Therefore you are pushed more and more of this topic.',
-                                    'Example: You have recently opened a notification from a source or recently used an app/website. Therefore, you may be more willing to open a notification from this app/website as your last experience of the app/website was valuable to you and you give the benefit of the doubt that this next experience will be too.']
+                                    'Example: You have recently opened a notification from an app/website. Therefore, you may be more willing to open more notifications from this app/website as your last experience of the app/website was valuable to you. Therefore you might assume that the next experience will be too.']
 
                         colors = ['#6da3ea','#6da3ea','#6da3ea','#6da3ea','#6da3ea','#6da3ea']
                         maxVal = Math.max.apply(Math, scores)

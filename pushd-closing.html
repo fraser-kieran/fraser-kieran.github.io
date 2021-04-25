@@ -472,6 +472,7 @@
                 var isSynth = 'unk'
                 
                 
+                                $('#postQuestionnaire').show()
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
                         var isAnonymous = user.isAnonymous;

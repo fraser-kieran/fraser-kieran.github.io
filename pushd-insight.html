@@ -70,6 +70,66 @@
               100% { transform: rotate(360deg); }
             }
             
+            .unity-icon {
+                content:"";
+                background-image:url('images/pushd/unity.png');
+                width: 25px;
+                height: 25px; 
+                display: inline-block;
+                background-position:center;
+                background-size:cover;
+            }
+            
+            .scarcity-icon {
+                content:"";
+                background-image:url('images/pushd/diamond.png');
+                width: 25px;
+                height: 25px; 
+                display: inline-block;
+                background-position:center;
+                background-size:cover;
+            }
+            
+            .social-icon {
+                content:"";
+                background-image:url('images/pushd/user.png');
+                width: 25px;
+                height: 25px; 
+                display: inline-block;
+                background-position:center;
+                background-size:cover;
+            }
+            
+            .consistency-icon {
+                content:"";
+                background-image:url('images/pushd/repeat.png');
+                width: 25px;
+                height: 25px; 
+                display: inline-block;
+                background-position:center;
+                background-size:cover;
+            }
+            
+            .liking-icon {
+                content:"";
+                background-image:url('images/pushd/like.png');
+                width: 25px;
+                height: 25px; 
+                display: inline-block;
+                background-position:center;
+                background-size:cover;
+            }
+            
+            .reciprocity-icon {
+                content:"";
+                background-image:url('images/pushd/i-owe-you.png');
+                width: 25px;
+                height: 25px; 
+                display: inline-block;
+                background-position:center;
+                background-size:cover;
+            }
+            
         </style>
         
 	</head>
@@ -386,29 +446,44 @@
 			</div>
         
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="max-width: none;">
+        <div class="fade modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-              <div class="modal-header">
-                <h2 id="exampleModalLabel">Notification Influence</h2>
-                  <button type="button" class="close" aria-label="Close" onclick="closeModal()">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+              <div class="modal-header" style="background-color: #decdff; text-align: center; flex-wrap: wrap;">
+                <h2 id="exampleModalLabel" style="margin-bottom: 5px;"><strong>My SCRUtable Push LEdger</strong></h2>
+                <button type="button" class="close" aria-label="Close" onclick="closeModal()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <div style="flex-basis: 100%; height: 0;"></div>
+                <p class="pl-2" style="color: #383737">- explaining persuasion in your push-notifications</p>
               </div>
               <div class="modal-body" style="overflow-y: scroll; max-width: 100%;">
                   
-                  <p style="text-align: justify">One of this notification's strongest influencing traits is <strong id="traitStrongest">Scarcity</strong>. </p>
-                  <p id="traitExplain"></p>
-                  <p><i id="traitExample"></i></p>
+                  <p style="text-align: center">One of this notification's strongest influencing traits is <strong id="traitStrongest" style="font-size: 25px; line-height: 2">Scarcity</strong></p>
+                  <div style="text-align: center; margin-bottom: 15px;">
+                    <img id="traitIconBig" src="/images/pushd/unity.png">
+                  </div>
+                  <p id="traitExplain" style="text-align: center;"></p>
+                  <p  style="text-align: center;"><i id="traitExample"></i></p>
                   
                   <div id="chart_div" style="display: block;"></div>
                   
-                  <p style="margin-bottom: 0px; margin-top: 10px;"><strong>Unity:</strong> it is a notification created by a source that shares/promotes topics you identify with most.</p>
-                  <p style="margin-bottom: 0px;"><strong>Scarcity:</strong> it is a notification that is not delivered to you often and thus may spark curiosity and entice engagement.</p>
-                  <p style="margin-bottom: 0px;"><strong>Liking:</strong> it is a notification that contains content you are known to like and thus may entice further engagement.</p>
-                  <p style="margin-bottom: 0px;"><strong>Social Proof:</strong> it is a notification that your peers usually engages positively with and thus may entice positive engagement from you.</p>
-                  <p style="margin-bottom: 0px;"><strong>Consistency:</strong> it is a notification that contains elements which you have acted positively toward in the past thus you may be enticed to behave similarly out of habit.</p>
-                  <p style="margin-bottom: 0px;"><strong>Reciprocity:</strong> It is a notification created by a source which previously gave you valuable information. Even if the content of <i>this</i> notification is not useful, you may be enticed to engage due to the value obtained previously.</p>                  
+                  <p style="margin-bottom: 0px; margin-top: 10px; display: flex;"><i class="unity-icon" style="margin-right: 10px; padding: 15px;"></i><strong style="margin-right: 10px">Unity</strong></p>
+                  <p style="text-align: center; margin-top: 5px; margin-bottom: 20px">This is a notification created by a source that shares/promotes topics you identify with most.</p>
+                  
+                  <p style="margin-bottom: 0px; display: flex;"><i class="scarcity-icon" style="margin-right: 10px; padding: 15px;"></i><strong style="margin-right: 10px">Scarcity:</strong></p>
+                  <p style="text-align: center; margin-top: 5px; margin-bottom: 20px">This is a notification that is not delivered to you often and thus may spark curiosity and entice engagement.</p>
+                  
+                  <p style="margin-bottom: 0px; display: flex;"><i class="liking-icon" style="margin-right: 10px; padding: 15px;"></i><strong style="margin-right: 10px">Liking:</strong></p><p style="text-align: center; margin-top: 5px; margin-bottom: 20px">This is a notification that contains content you are known to like and thus may entice further engagement.</p>
+                  
+                  <p style="margin-bottom: 0px; display: flex;"><i class="social-icon" style="margin-right: 10px; padding: 15px;"></i><strong style="margin-right: 10px">Social Proof:</strong></p>
+                  <p style="text-align: center; margin-top: 5px; margin-bottom: 20px">This is a notification that your peers usually engages positively with and thus may entice positive engagement from you.</p>
+                  
+                  <p style="margin-bottom: 0px; display: flex;"><i class="consistency-icon" style="margin-right: 10px; padding: 15px;"></i><strong style="margin-right: 10px">Consistency:</strong></p>
+                  <p style="text-align: center; margin-top: 5px; margin-bottom: 20px">This is a notification that contains elements which you have acted positively toward in the past thus you may be enticed to behave similarly out of habit.</p>
+                  
+                  <p style="margin-bottom: 0px; display: flex;"><i class="reciprocity-icon" style="margin-right: 10px; padding: 15px;"></i><strong style="margin-right: 10px">Reciprocity:</strong></p>   
+                  <p style="text-align: center; margin-top: 5px; margin-bottom: 20px">This is a notification created by a source which previously gave you valuable information. Even if the content of <i>this</i> notification is not useful, you may be enticed to engage due to the value obtained previously.</p>
                   
               </div>
               <div class="modal-footer">
@@ -517,10 +592,76 @@
                 var notifications = []
                 var currentPhase = 6
                 
+                notifications = [{domain:'siliconrepublic.com', summary: 'How to check if non-medical face masks are effective. Wondering if homemade face masks can help stop the spread of coronavirus?',
+                                  template: 'control', cialdini: '[15, 97, 50, 10, 25, 20]', 
+                                  delivered: '09:15'},
+                                {domain:'pcgamer.com', summary: 'Five new Steam games you probably missed (November 30, 2020)',
+                                  template: 'control', cialdini: '[15, 67, 36, 82, 50, 20]', 
+                                  delivered: '12:28'},
+                                {domain:'goss.ie', summary: 'The Top Hair Salons To Check Out This Month. Whether you are looking for the perfect colour, a new style or a fresh cut, there are some great Irish salons out there.',
+                                  template: 'control', cialdini: '[20, 20, 20, 20, 20, 20]', 
+                                  delivered: '14:55'}]
+                
+                test()
+                
+                function test(){
+                    var showCialdini = true;
+                    for(notification of notifications){
+                        var date = new Date(notification['delivered'] * 1000);
+                        var hours = date.getHours();
+                        var minutes = "0" + date.getMinutes();
+                        var seconds = "0" + date.getSeconds();
+                        var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                        notification['delivered'] = notification['delivered']
+
+                        try{
+                            notification['cialdini'] = JSON.parse(notification['cialdini']);
+                        }catch(e){
+                            console.log(e)
+                            showCialdini = false;
+                        }
+
+
+                        switch(notification.template){
+                            case 'control':
+                                notification['title'] = notification.domain
+                                notification['body'] = notification.summary
+                                notification['icon'] = 'https://'+notification.domain+'/favicon.ico'
+                                break;
+                            case 'emojikey':
+                                notification['title'] = notification.domain
+                                notification['body'] = summary_to_keywords(notification)
+                                notification['icon'] = 'https://'+notification.domain+'/favicon.ico'
+                                break;
+                            case 'emojisen':
+                                notification['title'] = notification['emoji_sen']+'\n - '+notification.domain
+                                notification['body'] = notification.summary
+                                notification['icon'] = 'https://'+notification.domain+'/favicon.ico'
+                                break;
+                            case 'empathetic':
+                                notification['title'] = empathetic_title(notification)
+                                notification['body'] = empathetic_summary(notification)
+                                notification['icon'] = 'https://'+notification.domain+'/favicon.ico'
+                                break
+                        }
+                    }
+                    var html = notificationTemplate.render(notifications);
+                    $( "#notificationFeed" ).empty()
+                    $( "#notificationFeed" ).append(html)
+                    if(showCialdini){
+                        try{
+                            var html = explainNotiTemplate.render(notifications);
+                            $( "#explainableFeed" ).empty()
+                            $( "#explainableFeed" ).append(html)  
+                            $( "#explainSection" ).show()
+                        } catch(e){}
+                    }
+                    $('#myloader').hide()
+                    $('#mainQuestionnaire').show()
+                }
                 
                 
-                
-                firebase.auth().onAuthStateChanged(function(user) {
+                /*firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
                         var isAnonymous = user.isAnonymous;
                         var uid = user.uid;
@@ -536,7 +677,7 @@
                             
                         });
                     }
-                });
+                });*/
                 
                 function getCurrentPhase(){
                     const urlParams = new URLSearchParams(window.location.search);
@@ -832,6 +973,26 @@
                                     $('#traitStrongest').html(traits[item])
                                     $('#traitExplain').html(explainations[item])
                                     $('#traitExample').html(examples[item])
+                                    switch(traits[item]){
+                                        case 'Unity':
+                                            document.getElementById("traitIconBig").src="/images/pushd/unity.png";
+                                            break;
+                                        case 'Scarcity':
+                                            document.getElementById("traitIconBig").src="/images/pushd/diamond.png";
+                                            break;
+                                        case 'Liking':
+                                            document.getElementById("traitIconBig").src="/images/pushd/like.png";
+                                            break;
+                                        case 'Social Proof':
+                                            document.getElementById("traitIconBig").src="/images/pushd/user.png";
+                                            break;
+                                        case 'Consistency':
+                                            document.getElementById("traitIconBig").src="/images/pushd/repeat.png";
+                                            break;
+                                        case 'Reciprocity':
+                                            document.getElementById("traitIconBig").src="/images/pushd/i-owe-you.png";
+                                    }
+                                    
                                 }
                             }
                         }
